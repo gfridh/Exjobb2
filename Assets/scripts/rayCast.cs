@@ -26,6 +26,7 @@ public class rayCast : MonoBehaviour
     void Update()
     {
         Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+        print(ray);
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit)){
             internalCoordinates = map.transform.InverseTransformPoint( hit.point );
