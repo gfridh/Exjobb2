@@ -38,7 +38,7 @@ public class GoogleApi : MonoBehaviour
         WWW www = new WWW(url);
         yield return www;
         img.texture = www.texture;
-        img.SetNativeSize();
+/*         img.SetNativeSize(); */
         prevZoom = zoom;
 
     }
@@ -47,6 +47,7 @@ public class GoogleApi : MonoBehaviour
     {
         StartCoroutine(Map());
         img = gameObject.GetComponent<RawImage>();
+/*         GetComponent<RectTransform>().sizeDelta = new Vector2( W, H) */
     }
 
     // Update is called once per frame
@@ -55,9 +56,9 @@ public class GoogleApi : MonoBehaviour
         if(zoom != prevZoom){
             StartCoroutine(Map());
         }
-/*        var dist = Vector3.Distance(camera.transform.position, transform.position);
-       // Debug.Log(dist);
-        if(dist > 1000 && zoom != 8){
+        var dist = Vector3.Distance(camera.transform.position, transform.position);
+/*         Debug.Log(dist); */
+/*         if(dist > 1000 && zoom != 8){
             zoom = 8;
             StartCoroutine(Map());
         }
@@ -77,7 +78,7 @@ public class GoogleApi : MonoBehaviour
             zoom = 16;
             StartCoroutine(Map());
         }
-         */
+ */
 
     }
 }

@@ -32,7 +32,7 @@ public class BooliApi : MonoBehaviour {
                 var booliObject = JsonConvert.DeserializeObject<bigBooliObject>(www.text);
                 print(www.text);
 /*                 print(booliObject.listings[0]); */
-                print(booliObject.totalCount);
+/*                 print(booliObject.totalCount); */
                 for (int i=0; i<booliObject.listings.Count;i++){
                     print (i);
                     string locationObject = JsonConvert.SerializeObject(booliObject.listings[i]);
@@ -45,7 +45,8 @@ public class BooliApi : MonoBehaviour {
 
                     string realPositionObject = JsonConvert.SerializeObject(positionObject.position);
                     var realPositionObject2 = JsonConvert.DeserializeObject<realPositionObject>(realPositionObject);
-/*                     print(realPositionObject2.longitude); */
+                    print(realPositionObject2.longitude);
+                    print(realPositionObject2.latitude);
                 }
 
 
