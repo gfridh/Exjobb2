@@ -34,7 +34,7 @@ public class rayCast : MonoBehaviour
             print((internalCoordinates.x/256)*(360/Mathf.Pow(2, zoomLevel)/2)*2 + currentMiddlelongitude); */
             if (Input.GetKeyDown("space")){
                 prevZoom = googleScript.zoom;
-                googleScript.lat = ((internalCoordinates.y/64)*(170/Mathf.Pow(2, zoomLevel)/2)*2 + currentMiddlelatitude);
+                googleScript.lat = (internalCoordinates.y/64)*(170/Mathf.Pow(2, zoomLevel)/2)*2 + currentMiddlelatitude;
                 googleScript.lon = (internalCoordinates.x/64)*(360/Mathf.Pow(2, zoomLevel)/2)*2 + currentMiddlelongitude;
                 googleScript.zoom ++;
                 zoomLevel ++;

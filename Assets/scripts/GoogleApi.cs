@@ -16,7 +16,7 @@ public class GoogleApi : MonoBehaviour
 
     LocationInfo li;
 
-    public int zoom = 1;
+    public int zoom;
     private int prevZoom;
     public int mapWidth = 512;
     public int mapHeight = 410;
