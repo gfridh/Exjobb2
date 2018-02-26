@@ -31,7 +31,12 @@ public class line : MonoBehaviour {
 
 		Vector3 normalizedIntervalVector = (controllerLeft.transform.position - controllerRight.transform.position).normalized;
 		Vector3 middleOfControllers =controllerRight.transform.position + (controllerLeft.transform.position - controllerRight.transform.position)/2;
-		sphere3.transform.position = middleOfControllers;
+		lineRenderer.SetPosition(0,controllerLeft.transform.position);
+        lineRenderer.SetPosition(1,controllerRight.transform.position);
+		ball1.transform.position = new Vector3((middleOfControllers-controllerLeft.transform.position).magnitude,ball1.transform.position.y,ball1.transform.position.z);
+		ball2.transform.position = new Vector3(-(middleOfControllers-controllerRight.transform.position).magnitude,ball1.transform.position.y,ball1.transform.position.z);
+/* 		
+sphere3.transform.position = middleOfControllers;
 		lineRenderer.SetPosition(0,ball1.transform.position);
         lineRenderer.SetPosition(1,ball2.transform.position);
 		ball1.transform.position = middleOfControllers - normalizedIntervalVector*5 ;
@@ -39,7 +44,7 @@ public class line : MonoBehaviour {
 		lineRendererLeft.SetPosition(0,ball2.transform.position);
         lineRendererLeft.SetPosition(1,  middleOfControllers + normalizedIntervalVector*10);
 		lineRendererRight.SetPosition(0,ball1.transform.position);
-        lineRendererRight.SetPosition(1,  middleOfControllers - normalizedIntervalVector*10);
+        lineRendererRight.SetPosition(1,  middleOfControllers - normalizedIntervalVector*10); */
 	
 	}
 }
