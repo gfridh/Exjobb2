@@ -46,8 +46,9 @@ public class rayCast : MonoBehaviour
             }
             
         }
-        else
-/*             print("I'm looking at nothing!"); */
+        else{
+            /*             print("I'm looking at nothing!"); */
+        }
 
         Cube.transform.position = hit.point;
     }

@@ -20,16 +20,22 @@ public class BooliApi : MonoBehaviour {
     private float houseInternalLat;
     private float houseInternalLon;
 
+    private int oldZoom;
+
     public GameObject housePrefab;
 
 
         IEnumerator go()
     {
+        GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("house");
+        foreach (GameObject target in gameObjects) {
+            GameObject.Destroy(target);
+    }
         string unique = GenerateId();
         string hashedText = hash("fridhg"+"1516652346"+"04q8PzkbcduSoqWDeg7sCH4xe61XuN4F0eO3E1Ax"+unique);
         Debug.Log(hashedText);
         hashedText = String.Join("", hashedText.Split('-'));
-        url = "https://api.booli.se/listings?q=norrt&offset="+offset+"&limit=499&bbox="+minLat +","+minLong + "," + maxLat + "," + maxLong+"&callerId=fridhg&time=1516652346&unique="+unique+"&hash=" + hashedText;
+        url = "https://api.booli.se/listings?priceDecrease=1&offset="+offset+"&limit=499&bbox="+minLat +","+minLong + "," + maxLat + "," + maxLong+"&callerId=fridhg&time=1516652346&unique="+unique+"&hash=" + hashedText;
         Debug.Log("bbox="+ minLat +","+minLong + "," + maxLat + "," + maxLong);
         using (WWW www = new WWW(url))
         {
@@ -39,10 +45,11 @@ public class BooliApi : MonoBehaviour {
                 print(www.text);
 /*                 print(booliObject.listings[0]); */
 /*                 print(booliObject.totalCount); */
+                    print(booliObject.listings[0]);
                 for (int i=0; i<booliObject.listings.Count;i++){
-                    print (i);
                     string locationObject = JsonConvert.SerializeObject(booliObject.listings[i]);
                     var locationObject2 = JsonConvert.DeserializeObject<locationObject>(locationObject);
+//                    print(locationObject2);
 /*                     print(locationObject2.location); */
 
                     string locationObject3 = JsonConvert.SerializeObject(locationObject2.location);
@@ -66,8 +73,17 @@ public class BooliApi : MonoBehaviour {
         void Start()
     {
         googleScript = googleHolder.GetComponent<GoogleApi>();
+        oldZoom = googleScript.zoom;
         StartCoroutine(go());
     }
+        void Update(){
+            if(googleScript.zoom != oldZoom){
+                print(googleScript.zoom);
+                print(oldZoom);
+                StartCoroutine(go());
+                oldZoom = googleScript.zoom;
+            }
+        }
 
     string hash(string text){
         SHA1CryptoServiceProvider sha1 = new SHA1CryptoServiceProvider();
@@ -90,8 +106,8 @@ private string GenerateId()
 private void placeHouseOnMap(float longitude , float lat){
     houseInternalLat = ((lat - googleScript.lat)/((170/Mathf.Pow(2, googleScript.zoom)/2)*2))*64;
     houseInternalLon = ((longitude - googleScript.lon)/((360/Mathf.Pow(2, googleScript.zoom)/2)*2))*64;
-    print(houseInternalLat);
-    print(houseInternalLon);
+/*     print(houseInternalLat);
+    print(houseInternalLon); */
     GameObject house = Instantiate(housePrefab,new Vector3(0, 0 , 0 ), Quaternion.Euler(new Vector3(90, 0, 0))) as GameObject;
     house.transform.parent = transform;
     house.transform.localPosition = new Vector3(houseInternalLon,houseInternalLat,0);
@@ -109,6 +125,7 @@ public class bigBooliObject {
 
 public class locationObject {
     public object location;
+    public int listprice;
 }
 
 public class positionObject {
