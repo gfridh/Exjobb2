@@ -10,42 +10,29 @@ public class Menu : MonoBehaviour {
 
 	private GameObject temp;
 	public GameObject parent;
+	public GameObject controller;
 
 
 	// Use this for initialization
 	void Start () {
-		 List<string> bigButtons = new List<string>();
-		 bigButtons.Add("price");
-		 bigButtons.Add("date");
-		 bigButtons.Add("houseType");
-		 bigButtons.Add("area");
-
-		placeButton(1,4,360,0,true,bigButtons);
 /* 		placeButton(2,4,90,0,false);
 		placeButton(2,3,90,90,false);
 		placeButton(2,3,90,180,false);
 		placeButton(2,1,90,270,false); */
 			}
 	// Update is called once per frame
-			void Update () {
-			if (Input.GetKeyDown("p")){
-				List<string> priceButtons = new List<string>();
-				priceButtons.Add("propertyPrice");
-				priceButtons.Add("maxRent");
-				priceButtons.Add("m2price");
-				priceButtons.Add("priceReduced");
-				placeButton(2,4,90,0,false,priceButtons);
-            }
-			else if (Input.GetKeyDown("d")){
-				List<string> dateButtons = new List<string>();
-				dateButtons.Add("constructionYear");
-				dateButtons.Add("newProduction");
-				dateButtons.Add("soonForSale");
-				placeButton(2,3,90,90,false,dateButtons);
-            }
-		
+	void Update () {
+		if (Input.GetKeyDown("m")){
+			parent.transform.position = controller.transform.position ;	
+			List<string> bigButtons = new List<string>();
+			bigButtons.Add("price");
+			bigButtons.Add("date");
+			bigButtons.Add("houseType");
+			bigButtons.Add("area");
+			placeButton(10,4,360,0,true,bigButtons);
+		}
 	}
-	private void placeButton(float radius, float numberOfObjects, float arc, float startOfArc, bool inner, List<string> list ){
+	public void placeButton(float radius, float numberOfObjects, float arc, float startOfArc, bool inner, List<string> list ){
 		
 		for (var i =0; i<numberOfObjects; i+=1)     
 			{

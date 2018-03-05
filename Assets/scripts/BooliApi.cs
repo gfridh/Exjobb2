@@ -19,70 +19,108 @@ public class BooliApi : MonoBehaviour {
     private GoogleApi googleScript;
     private float houseInternalLat;
     private float houseInternalLon;
+    public object[] allListings;
+    
 
     private int oldZoom;
+    bigBooliObject booliObject;
 
     public GameObject housePrefab;
 
 
-        IEnumerator go()
+        IEnumerator go( List<object>allListings)
     {
-        GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("house");
-        foreach (GameObject target in gameObjects) {
-            GameObject.Destroy(target);
-    }
-        string unique = GenerateId();
+        yield return new WaitForSeconds(0.000001f);
+
+         /* string unique = GenerateId();
         string hashedText = hash("fridhg"+"1516652346"+"04q8PzkbcduSoqWDeg7sCH4xe61XuN4F0eO3E1Ax"+unique);
-        Debug.Log(hashedText);
         hashedText = String.Join("", hashedText.Split('-'));
-        url = "https://api.booli.se/listings?priceDecrease=1&offset="+offset+"&limit=499&bbox="+minLat +","+minLong + "," + maxLat + "," + maxLong+"&callerId=fridhg&time=1516652346&unique="+unique+"&hash=" + hashedText;
-        Debug.Log("bbox="+ minLat +","+minLong + "," + maxLat + "," + maxLong);
+        url = "https://api.booli.se/listings?isNewConstruction=0&offset="+offset+"&limit=499&bbox="+minLat +","+minLong + "," + maxLat + "," + maxLong+"&callerId=fridhg&time=1516652346&unique="+unique+"&hash=" + hashedText;
         using (WWW www = new WWW(url))
         {
             yield return www;
 
-                var booliObject = JsonConvert.DeserializeObject<bigBooliObject>(www.text);
-                print(www.text);
-/*                 print(booliObject.listings[0]); */
-/*                 print(booliObject.totalCount); */
-                    print(booliObject.listings[0]);
+                var booliObject = JsonConvert.DeserializeObject<bigBooliObject>(www.text); 
+        
                 for (int i=0; i<booliObject.listings.Count;i++){
-                    string locationObject = JsonConvert.SerializeObject(booliObject.listings[i]);
-                    var locationObject2 = JsonConvert.DeserializeObject<locationObject>(locationObject);
-//                    print(locationObject2);
-/*                     print(locationObject2.location); */
 
-                    string locationObject3 = JsonConvert.SerializeObject(locationObject2.location);
-                    var positionObject = JsonConvert.DeserializeObject<positionObject>(locationObject3);
-    /*                 print(positionObject.position); */
+                    allListings.Add(booliObject.listings[i]);
 
-                    string realPositionObject = JsonConvert.SerializeObject(positionObject.position);
-                    var realPositionObject2 = JsonConvert.DeserializeObject<realPositionObject>(realPositionObject);
-/*                     print(realPositionObject2.longitude);
-                    print(realPositionObject2.latitude); */
-                    placeHouseOnMap(realPositionObject2.longitude, realPositionObject2.latitude);
                 }
+                if(offset < booliObject.totalCount){
+                    using (StreamWriter file = File.CreateText(@"c:\Users/Bamse/"+offset+".json"))
+                        {
+                            JsonSerializer serializer = new JsonSerializer();
+                            serializer.Serialize(file, booliObject);
+                        } 
+                    StartCoroutine(go(allListings));
+                    offset += 500;
+                }
+                else{
+                    using (StreamWriter file = File.CreateText(@"c:\Users/Bamse/"+offset+".json"))
+                        {
+                            JsonSerializer serializer = new JsonSerializer();
+                            serializer.Serialize(file, booliObject);
+                        }  */
+                        int y = 0;
+                    for (int z=0; z <= 8000; z+=500){
+                        booliObject = JsonConvert.DeserializeObject<bigBooliObject>(File.ReadAllText(@"c:\Users/Bamse/"+z+".json"));  
+                        GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("house");
+                        for (int i=0; i<booliObject.listings.Count;i++){
+                            string locationObject = JsonConvert.SerializeObject(booliObject.listings[i]);
+                            var locationObject2 = JsonConvert.DeserializeObject<locationObject>(locationObject);
 
+                            string locationObject3 = JsonConvert.SerializeObject(locationObject2.location);
+                            var positionObject = JsonConvert.DeserializeObject<positionObject>(locationObject3);
 
+                            string realPositionObject = JsonConvert.SerializeObject(positionObject.position);
+                            var realPositionObject2 = JsonConvert.DeserializeObject<realPositionObject>(realPositionObject);
+                            if(locationObject2.listprice < 500000000){
+                                
+                                
+                                if(y > gameObjects.Length-1){
+                                    GameObject house = Instantiate(housePrefab,new Vector3(0, 0 , 0 ), Quaternion.Euler(new Vector3(90, 0, 0))) as GameObject; 
+                                    placeHouseOnMap(realPositionObject2.longitude, realPositionObject2.latitude,house);
+                                }
+                                else{
+                                    GameObject target = gameObjects[y];
+                                    placeHouseOnMap(realPositionObject2.longitude, realPositionObject2.latitude,target);
 
+                                }
+                                y++;
 
-/*             myObject = JsonUtility.FromJson<bigBooliObject>(www.text);
-            string json = JsonUtility.ToJson(myObject); */
+                            }
+                        }
+
+/*                     } 
+
+                } */
+
         } 
     }
         void Start()
     {
+        /* booliObject = JsonConvert.DeserializeObject<bigBooliObject>(File.ReadAllText(@"c:\Users/Bamse/0.json")) */;
         googleScript = googleHolder.GetComponent<GoogleApi>();
         oldZoom = googleScript.zoom;
-        StartCoroutine(go());
+        List<object> allListings = new List<object>();
+        StartCoroutine(go( allListings ));
     }
         void Update(){
             if(googleScript.zoom != oldZoom){
-                print(googleScript.zoom);
-                print(oldZoom);
-                StartCoroutine(go());
+                offset = 0;
+                GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("house");
+                foreach (GameObject target in gameObjects) {
+
+                    GameObject.Destroy(target);
+                }
+                List<object> allListings = new List<object>();
+/*                 print(googleScript.zoom);
+                print(oldZoom); */
+                StartCoroutine(go( allListings ));
                 oldZoom = googleScript.zoom;
             }
+
         }
 
     string hash(string text){
@@ -103,23 +141,56 @@ private string GenerateId()
  return string.Format("{0:x}", i - DateTime.Now.Ticks);
 }
 
-private void placeHouseOnMap(float longitude , float lat){
-    houseInternalLat = ((lat - googleScript.lat)/((170/Mathf.Pow(2, googleScript.zoom)/2)*2))*64;
-    houseInternalLon = ((longitude - googleScript.lon)/((360/Mathf.Pow(2, googleScript.zoom)/2)*2))*64;
+private void placeHouseOnMap(float longitude , float lat, GameObject target){
+    googleScript = googleHolder.GetComponent<GoogleApi>();
+    List<float> arrHouse = new List<float>();
+    List<float> arrMiddle = new List<float>();
+    arrHouse = GenerateCoordinates(longitude,lat);
+    arrMiddle = GenerateCoordinates(googleScript.lon,googleScript.lat);
+    print(googleScript.lat);
+    print(arrMiddle[1]-arrHouse[1]);
+    houseInternalLon = (arrHouse[0]- arrMiddle[0])*64; 
+    houseInternalLat = (arrMiddle[1]-arrHouse[1])*64; 
+/*     houseInternalLat = (((lat - googleScript.lat)/((170/Mathf.Pow(2, googleScript.zoom)/2)*2))*64);
+    houseInternalLon = ((longitude - googleScript.lon)/((360/Mathf.Pow(2, googleScript.zoom)/2)*2))*64; */
 /*     print(houseInternalLat);
     print(houseInternalLon); */
-    GameObject house = Instantiate(housePrefab,new Vector3(0, 0 , 0 ), Quaternion.Euler(new Vector3(90, 0, 0))) as GameObject;
-    house.transform.parent = transform;
-    house.transform.localPosition = new Vector3(houseInternalLon,houseInternalLat,0);
+
+
+        target.transform.parent = transform;
+        if(houseInternalLat>64 || houseInternalLat< -64 || houseInternalLon< -64 || houseInternalLon>64){
+            target.SetActive(false);
+        }
+        else{
+            target.transform.localPosition = new Vector3(houseInternalLon,houseInternalLat,0);
+        }
+    
+
 
 }
+    private List<float> GenerateCoordinates(float longitude , float latitude)
+    {
+        List<float> arr = new List<float>();
+        float lon_rad = longitude*Mathf.Deg2Rad;
+		float lat_rad = latitude*Mathf.Deg2Rad;
+		float n = Mathf.Pow(2, googleScript.zoom);
+		float tileX = ((longitude + 180) / 360) * n;
+		float firstArg = Mathf.Tan(lat_rad);
+		float secondArg = 1.0f/Mathf.Cos((float)lat_rad);
+		float tileY =n * (1-(Mathf.Log(Mathf.Tan(lat_rad)+(1/Mathf.Cos(lat_rad)),2.71828f)/Mathf.PI))/2;
+        arr.Add(tileX);
+        arr.Add(tileY);
+        return arr;
+    }
+
 }
+
 
 
 
 public class bigBooliObject {
     public List<object> listings;
-    public string count;
+    public int count;
     public int totalCount;
 }
 
@@ -135,4 +206,8 @@ public class positionObject {
 public class realPositionObject {
     public float longitude;
     public float latitude;
+}
+
+public class house{
+    public int price;
 }

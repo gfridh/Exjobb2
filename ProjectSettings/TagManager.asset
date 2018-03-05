@@ -3,7 +3,23 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - house
+  - price
+  - area
+  - date
+  - houseType
+  - propertyPrice
+  - maxRent
+  - m2price
+  - priceReduced
+  - constructionYear
+  - newProduction
+  - soonForSale
+  - numberOfRooms
+  - livingArea
+  - plotArea
+  - houseType2
   layers:
   - Default
   - TransparentFX
