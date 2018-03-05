@@ -29,7 +29,7 @@ public class Menu : MonoBehaviour {
 			bigButtons.Add("date");
 			bigButtons.Add("houseType");
 			bigButtons.Add("area");
-			placeButton(10,4,360,0,true,bigButtons);
+			placeButton(0.10f,4,360,0,true,bigButtons);
 		}
 	}
 	public void placeButton(float radius, float numberOfObjects, float arc, float startOfArc, bool inner, List<string> list ){

@@ -6,6 +6,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.IO;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 public class BooliApi : MonoBehaviour {
     public string url;
@@ -64,32 +65,25 @@ public class BooliApi : MonoBehaviour {
                         }  */
                         int y = 0;
                     for (int z=0; z <= 8000; z+=500){
-                        booliObject = JsonConvert.DeserializeObject<bigBooliObject>(File.ReadAllText(@"c:\Users/Bamse/"+z+".json"));  
+                        string objectText = File.ReadAllText(@"c:\Users/Claremont/Github/Exjobb2/Assets/jsonFiles/"+z+".json"); 
+                        JObject o = JObject.Parse(objectText);
+                        //booliObject = JsonConvert.DeserializeObject<bigBooliObject>(File.ReadAllText(@"c:\Users/Claremont/Github/Exjobb2/Assets/jsonFiles/"+z+".json"));  
                         GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("house");
-                        for (int i=0; i<booliObject.listings.Count;i++){
-                            string locationObject = JsonConvert.SerializeObject(booliObject.listings[i]);
-                            var locationObject2 = JsonConvert.DeserializeObject<locationObject>(locationObject);
-
-                            string locationObject3 = JsonConvert.SerializeObject(locationObject2.location);
-                            var positionObject = JsonConvert.DeserializeObject<positionObject>(locationObject3);
-
-                            string realPositionObject = JsonConvert.SerializeObject(positionObject.position);
-                            var realPositionObject2 = JsonConvert.DeserializeObject<realPositionObject>(realPositionObject);
-                            if(locationObject2.listprice < 500000000){
-                                
-                                
+                        for (int i=0;  i< (int)o["count"];i++){
+                            float longitude = (float)o["listings"][i]["location"]["position"]["longitude"];
+                            float latitude = (float)o["listings"][i]["location"]["position"]["latitude"];
+                                             
                                 if(y > gameObjects.Length-1){
                                     GameObject house = Instantiate(housePrefab,new Vector3(0, 0 , 0 ), Quaternion.Euler(new Vector3(90, 0, 0))) as GameObject; 
-                                    placeHouseOnMap(realPositionObject2.longitude, realPositionObject2.latitude,house);
+                                    placeHouseOnMap(longitude, latitude,house);
                                 }
                                 else{
                                     GameObject target = gameObjects[y];
-                                    placeHouseOnMap(realPositionObject2.longitude, realPositionObject2.latitude,target);
+                                    placeHouseOnMap(longitude,latitude,target);
 
                                 }
                                 y++;
 
-                            }
                         }
 
 /*                     } 
@@ -147,8 +141,6 @@ private void placeHouseOnMap(float longitude , float lat, GameObject target){
     List<float> arrMiddle = new List<float>();
     arrHouse = GenerateCoordinates(longitude,lat);
     arrMiddle = GenerateCoordinates(googleScript.lon,googleScript.lat);
-    print(googleScript.lat);
-    print(arrMiddle[1]-arrHouse[1]);
     houseInternalLon = (arrHouse[0]- arrMiddle[0])*64; 
     houseInternalLat = (arrMiddle[1]-arrHouse[1])*64; 
 /*     houseInternalLat = (((lat - googleScript.lat)/((170/Mathf.Pow(2, googleScript.zoom)/2)*2))*64);
