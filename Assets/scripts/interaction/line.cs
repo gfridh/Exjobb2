@@ -47,23 +47,23 @@ public class line : MonoBehaviour {
 
 		distanceBetweenControllers =  (new Vector3(controllerRight.transform.position.x,0,controllerRight.transform.position.z) - new Vector3(controllerLeft.transform.position.x,0,controllerLeft.transform.position.z)).magnitude;
 /* 		distanceBetweenControllers = (controllerRight.transform.position.x - controllerLeft.transform.position.x); */
-		print(distanceBetweenControllers);
+
 		if(distanceBetweenControllers > 0.5f){
-			print(distanceBetweenControllers);
+
 			ballRight.transform.localPosition = new Vector3((bigIntervalWidth),0,0);
 			ballLeft.transform.localPosition = new Vector3(-(bigIntervalWidth),0,0);
 		}
 		else{
 			if(ballRight.transform.localPosition.x + (controllerLeft.transform.position.y-controllerRight.transform.position.y) > (bigIntervalWidth)){
 				ballRight.transform.localPosition = new Vector3((distanceBetweenControllers),0,0);
-				ballLeft.transform.localPosition = new Vector3(-(distanceBetweenControllers),0,0);
+				ballLeft.transform.localPosition = new Vector3(-(distanceBetweenControllers)+(controllerLeft.transform.position.y-controllerRight.transform.position.y)-smallInterval.transform.localPosition.x,0,0);
 				print("bollen är för långt till höger");
 				smallInterval.transform.localPosition = new Vector3((bigIntervalWidth)-(distanceBetweenControllers),0,0);
 			}
 
 			else if(ballLeft.transform.localPosition.x-(controllerRight.transform.position.y-controllerLeft.transform.position.y) < -(bigIntervalWidth)){
 				print("bollen är för långt till vänster");
-				ballRight.transform.localPosition = new Vector3((distanceBetweenControllers),0,0);
+				ballRight.transform.localPosition = new Vector3((distanceBetweenControllers)+(controllerLeft.transform.position.y-controllerRight.transform.position.y)-smallInterval.transform.localPosition.x,0,0);
 				ballLeft.transform.localPosition = new Vector3(-(distanceBetweenControllers),0,0);
 				smallInterval.transform.localPosition = new Vector3(-(bigIntervalWidth)+(distanceBetweenControllers),0,0);
 

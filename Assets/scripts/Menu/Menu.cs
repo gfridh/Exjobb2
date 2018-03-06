@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using VRTK;
 
 public class Menu : MonoBehaviour {
 	public float radiusX = 0.0f;
@@ -10,11 +11,18 @@ public class Menu : MonoBehaviour {
 
 	private GameObject temp;
 	public GameObject parent;
-	public GameObject controller;
+	public GameObject head;
+
+	public GameObject leftControllerObject;
+	VRTK_ControllerEvents controllerEventsLeft;
+	public GameObject rightControllerObject;
+	VRTK_ControllerEvents controllerEventsRight;
 
 
 	// Use this for initialization
 	void Start () {
+		leftControllerObject.GetComponent<VRTK_ControllerEvents>().TriggerClicked += new ControllerInteractionEventHandler(LeftTriggerClicked);
+		rightControllerObject.GetComponent<VRTK_ControllerEvents>().TriggerClicked += new ControllerInteractionEventHandler(RightTriggerClicked);
 /* 		placeButton(2,4,90,0,false);
 		placeButton(2,3,90,90,false);
 		placeButton(2,3,90,180,false);
@@ -22,15 +30,6 @@ public class Menu : MonoBehaviour {
 			}
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetKeyDown("m")){
-			parent.transform.position = controller.transform.position ;	
-			List<string> bigButtons = new List<string>();
-			bigButtons.Add("price");
-			bigButtons.Add("date");
-			bigButtons.Add("houseType");
-			bigButtons.Add("area");
-			placeButton(0.10f,4,360,0,true,bigButtons);
-		}
 	}
 	public void placeButton(float radius, float numberOfObjects, float arc, float startOfArc, bool inner, List<string> list ){
 		
@@ -43,7 +42,7 @@ public class Menu : MonoBehaviour {
 					temp.tag = list[i] ;    
 					temp.transform.parent = parent.transform;
 					temp.transform.localPosition = pos;
-					temp.transform.LookAt(parent.transform.position, transform.forward);
+					parent.transform.LookAt(head.transform.position);
 				}
 				else{
 					temp = Instantiate(outerCircleButton, pos, Quaternion.identity);
@@ -55,6 +54,32 @@ public class Menu : MonoBehaviour {
 	
 		}
 	}
+
+        private void RightTriggerClicked(object sender, ControllerInteractionEventArgs e)
+        {
+			print("triggerClicked");
+			parent.transform.parent = rightControllerObject.transform;
+			parent.transform.position = rightControllerObject.transform.position;
+			List<string> bigButtons = new List<string>();
+			bigButtons.Add("price");
+			bigButtons.Add("date");
+			bigButtons.Add("houseType");
+			bigButtons.Add("area");
+			placeButton(1,4,360,0,true,bigButtons);
+        }
+
+		private void LeftTriggerClicked(object sender, ControllerInteractionEventArgs e)
+        {
+			print("triggerClicked");
+			parent.transform.parent = leftControllerObject.transform;
+			parent.transform.position = leftControllerObject.transform.position;
+			List<string> bigButtons = new List<string>();
+			bigButtons.Add("price");
+			bigButtons.Add("date");
+			bigButtons.Add("houseType");
+			bigButtons.Add("area");
+			placeButton(1,4,360,0,true,bigButtons);
+        }
 }
 
 
