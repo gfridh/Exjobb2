@@ -31,7 +31,7 @@ public class BooliApi : MonoBehaviour {
 
         IEnumerator go( List<object>allListings)
     {
-        yield return new WaitForSeconds(0.000001f);
+        yield return null;
 
          /* string unique = GenerateId();
         string hashedText = hash("fridhg"+"1516652346"+"04q8PzkbcduSoqWDeg7sCH4xe61XuN4F0eO3E1Ax"+unique);

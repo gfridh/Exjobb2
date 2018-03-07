@@ -14,6 +14,10 @@ public class rayCast : MonoBehaviour
     public GameObject googleHolder;
     private GoogleApi googleScript;
 
+    private float startingDistance;
+    private float prevDistance;
+
+
     void Start()
     {
         cam = GetComponent<Camera>();
@@ -21,6 +25,8 @@ public class rayCast : MonoBehaviour
         currentMiddlelatitude = googleScript.lat;
         currentMiddlelongitude = googleScript.lon;
         zoomLevel = googleScript.zoom;
+        startingDistance = Vector3.Distance (transform.position, googleHolder.transform.position);
+        prevDistance = startingDistance;
     }
 
     void Update()
@@ -32,12 +38,22 @@ public class rayCast : MonoBehaviour
             internalCoordinates = map.transform.InverseTransformPoint( hit.point );
 /*             print(((internalCoordinates.y/256)*(170/Mathf.Pow(2, zoomLevel)/2)*2 + currentMiddlelatitude));
             print((internalCoordinates.x/256)*(360/Mathf.Pow(2, zoomLevel)/2)*2 + currentMiddlelongitude); */
-            if (Input.GetKeyDown("space")){
+            print(prevDistance - Vector3.Distance (transform.position, googleHolder.transform.position));
+            
+            if (prevDistance - Vector3.Distance (transform.position, googleHolder.transform.position) > 0.5f || prevDistance - Vector3.Distance (transform.position, googleHolder.transform.position) < -0.5f ){
+                prevDistance = Vector3.Distance (transform.position, googleHolder.transform.position);
                 prevZoom = googleScript.zoom;
                 googleScript.lat = (internalCoordinates.y/64)*(170/Mathf.Pow(2, zoomLevel)/2)*2 + currentMiddlelatitude;
                 googleScript.lon = (internalCoordinates.x/64)*(360/Mathf.Pow(2, zoomLevel)/2)*2 + currentMiddlelongitude;
-                googleScript.zoom ++;
-                zoomLevel ++;
+                if(prevDistance - Vector3.Distance (transform.position, googleHolder.transform.position) > 0.5f){
+                    googleScript.zoom --;
+                    zoomLevel --;
+                }
+                else if(prevDistance - Vector3.Distance (transform.position, googleHolder.transform.position) < -0.5f){
+                    googleScript.zoom ++;
+                    zoomLevel ++;
+                }
+                
 /*                 print(googleScript.lat);
                 print(googleScript.lon); */
                 currentMiddlelatitude = googleScript.lat;

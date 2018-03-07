@@ -12,6 +12,17 @@ TagManager:
   - date
   - houseType
   - area
+  - houseType2
+  - propertyPrice
+  - maxRent
+  - m2price
+  - priceReduced
+  - constructionYear
+  - newProduction
+  - soonForSale
+  - numberOfRooms
+  - livingArea
+  - plotArea
   layers:
   - Default
   - TransparentFX
