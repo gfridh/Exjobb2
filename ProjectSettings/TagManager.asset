@@ -23,6 +23,7 @@ TagManager:
   - numberOfRooms
   - livingArea
   - plotArea
+  - smallInterval
   layers:
   - Default
   - TransparentFX

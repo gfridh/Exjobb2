@@ -45,7 +45,7 @@ public class line : MonoBehaviour {
 		lineRendererLeft.SetPosition(1,new Vector3(-(bigIntervalWidth),ballLeft.transform.localPosition.y,ballLeft.transform.localPosition.z));
 		bigInterval.transform.position = middleOfControllers + new Vector3(0,0,0.5f);
 
-		distanceBetweenControllers =  (new Vector3(controllerRight.transform.position.x,0,controllerRight.transform.position.z) - new Vector3(controllerLeft.transform.position.x,0,controllerLeft.transform.position.z)).magnitude;
+		distanceBetweenControllers =  (new Vector3(controllerRight.transform.position.x,0,controllerRight.transform.position.z) - new Vector3(controllerLeft.transform.position.x,0,controllerLeft.transform.position.z)).magnitude-0.12f;
 /* 		distanceBetweenControllers = (controllerRight.transform.position.x - controllerLeft.transform.position.x); */
 
 		if(distanceBetweenControllers > 0.5f){

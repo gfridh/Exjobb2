@@ -22,6 +22,11 @@ public class Menu : MonoBehaviour {
 	VRTK_ControllerEvents controllerEventsLeft;
 	public GameObject rightControllerObject;
 	VRTK_ControllerEvents controllerEventsRight;
+	public GameObject interval;
+	private GameObject smallInterval;
+	private line interValScript;
+	private bool intervalUp = false;
+	private GameObject instantiatedInterval;
 
 
 	// Use this for initialization
@@ -104,6 +109,7 @@ public class Menu : MonoBehaviour {
 
 		private void LeftTriggerClicked(object sender, ControllerInteractionEventArgs e)
         {
+
 			if(rightmenuActive){
 				foreach (Transform child in parent.transform) {
      				GameObject.Destroy(child.gameObject);

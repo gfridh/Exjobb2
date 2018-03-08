@@ -5,6 +5,14 @@ using UnityEngine;
 public class controllerCollision : MonoBehaviour {
 	public GameObject menuController;
     private Menu menuScript;
+	public GameObject interval;
+	private GameObject smallInterval;
+	private line interValScript;
+	private bool intervalUp = false;
+	private GameObject instantiatedInterval;
+	public GameObject leftController;
+	public GameObject rightController;
+
 
 	// Use this for initialization
 	void Start () {
@@ -50,6 +58,19 @@ public class controllerCollision : MonoBehaviour {
 			areaButtons.Add("livingArea");
 			areaButtons.Add("plotArea");
 			menuScript.placeButton(3,3,90,270,false,areaButtons);
+		}
+		else if(other.tag == "propertyPrice"){
+			if(!intervalUp){
+				instantiatedInterval = Instantiate(interval);
+				interValScript = GameObject.FindGameObjectWithTag("smallInterval").GetComponent<line>();
+				interValScript.controllerLeft = leftController;
+				interValScript.controllerRight = rightController;
+				intervalUp = true;
+			}
+			else{
+				Destroy (instantiatedInterval);
+				intervalUp = false;
+			}
 		}
 
 

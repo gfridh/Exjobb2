@@ -14,8 +14,9 @@ public class rayCast : MonoBehaviour
     public GameObject googleHolder;
     private GoogleApi googleScript;
 
-    private float startingDistance;
+    private float movementDifference;
     private float prevDistance;
+    private bool start = true;
 
 
     void Start()
@@ -25,8 +26,6 @@ public class rayCast : MonoBehaviour
         currentMiddlelatitude = googleScript.lat;
         currentMiddlelongitude = googleScript.lon;
         zoomLevel = googleScript.zoom;
-        startingDistance = Vector3.Distance (transform.position, googleHolder.transform.position);
-        prevDistance = startingDistance;
     }
 
     void Update()
@@ -38,27 +37,38 @@ public class rayCast : MonoBehaviour
             internalCoordinates = map.transform.InverseTransformPoint( hit.point );
 /*             print(((internalCoordinates.y/256)*(170/Mathf.Pow(2, zoomLevel)/2)*2 + currentMiddlelatitude));
             print((internalCoordinates.x/256)*(360/Mathf.Pow(2, zoomLevel)/2)*2 + currentMiddlelongitude); */
-            print(prevDistance - Vector3.Distance (transform.position, googleHolder.transform.position));
             
-            if (prevDistance - Vector3.Distance (transform.position, googleHolder.transform.position) > 0.5f || prevDistance - Vector3.Distance (transform.position, googleHolder.transform.position) < -0.5f ){
-                prevDistance = Vector3.Distance (transform.position, googleHolder.transform.position);
+            if (movementDifference > 0.5f || movementDifference < -0.5f ){
                 prevZoom = googleScript.zoom;
                 googleScript.lat = (internalCoordinates.y/64)*(170/Mathf.Pow(2, zoomLevel)/2)*2 + currentMiddlelatitude;
                 googleScript.lon = (internalCoordinates.x/64)*(360/Mathf.Pow(2, zoomLevel)/2)*2 + currentMiddlelongitude;
                 if(prevDistance - Vector3.Distance (transform.position, googleHolder.transform.position) > 0.5f){
-                    googleScript.zoom --;
-                    zoomLevel --;
+                    googleScript.zoom += 2;
+                    zoomLevel += 2;
+                    
+                    prevDistance = Vector3.Distance (transform.position, googleHolder.transform.position);
                 }
                 else if(prevDistance - Vector3.Distance (transform.position, googleHolder.transform.position) < -0.5f){
-                    googleScript.zoom ++;
-                    zoomLevel ++;
+                    googleScript.zoom -= 2;
+                    zoomLevel -= 2;
+                    
+                    prevDistance = Vector3.Distance (transform.position, googleHolder.transform.position);
                 }
+                
                 
 /*                 print(googleScript.lat);
                 print(googleScript.lon); */
                 currentMiddlelatitude = googleScript.lat;
                 currentMiddlelongitude = googleScript.lon;
                 StartCoroutine(googleScript.Map());
+            }
+            if(start){
+                movementDifference = 0;
+                start = false;
+                prevDistance = Vector3.Distance (transform.position, googleHolder.transform.position);
+            }
+            else{
+                movementDifference = prevDistance - Vector3.Distance (transform.position, googleHolder.transform.position);
             }
             
         }
@@ -68,4 +78,5 @@ public class rayCast : MonoBehaviour
 
         Cube.transform.position = hit.point;
     }
+
 }
