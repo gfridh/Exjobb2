@@ -27,9 +27,10 @@ public class BooliApi : MonoBehaviour {
     bigBooliObject booliObject;
 
     public GameObject housePrefab;
+    private HouseCoordinates houseCoordinates;
 
 
-        IEnumerator go( List<object>allListings)
+    IEnumerator go( List<object>allListings)
     {
         yield return null;
 
@@ -65,23 +66,23 @@ public class BooliApi : MonoBehaviour {
                         }  */
                         int y = 0;
                     for (int z=0; z <= 8000; z+=500){
-                        string objectText = File.ReadAllText(@"c:\Users/Claremont/Github/Exjobb2/Assets/jsonFiles/"+z+".json"); 
+                        //string objectText = File.ReadAllText(@"c:\Users/Claremont/Github/Exjobb2/Assets/jsonFiles/"+z+".json");
+						string objectText = File.ReadAllText(@"d:\Desktop/Exjobb2/Assets/jsonFiles/"+z+".json");
                         JObject o = JObject.Parse(objectText);
                         //booliObject = JsonConvert.DeserializeObject<bigBooliObject>(File.ReadAllText(@"c:\Users/Claremont/Github/Exjobb2/Assets/jsonFiles/"+z+".json"));  
                         GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("house");
                         for (int i=0;  i< (int)o["count"];i++){
                             float longitude = (float)o["listings"][i]["location"]["position"]["longitude"];
                             float latitude = (float)o["listings"][i]["location"]["position"]["latitude"];
-                                             
-                                if(y > gameObjects.Length-1){
-                                    GameObject house = Instantiate(housePrefab,new Vector3(0, 0 , 0 ), Quaternion.Euler(new Vector3(90, 0, 0))) as GameObject; 
-                                    placeHouseOnMap(longitude, latitude,house);
-                                }
-                                else{
-                                    GameObject target = gameObjects[y];
-                                    placeHouseOnMap(longitude,latitude,target);
 
-                                }
+
+                    GameObject house = Instantiate(housePrefab, new Vector3(0, 0, 0), Quaternion.Euler(new Vector3(90, 0, 0))) as GameObject;
+                    print(longitude);
+                    house.GetComponent<HouseCoordinates>().longitude = longitude;
+                    house.GetComponent<HouseCoordinates>().latitude = latitude;
+                    placeHouseOnMap(longitude, latitude, house);
+
+
                                 y++;
 
                         }
@@ -104,14 +105,18 @@ public class BooliApi : MonoBehaviour {
             if(googleScript.zoom != oldZoom){
                 offset = 0;
                 GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("house");
-                foreach (GameObject target in gameObjects) {
+            foreach (GameObject target in gameObjects) {
+                //target.GetComponent<HouseCoordinates>().latitude;
+                //target.GetComponent<HouseCoordinates>().longitude;
+                placeHouseOnMap(target.GetComponent<HouseCoordinates>().longitude, target.GetComponent<HouseCoordinates>().latitude,target);
 
-                    GameObject.Destroy(target);
-                }
-                List<object> allListings = new List<object>();
+
+                //    GameObject.Destroy(target);
+            }
+            List<object> allListings = new List<object>();
 /*                 print(googleScript.zoom);
                 print(oldZoom); */
-                StartCoroutine(go( allListings ));
+                //StartCoroutine(go( allListings ));
                 oldZoom = googleScript.zoom;
             }
 
@@ -150,12 +155,16 @@ private void placeHouseOnMap(float longitude , float lat, GameObject target){
 
 
         target.transform.parent = transform;
-        if(houseInternalLat>64 || houseInternalLat< -64 || houseInternalLon< -64 || houseInternalLon>64){
-            target.SetActive(false);
+        if (houseInternalLon > 64 || houseInternalLon < -64 || houseInternalLat < -64 || houseInternalLat > 64) {
+            target.transform.localPosition = new Vector3(houseInternalLon, houseInternalLat, 2000);
         }
-        else{
-            target.transform.localPosition = new Vector3(houseInternalLon,houseInternalLat,0);
+        else
+        {
+            target.transform.localPosition = new Vector3(houseInternalLon, houseInternalLat, 0);
         }
+
+
+
     
 
 
