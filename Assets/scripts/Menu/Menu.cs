@@ -13,8 +13,12 @@ public class Menu : MonoBehaviour {
 	public float radiusY = 0.0f;
 	public GameObject innerCircleButton;
 	public GameObject outerCircleButton;
+    public GameObject pricePrefab;
+    public GameObject datePrefab;
+    public GameObject areaPrefab;
+    public GameObject houseTypePrefab;
 
-	private GameObject temp;
+    private GameObject temp;
 	public GameObject parent;
 	public GameObject head;
 
@@ -49,21 +53,40 @@ public class Menu : MonoBehaviour {
 				var angle = (i * Mathf.Deg2Rad*arc / numberOfObjects) + (startOfArc+(arc/numberOfObjects/2))*Mathf.Deg2Rad;
 				var pos = new Vector3 (Mathf.Cos(angle), Mathf.Sin(angle), 0) * radius;
 				if(inner){
-					temp = Instantiate(innerCircleButton, pos, Quaternion.identity);
+                if (list[i] == "price")
+                {
+                    temp = Instantiate(pricePrefab, pos, Quaternion.identity);
+
+                }
+                else if (list[i] == "date")
+                {
+                    temp = Instantiate(datePrefab, pos, Quaternion.identity);
+                }
+
+                else if (list[i] == "houseType")
+                {
+                    temp = Instantiate(houseTypePrefab, pos, Quaternion.identity);
+                }
+                else
+                {
+                    temp = Instantiate(areaPrefab, pos, Quaternion.identity);
+                }
+					
 					temp.transform.parent = parent.transform;
 
 					temp.tag = list[i] ;    
 //					temp.transform.parent = parent.transform;
 					temp.transform.localPosition = pos;
-//					temp.transform.LookAt(parent.transform.parent.transform.position);
+                    temp.transform.rotation = temp.transform.parent.rotation;
+                    temp.transform.Rotate(0,180,0);
+                //					temp.transform.LookAt(parent.transform.parent.transform.position);
 
-				}
+            }
 				else{
 					temp = Instantiate(outerCircleButton, pos, Quaternion.identity);
 					temp.tag = list[i] ;    
 					temp.transform.parent = parent.transform;
 					temp.transform.localPosition = pos;
-					temp.transform.LookAt(parent.transform.position);
 				}    
 	
 		}
