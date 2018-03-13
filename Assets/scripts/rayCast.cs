@@ -16,6 +16,8 @@ public class rayCast : MonoBehaviour
 
     private float movementDifference;
     private float prevDistance;
+    private float prevLat;
+    private float prevLon;
     private bool start = true;
 
 
@@ -33,22 +35,28 @@ public class rayCast : MonoBehaviour
         Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
 /*         print(ray); */
         RaycastHit hit;
-        if (Physics.Raycast(ray, out hit)){
+        if (Physics.Raycast(ray, out hit) && hit.transform.tag == "Map")
+        {
             internalCoordinates = map.transform.InverseTransformPoint( hit.point );
 /*             print(((internalCoordinates.y/256)*(170/Mathf.Pow(2, zoomLevel)/2)*2 + currentMiddlelatitude));
             print((internalCoordinates.x/256)*(360/Mathf.Pow(2, zoomLevel)/2)*2 + currentMiddlelongitude); */
             
-            if (movementDifference > 0.5f || movementDifference < -0.5f ){
+            if (movementDifference > 0.2f || movementDifference < -0.2f ){
                 prevZoom = googleScript.zoom;
-                googleScript.lat = (internalCoordinates.y/64)*(170/Mathf.Pow(2, zoomLevel)/2)*2 + currentMiddlelatitude;
-                googleScript.lon = (internalCoordinates.x/64)*(360/Mathf.Pow(2, zoomLevel)/2)*2 + currentMiddlelongitude;
-                if(prevDistance - Vector3.Distance (transform.position, googleHolder.transform.position) > 0.5f){
+                if(prevDistance - Vector3.Distance (transform.position, googleHolder.transform.position) > 0.2f){
+                    googleScript.lat = (internalCoordinates.y / 64) * (170 / Mathf.Pow(2, zoomLevel) / 2) * 2 + currentMiddlelatitude;
+                    googleScript.lon = (internalCoordinates.x / 64) * (360 / Mathf.Pow(2, zoomLevel) / 2) * 2 + currentMiddlelongitude;
+                    prevLat = googleScript.lat;
+                    prevLon = googleScript.lon;
                     googleScript.zoom += 2;
                     zoomLevel += 2;
                     
                     prevDistance = Vector3.Distance (transform.position, googleHolder.transform.position);
                 }
-                else if(prevDistance - Vector3.Distance (transform.position, googleHolder.transform.position) < -0.5f){
+                else if(prevDistance - Vector3.Distance (transform.position, googleHolder.transform.position) < -0.2f){
+                    googleScript.lat = prevLat;
+                    googleScript.lon = prevLon;
+
                     googleScript.zoom -= 2;
                     zoomLevel -= 2;
                     
@@ -70,13 +78,12 @@ public class rayCast : MonoBehaviour
             else{
                 movementDifference = prevDistance - Vector3.Distance (transform.position, googleHolder.transform.position);
             }
-            
+            Cube.transform.position = hit.point;
         }
         else{
-            /*             print("I'm looking at nothing!"); */
+                         print("I'm looking at nothing!"); 
         }
 
-        Cube.transform.position = hit.point;
     }
 
 }

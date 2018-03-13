@@ -8,6 +8,7 @@ public class GoogleApi : MonoBehaviour
 {
 
     public RawImage img;
+    public GameObject plane;
 
     string url;
 
@@ -38,7 +39,10 @@ public class GoogleApi : MonoBehaviour
         WWW www = new WWW(url);
         yield return www;
         img.texture = www.texture;
-/*         img.SetNativeSize(); */
+        Material material = new Material(Shader.Find("Diffuse"));
+        material.mainTexture = www.texture;
+        plane.GetComponent<Renderer>().material = material;
+        /*         img.SetNativeSize(); */
         prevZoom = zoom;
 
     }

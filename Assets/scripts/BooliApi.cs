@@ -21,7 +21,15 @@ public class BooliApi : MonoBehaviour {
     private float houseInternalLat;
     private float houseInternalLon;
     public object[] allListings;
-    
+    public float rooms;
+    public float livingArea;
+    public float constructionYear;
+    public float listPrice;
+    public float plotArea;
+    public bool filterActive = false;
+    public float currentPriceFilteringBig;
+    public float currentPriceFilteringSmall;
+
 
     private int oldZoom;
     bigBooliObject booliObject;
@@ -74,12 +82,70 @@ public class BooliApi : MonoBehaviour {
                         for (int i=0;  i< (int)o["count"];i++){
                             float longitude = (float)o["listings"][i]["location"]["position"]["longitude"];
                             float latitude = (float)o["listings"][i]["location"]["position"]["latitude"];
+                //            float objectType = (float)o["listings"][i]["objectType"];
+                            if (o["listings"][i]["listPrice"] != null)
+                            {
+                                listPrice = (float)o["listings"][i]["listPrice"];
+                            }
+
+                            else
+                            {
+                                listPrice = 0;
+                            }
 
 
-                    GameObject house = Instantiate(housePrefab, new Vector3(0, 0, 0), Quaternion.Euler(new Vector3(90, 0, 0))) as GameObject;
-                    print(longitude);
+                            if ( o["listings"][i]["rooms"] != null)
+                            {
+                                 rooms = (float)o["listings"][i]["rooms"];
+                            }
+                            else
+                            {
+                                rooms = 0;
+                            }
+
+
+                            if ( o["listings"][i]["livingArea"] != null)
+                            {
+                                livingArea = (float)o["listings"][i]["livingArea"];
+                            }
+                            else
+                            {
+                                livingArea = 0;
+                            }
+
+                               
+                            if (o["listings"][i]["constructionYear"] != null)
+                            {
+                                constructionYear = (float)o["listings"][i]["constructionYear"];
+                            }
+                            else
+                            {
+                                constructionYear = 0;
+                            }
+
+
+                            if (o["listings"][i]["plotArea"] != null)
+                            {
+                                plotArea = (float)o["listings"][i]["plotArea"];
+                            }
+                            else
+                            {
+                                plotArea = 0;
+                            }
+                            
+
+
+
+
+
+                GameObject house = Instantiate(housePrefab, new Vector3(0, 0, 0), Quaternion.Euler(new Vector3(90, 0, 0))) as GameObject;
                     house.GetComponent<HouseCoordinates>().longitude = longitude;
                     house.GetComponent<HouseCoordinates>().latitude = latitude;
+                    house.GetComponent<HouseCoordinates>().listPrice = listPrice;
+                    house.GetComponent<HouseCoordinates>().rooms = rooms;
+                    house.GetComponent<HouseCoordinates>().livingArea = livingArea;
+                    house.GetComponent<HouseCoordinates>().constructionYear = constructionYear;
+                    house.GetComponent<HouseCoordinates>().plotArea = plotArea;
                     placeHouseOnMap(longitude, latitude, house);
 
 
@@ -97,19 +163,27 @@ public class BooliApi : MonoBehaviour {
     {
         /* booliObject = JsonConvert.DeserializeObject<bigBooliObject>(File.ReadAllText(@"c:\Users/Bamse/0.json")) */;
         googleScript = googleHolder.GetComponent<GoogleApi>();
+        
         oldZoom = googleScript.zoom;
         List<object> allListings = new List<object>();
         StartCoroutine(go( allListings ));
     }
+
+
+
+
         void Update(){
-            if(googleScript.zoom != oldZoom){
+            if(googleScript.zoom != oldZoom || filterActive == true)
+        {
                 offset = 0;
                 GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("house");
             foreach (GameObject target in gameObjects) {
                 //target.GetComponent<HouseCoordinates>().latitude;
                 //target.GetComponent<HouseCoordinates>().longitude;
-                placeHouseOnMap(target.GetComponent<HouseCoordinates>().longitude, target.GetComponent<HouseCoordinates>().latitude,target);
+               
+               placeHouseOnMap(target.GetComponent<HouseCoordinates>().longitude, target.GetComponent<HouseCoordinates>().latitude, target);
 
+                
 
                 //    GameObject.Destroy(target);
             }
@@ -121,6 +195,9 @@ public class BooliApi : MonoBehaviour {
             }
 
         }
+
+
+
 
     string hash(string text){
         SHA1CryptoServiceProvider sha1 = new SHA1CryptoServiceProvider();
@@ -155,9 +232,14 @@ private void placeHouseOnMap(float longitude , float lat, GameObject target){
 
 
         target.transform.parent = transform;
-        if (houseInternalLon > 64 || houseInternalLon < -64 || houseInternalLat < -64 || houseInternalLat > 64) {
+        if (houseInternalLon > 64 || houseInternalLon < -64 || houseInternalLat < -64 || houseInternalLat > 64)
+        {
             target.transform.localPosition = new Vector3(houseInternalLon, houseInternalLat, 2000);
         }
+        else if (!FilterObjects(target)) {
+            target.transform.localPosition = new Vector3(houseInternalLon, houseInternalLat, 2000);
+        }
+
         else
         {
             target.transform.localPosition = new Vector3(houseInternalLon, houseInternalLat, 0);
@@ -184,7 +266,24 @@ private void placeHouseOnMap(float longitude , float lat, GameObject target){
         return arr;
     }
 
+
+    private bool FilterObjects(GameObject target)
+    {
+        if (
+            target.GetComponent<HouseCoordinates>().listPrice < currentPriceFilteringBig && target.GetComponent<HouseCoordinates>().listPrice > currentPriceFilteringSmall
+
+
+            )
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 }
+
 
 
 

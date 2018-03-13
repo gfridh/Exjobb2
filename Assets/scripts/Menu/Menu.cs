@@ -6,7 +6,7 @@ using VRTK;
 public class Menu : MonoBehaviour {
 	private bool leftmenuActive = false;
 	private bool rightmenuActive = false;
-	private bool menuUp = false;
+
 	private bool rightMenuStuck = false;
 	private bool leftMenuStuck = false;
 	public float radiusX = 0.0f;
@@ -28,7 +28,7 @@ public class Menu : MonoBehaviour {
 	VRTK_ControllerEvents controllerEventsRight;
 	public GameObject interval;
 	private GameObject smallInterval;
-	private line interValScript;
+	private Line interValScript;
 	private bool intervalUp = false;
 	private GameObject instantiatedInterval;
 
@@ -110,7 +110,7 @@ public class Menu : MonoBehaviour {
 				bigButtons.Add("date");
 				bigButtons.Add("houseType");
 				bigButtons.Add("area");
-				placeButton(1,4,360,0,true,bigButtons);
+				placeButton(1.5f,4,360,0,true,bigButtons);
 				rightmenuActive = true;
 			}
 			else{
@@ -150,7 +150,7 @@ public class Menu : MonoBehaviour {
 				bigButtons.Add("date");
 				bigButtons.Add("houseType");
 				bigButtons.Add("area");
-				placeButton(1,4,360,0,true,bigButtons);
+				placeButton(1.5f,4,360,0,true,bigButtons);
 				leftmenuActive = true;
 			}
 			else{

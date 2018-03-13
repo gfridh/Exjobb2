@@ -5,8 +5,16 @@ using UnityEngine;
 public class HouseCoordinates : MonoBehaviour {
     public float longitude;
     public float latitude;
-	// Use this for initialization
-	void Start () {
+    public float listPrice;
+    //public float objectType;
+    public float rooms;
+    public float livingArea;
+    public float constructionYear;
+    public float plotArea;
+
+
+    // Use this for initialization
+    void Start () {
 		
 	}
 	

@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class line : MonoBehaviour {
-	public GameObject ballRight;
+public class Line : MonoBehaviour {
+    private BooliApi booliScript;
+
+    public GameObject ballRight;
 	public GameObject ballLeft;
 	public LineRenderer lineRendererInterval;
 	public LineRenderer lineRendererRight;
@@ -17,14 +19,19 @@ public class line : MonoBehaviour {
 
 	public GameObject smallInterval;
 	public GameObject bigInterval;
+    public float maxValue;
+    public float minValue;
+    public float smallValue;
+    public float bigValue;
 
-	private float distanceBetweenControllers;
+    private float distanceBetweenControllers;
 
 	public float bigIntervalWidth = 0.5f;
 
 	// Use this for initialization
 	void Start () {
-		lineRendererInterval.positionCount = 2;
+        booliScript = GameObject.FindWithTag("fullMap").GetComponent<BooliApi>();
+        lineRendererInterval.positionCount = 2;
 		lineRendererRight.positionCount = 2;
 		lineRendererLeft.positionCount = 2;
 		lineRendererRight.useWorldSpace = false;
@@ -74,28 +81,34 @@ public class line : MonoBehaviour {
 				ballLeft.transform.localPosition = new Vector3(-(distanceBetweenControllers),0,0);
 				smallInterval.transform.localPosition = new Vector3((controllerLeft.transform.position.y-controllerRight.transform.position.y),0,0);
 			}
-
 		}
-		//print((bigInterval.transform.InverseTransformPoint(ballLeft.transform.position).x+(bigIntervalWidth/2))*100000 + " - "+ ((bigInterval.transform.InverseTransformPoint(ballRight.transform.position).x+(bigIntervalWidth/2))*100000 ));
-		/* print(ballLeft.transform.localPosition.x + " - "+ (ballRight.transform.localPosition.x )); */
-/* 		print(ballRight.transform.InverseTransformPoint(bigInterval.transform.position).x);
-		print(ballRight.transform.localPosition.x);
-		 */
+
+        smallValue = (bigInterval.transform.InverseTransformPoint(ballLeft.transform.position).x + (bigIntervalWidth)) * maxValue;
+        bigValue = (bigInterval.transform.InverseTransformPoint(ballRight.transform.position).x + (bigIntervalWidth))*maxValue;
+        booliScript.currentPriceFilteringBig = bigValue;
+        booliScript.currentPriceFilteringSmall = smallValue;
+
+        print((bigInterval.transform.InverseTransformPoint(ballLeft.transform.position).x+(bigIntervalWidth))*maxValue + " - " + ((bigInterval.transform.InverseTransformPoint(ballRight.transform.position).x+(bigIntervalWidth))*maxValue ));
+        //print(bigInterval.transform.InverseTransformPoint(ballLeft.transform.position).x + bigIntervalWidth*maxValue + " - " + bigInterval.transform.InverseTransformPoint(ballRight.transform.position).x + bigIntervalWidth * maxValue);
+        //print(ballLeft.transform.localPosition.x + " - "+ (ballRight.transform.localPosition.x )); 
+        /* 		print(ballRight.transform.InverseTransformPoint(bigInterval.transform.position).x);
+                print(ballRight.transform.localPosition.x);
+                 */
 
 
 
 
 
-/* 		
-sphere3.transform.position = middleOfControllers;
-		lineRendererControllers.SetPosition(0,ballRight.transform.position);
-        lineRendererControllers.SetPosition(1,ballLeft.transform.position);
-		ballRight.transform.position = middleOfControllers - normalizedIntervalVector*5 ;
-		ballLeft.transform.position = middleOfControllers + normalizedIntervalVector*5 ;
-		lineRendererLeft.SetPosition(0,ballLeft.transform.position);
-        lineRendererLeft.SetPosition(1,  middleOfControllers + normalizedIntervalVector*10);
-		lineRendererRight.SetPosition(0,ballRight.transform.position);
-        lineRendererRight.SetPosition(1,  middleOfControllers - normalizedIntervalVector*10); */
-	
-	}
+        /* 		
+        sphere3.transform.position = middleOfControllers;
+                lineRendererControllers.SetPosition(0,ballRight.transform.position);
+                lineRendererControllers.SetPosition(1,ballLeft.transform.position);
+                ballRight.transform.position = middleOfControllers - normalizedIntervalVector*5 ;
+                ballLeft.transform.position = middleOfControllers + normalizedIntervalVector*5 ;
+                lineRendererLeft.SetPosition(0,ballLeft.transform.position);
+                lineRendererLeft.SetPosition(1,  middleOfControllers + normalizedIntervalVector*10);
+                lineRendererRight.SetPosition(0,ballRight.transform.position);
+                lineRendererRight.SetPosition(1,  middleOfControllers - normalizedIntervalVector*10); */
+
+    }
 }

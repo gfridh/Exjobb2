@@ -7,16 +7,19 @@ public class controllerCollision : MonoBehaviour {
     private Menu menuScript;
 	public GameObject interval;
 	private GameObject smallInterval;
-	private line interValScript;
+	private Line interValScript;
 	private bool intervalUp = false;
 	private GameObject instantiatedInterval;
 	public GameObject leftController;
 	public GameObject rightController;
+    public GameObject booliHolder;
+    private BooliApi booliScript;
 
 
 	// Use this for initialization
 	void Start () {
-		menuScript = menuController.GetComponent<Menu>();
+        booliScript = booliHolder.GetComponent<BooliApi>();
+        menuScript = menuController.GetComponent<Menu>();
 	}
 	
 	// Update is called once per frame
@@ -62,15 +65,19 @@ public class controllerCollision : MonoBehaviour {
 		else if(other.tag == "propertyPrice"){
 			if(!intervalUp){
 				instantiatedInterval = Instantiate(interval);
-				interValScript = GameObject.FindGameObjectWithTag("smallInterval").GetComponent<line>();
+				interValScript = GameObject.FindGameObjectWithTag("smallInterval").GetComponent<Line>();
 				interValScript.controllerLeft = leftController;
 				interValScript.controllerRight = rightController;
+                interValScript.maxValue = 5000000;
+                interValScript.minValue = 0;
 				intervalUp = true;
+                booliScript.filterActive = true;
 			}
 			else{
 				Destroy (instantiatedInterval);
 				intervalUp = false;
-			}
+                booliScript.filterActive = false;
+            }
 		}
 
 
