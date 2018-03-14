@@ -18,6 +18,7 @@ public class BooliApi : MonoBehaviour {
     public int offset = 0;
     public GameObject googleHolder;
     private GoogleApi googleScript;
+    private FilteringValues filteringValues;
     private float houseInternalLat;
     private float houseInternalLon;
     public object[] allListings;
@@ -26,6 +27,9 @@ public class BooliApi : MonoBehaviour {
     public float constructionYear;
     public float listPrice;
     public float plotArea;
+    public float rent;
+    public int priceDecrease;
+
     public bool filterActive = false;
     public float currentPriceFilteringBig;
     public float currentPriceFilteringSmall;
@@ -132,8 +136,23 @@ public class BooliApi : MonoBehaviour {
                             {
                                 plotArea = 0;
                             }
-                            
 
+                            if (o["listings"][i]["rent"] != null)
+                            {
+                                rent = (float)o["listings"][i]["rent"];
+                            }
+                            else
+                            {
+                                rent = 0;
+                            }
+                            if (o["listings"][i]["listPriceChange"] != null && (float)o["listings"][i]["listPriceChange"] < 0)
+                            {
+                                priceDecrease = 1;
+                            }
+                            else
+                            {
+                                priceDecrease = 0;
+                            }
 
 
 
@@ -146,7 +165,9 @@ public class BooliApi : MonoBehaviour {
                     house.GetComponent<HouseCoordinates>().livingArea = livingArea;
                     house.GetComponent<HouseCoordinates>().constructionYear = constructionYear;
                     house.GetComponent<HouseCoordinates>().plotArea = plotArea;
-                    placeHouseOnMap(longitude, latitude, house);
+                    house.GetComponent<HouseCoordinates>().rent = rent;
+                    house.GetComponent<HouseCoordinates>().priceDecrease = priceDecrease;
+                placeHouseOnMap(longitude, latitude, house);
 
 
                                 y++;
@@ -163,7 +184,8 @@ public class BooliApi : MonoBehaviour {
     {
         /* booliObject = JsonConvert.DeserializeObject<bigBooliObject>(File.ReadAllText(@"c:\Users/Bamse/0.json")) */;
         googleScript = googleHolder.GetComponent<GoogleApi>();
-        
+        filteringValues = GameObject.FindWithTag("FilteringValues").GetComponent<FilteringValues>();
+
         oldZoom = googleScript.zoom;
         List<object> allListings = new List<object>();
         StartCoroutine(go( allListings ));
@@ -270,9 +292,9 @@ private void placeHouseOnMap(float longitude , float lat, GameObject target){
     private bool FilterObjects(GameObject target)
     {
         if (
-            target.GetComponent<HouseCoordinates>().listPrice < currentPriceFilteringBig && target.GetComponent<HouseCoordinates>().listPrice > currentPriceFilteringSmall
-
-
+            target.GetComponent<HouseCoordinates>().listPrice < filteringValues.listPriceMax && target.GetComponent<HouseCoordinates>().listPrice > filteringValues.listpriceMin &&
+            target.GetComponent<HouseCoordinates>().rent < filteringValues.rentMax &&
+            target.GetComponent<HouseCoordinates>().priceDecrease == filteringValues.PriceDecrease
             )
         {
             return true;

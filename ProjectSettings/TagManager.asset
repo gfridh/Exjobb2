@@ -26,6 +26,8 @@ TagManager:
   - smallInterval
   - Map
   - fullMap
+  - FilteringValues
+  - bigInterval
   layers:
   - Default
   - TransparentFX

@@ -2,18 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class controllerCollision : MonoBehaviour {
+public class ControllerCollision : MonoBehaviour {
 	public GameObject menuController;
     private Menu menuScript;
 	public GameObject interval;
 	private GameObject smallInterval;
 	private Line interValScript;
-	private bool intervalUp = false;
-	private GameObject instantiatedInterval;
+	public bool intervalUp = false;
+	public GameObject instantiatedInterval;
 	public GameObject leftController;
 	public GameObject rightController;
+    public GameObject headObject;
     public GameObject booliHolder;
-    private BooliApi booliScript;
+    public BooliApi booliScript;
 
 
 	// Use this for initialization
@@ -66,19 +67,44 @@ public class controllerCollision : MonoBehaviour {
 			if(!intervalUp){
 				instantiatedInterval = Instantiate(interval);
 				interValScript = GameObject.FindGameObjectWithTag("smallInterval").GetComponent<Line>();
+                interValScript.head = headObject;
 				interValScript.controllerLeft = leftController;
 				interValScript.controllerRight = rightController;
                 interValScript.maxValue = 5000000;
                 interValScript.minValue = 0;
+                interValScript.currentFilter = "propertyPrice";
 				intervalUp = true;
                 booliScript.filterActive = true;
 			}
-			else{
-				Destroy (instantiatedInterval);
-				intervalUp = false;
+            else
+            {
+                Destroy(instantiatedInterval);
+                intervalUp = false;
                 booliScript.filterActive = false;
             }
-		}
+        }
+        else if (other.tag == "maxRent")
+        {
+            if (!intervalUp)
+            {
+                instantiatedInterval = Instantiate(interval);
+                interValScript = GameObject.FindGameObjectWithTag("smallInterval").GetComponent<Line>();
+                interValScript.controllerLeft = leftController;
+                interValScript.controllerRight = rightController;
+                interValScript.head = headObject;
+                interValScript.maxValue = 10000;
+                interValScript.minValue = 0;
+                interValScript.currentFilter = "rent";
+                intervalUp = true;
+                booliScript.filterActive = true;
+            }
+            else
+            {
+                Destroy(instantiatedInterval);
+                intervalUp = false;
+                booliScript.filterActive = false;
+            }
+        }
 
 
     }

@@ -4,6 +4,7 @@ using UnityEngine;
 using VRTK;
 
 public class Menu : MonoBehaviour {
+    private GameObject bigInterval;
 	private bool leftmenuActive = false;
 	private bool rightmenuActive = false;
 
@@ -31,11 +32,17 @@ public class Menu : MonoBehaviour {
 	private Line interValScript;
 	private bool intervalUp = false;
 	private GameObject instantiatedInterval;
+    private ControllerCollision leftControllerCollision;
+    private ControllerCollision rightControllerCollision;
 
 
-	// Use this for initialization
-	void Start () {
-		leftControllerObject.GetComponent<VRTK_ControllerEvents>().TriggerClicked += new ControllerInteractionEventHandler(LeftTriggerClicked);
+
+
+    // Use this for initialization
+    void Start () {
+        leftControllerCollision = leftControllerObject.GetComponent<ControllerCollision>();
+        rightControllerCollision = rightControllerObject.GetComponent<ControllerCollision>();
+        leftControllerObject.GetComponent<VRTK_ControllerEvents>().TriggerClicked += new ControllerInteractionEventHandler(LeftTriggerClicked);
 		rightControllerObject.GetComponent<VRTK_ControllerEvents>().TriggerClicked += new ControllerInteractionEventHandler(RightTriggerClicked);
 /* 		placeButton(2,4,90,0,false);
 		placeButton(2,3,90,90,false);
@@ -54,34 +61,34 @@ public class Menu : MonoBehaviour {
 				var pos = new Vector3 (Mathf.Cos(angle), Mathf.Sin(angle), 0) * radius;
 				if(inner){
                 if (list[i] == "price")
-                {
-                    temp = Instantiate(pricePrefab, pos, Quaternion.identity);
+                    {
+                        temp = Instantiate(pricePrefab, pos, Quaternion.identity);
 
-                }
-                else if (list[i] == "date")
-                {
-                    temp = Instantiate(datePrefab, pos, Quaternion.identity);
-                }
+                    }
+                    else if (list[i] == "date")
+                    {
+                        temp = Instantiate(datePrefab, pos, Quaternion.identity);
+                    }
 
-                else if (list[i] == "houseType")
-                {
-                    temp = Instantiate(houseTypePrefab, pos, Quaternion.identity);
-                }
-                else
-                {
-                    temp = Instantiate(areaPrefab, pos, Quaternion.identity);
-                }
+                    else if (list[i] == "houseType")
+                    {
+                        temp = Instantiate(houseTypePrefab, pos, Quaternion.identity);
+                    }
+                    else
+                    {
+                        temp = Instantiate(areaPrefab, pos, Quaternion.identity);
+                    }
 					
-					temp.transform.parent = parent.transform;
+					    temp.transform.parent = parent.transform;
 
-					temp.tag = list[i] ;    
-//					temp.transform.parent = parent.transform;
-					temp.transform.localPosition = pos;
-                    temp.transform.rotation = temp.transform.parent.rotation;
-                    temp.transform.Rotate(0,180,0);
-                //					temp.transform.LookAt(parent.transform.parent.transform.position);
+					    temp.tag = list[i] ;    
+    //					temp.transform.parent = parent.transform;
+					    temp.transform.localPosition = pos;
+                        temp.transform.rotation = temp.transform.parent.rotation;
+                        temp.transform.Rotate(0,180,0);
+                    //					temp.transform.LookAt(parent.transform.parent.transform.position);
 
-            }
+                }
 				else{
 					temp = Instantiate(outerCircleButton, pos, Quaternion.identity);
 					temp.tag = list[i] ;    
@@ -124,6 +131,13 @@ public class Menu : MonoBehaviour {
  					}
 					rightmenuActive = false;
 					rightMenuStuck = false;
+                    if (rightControllerCollision.intervalUp == true)
+                    {
+                        Destroy(rightControllerCollision.instantiatedInterval);
+                        rightControllerCollision.intervalUp = false;
+                        rightControllerCollision.booliScript.filterActive = false;
+                    }
+                    
 				}
 			}
 
@@ -164,7 +178,13 @@ public class Menu : MonoBehaviour {
  					}
 					leftmenuActive = false;
 					leftMenuStuck = false;
-				}
+                    if (leftControllerCollision.intervalUp == true)
+                    {
+                        Destroy(leftControllerCollision.instantiatedInterval);
+                        leftControllerCollision.intervalUp = false;
+                        leftControllerCollision.booliScript.filterActive = false;
+                    }
+            }
 			}
 
         }

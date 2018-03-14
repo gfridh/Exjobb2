@@ -7,7 +7,10 @@ public class Line : MonoBehaviour {
 
     public GameObject ballRight;
 	public GameObject ballLeft;
-	public LineRenderer lineRendererInterval;
+    public GameObject rightText;
+    public GameObject leftText;
+
+    public LineRenderer lineRendererInterval;
 	public LineRenderer lineRendererRight;
 	public LineRenderer lineRendererLeft;
 
@@ -19,8 +22,15 @@ public class Line : MonoBehaviour {
 
 	public GameObject smallInterval;
 	public GameObject bigInterval;
+
+    public FilteringValues filteringValues;
+
+    //determined by controllerCollision
     public float maxValue;
     public float minValue;
+    public string currentFilter;
+    private float intervalPosition;
+
     public float smallValue;
     public float bigValue;
 
@@ -30,14 +40,17 @@ public class Line : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        rightText = Instantiate(rightText,ballRight.transform);
+        leftText = Instantiate(leftText,ballLeft.transform);
         booliScript = GameObject.FindWithTag("fullMap").GetComponent<BooliApi>();
         lineRendererInterval.positionCount = 2;
 		lineRendererRight.positionCount = 2;
 		lineRendererLeft.positionCount = 2;
 		lineRendererRight.useWorldSpace = false;
 		lineRendererLeft.useWorldSpace = false;
-		
-	}
+        filteringValues = GameObject.FindWithTag("FilteringValues").GetComponent<FilteringValues>();
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -50,45 +63,61 @@ public class Line : MonoBehaviour {
 		lineRendererRight.SetPosition(1,new Vector3((bigIntervalWidth),ballRight.transform.localPosition.y,ballRight.transform.localPosition.z));
 		lineRendererLeft.SetPosition(0,ballLeft.transform.localPosition+smallInterval.transform.localPosition);
 		lineRendererLeft.SetPosition(1,new Vector3(-(bigIntervalWidth),ballLeft.transform.localPosition.y,ballLeft.transform.localPosition.z));
-		bigInterval.transform.position = middleOfControllers + new Vector3(0,0,0.5f);
+		bigInterval.transform.position = new Vector3(head.transform.position.x,middleOfControllers.y,middleOfControllers.z) + new Vector3(0,0,0.5f);
 
 		distanceBetweenControllers =  (new Vector3(controllerRight.transform.position.x,0,controllerRight.transform.position.z) - new Vector3(controllerLeft.transform.position.x,0,controllerLeft.transform.position.z)).magnitude-0.12f;
-/* 		distanceBetweenControllers = (controllerRight.transform.position.x - controllerLeft.transform.position.x); */
+        /* 		distanceBetweenControllers = (controllerRight.transform.position.x - controllerLeft.transform.position.x); */
 
-		if(distanceBetweenControllers > 0.5f){
+        intervalPosition =  middleOfControllers.x - head.transform.position.x;
+        smallInterval.transform.localPosition = new Vector3(0, 0, 0);
 
-			ballRight.transform.localPosition = new Vector3((bigIntervalWidth),0,0);
-			ballLeft.transform.localPosition = new Vector3(-(bigIntervalWidth),0,0);
-		}
-		else{
-			if(ballRight.transform.localPosition.x + (controllerLeft.transform.position.y-controllerRight.transform.position.y) > (bigIntervalWidth)){
-				ballRight.transform.localPosition = new Vector3((distanceBetweenControllers),0,0);
-				ballLeft.transform.localPosition = new Vector3(-(distanceBetweenControllers)+(controllerLeft.transform.position.y-controllerRight.transform.position.y)-smallInterval.transform.localPosition.x,0,0);
-				print("bollen är för långt till höger");
-				smallInterval.transform.localPosition = new Vector3((bigIntervalWidth)-(distanceBetweenControllers),0,0);
-			}
+		ballRight.transform.localPosition = new Vector3(controllerRight.transform.position.x - head.transform.position.x ,0,0);
+		ballLeft.transform.localPosition = new Vector3(controllerLeft.transform.position.x- head.transform.position.x, 0,0);
 
-			else if(ballLeft.transform.localPosition.x-(controllerRight.transform.position.y-controllerLeft.transform.position.y) < -(bigIntervalWidth)){
-				print("bollen är för långt till vänster");
-				ballRight.transform.localPosition = new Vector3((distanceBetweenControllers)+(controllerLeft.transform.position.y-controllerRight.transform.position.y)-smallInterval.transform.localPosition.x,0,0);
-				ballLeft.transform.localPosition = new Vector3(-(distanceBetweenControllers),0,0);
-				smallInterval.transform.localPosition = new Vector3(-(bigIntervalWidth)+(distanceBetweenControllers),0,0);
+		//else{
+		//	if(ballRight.transform.localPosition.x + intervalPosition > (bigIntervalWidth)){
+		//		ballRight.transform.localPosition = new Vector3((distanceBetweenControllers),0,0);
+		//		ballLeft.transform.localPosition = new Vector3(-(distanceBetweenControllers)+intervalPosition-smallInterval.transform.localPosition.x,0,0);
+		//		print("bollen är för långt till höger");
+		//		smallInterval.transform.localPosition = new Vector3((bigIntervalWidth)-(distanceBetweenControllers),0,0);
+		//	}
 
-			}
+		//	else if(ballLeft.transform.localPosition.x-intervalPosition < -(bigIntervalWidth)){
+		//		print("bollen är för långt till vänster");
+		//		ballRight.transform.localPosition = new Vector3((distanceBetweenControllers)+intervalPosition-smallInterval.transform.localPosition.x,0,0);
+		//		ballLeft.transform.localPosition = new Vector3(-(distanceBetweenControllers),0,0);
+
+
+		//	}
 				
-			else{
-				ballRight.transform.localPosition = new Vector3((distanceBetweenControllers),0,0);
-				ballLeft.transform.localPosition = new Vector3(-(distanceBetweenControllers),0,0);
-				smallInterval.transform.localPosition = new Vector3((controllerLeft.transform.position.y-controllerRight.transform.position.y),0,0);
-			}
-		}
+		//	else{
+		//		ballRight.transform.localPosition = new Vector3((distanceBetweenControllers),0,0);
+		//		ballLeft.transform.localPosition = new Vector3(-(distanceBetweenControllers),0,0);
+		//	}
+		//}
 
-        smallValue = (bigInterval.transform.InverseTransformPoint(ballLeft.transform.position).x + (bigIntervalWidth)) * maxValue;
-        bigValue = (bigInterval.transform.InverseTransformPoint(ballRight.transform.position).x + (bigIntervalWidth))*maxValue;
-        booliScript.currentPriceFilteringBig = bigValue;
-        booliScript.currentPriceFilteringSmall = smallValue;
 
-        print((bigInterval.transform.InverseTransformPoint(ballLeft.transform.position).x+(bigIntervalWidth))*maxValue + " - " + ((bigInterval.transform.InverseTransformPoint(ballRight.transform.position).x+(bigIntervalWidth))*maxValue ));
+            smallValue = (bigInterval.transform.InverseTransformPoint(ballLeft.transform.position).x + (bigIntervalWidth)) * maxValue;
+            bigValue = (bigInterval.transform.InverseTransformPoint(ballRight.transform.position).x + (bigIntervalWidth)) * maxValue;
+     
+
+
+        if (currentFilter == "rent")
+        {
+            filteringValues.rentMax = bigValue;
+            rightText.GetComponent<TextMesh>().text = (Mathf.Round((bigValue / 1000) * 10f) / 10f).ToString();
+            leftText.GetComponent<TextMesh>().text = (Mathf.Round((smallValue / 1000) * 10f) / 10f).ToString();
+        }
+
+        else if (currentFilter == "propertyPrice")
+        {
+            filteringValues.listPriceMax = bigValue;
+            filteringValues.listpriceMin = smallValue;
+            rightText.GetComponent<TextMesh>().text = (Mathf.Round((bigValue / 1000000) * 10f) / 10f).ToString();
+            leftText.GetComponent<TextMesh>().text = (Mathf.Round((smallValue / 1000000) * 10f) / 10f).ToString();
+        }
+
+        //print((bigInterval.transform.InverseTransformPoint(ballLeft.transform.position).x+(bigIntervalWidth))*maxValue + " - " + ((bigInterval.transform.InverseTransformPoint(ballRight.transform.position).x+(bigIntervalWidth))*maxValue ));
         //print(bigInterval.transform.InverseTransformPoint(ballLeft.transform.position).x + bigIntervalWidth*maxValue + " - " + bigInterval.transform.InverseTransformPoint(ballRight.transform.position).x + bigIntervalWidth * maxValue);
         //print(ballLeft.transform.localPosition.x + " - "+ (ballRight.transform.localPosition.x )); 
         /* 		print(ballRight.transform.InverseTransformPoint(bigInterval.transform.position).x);

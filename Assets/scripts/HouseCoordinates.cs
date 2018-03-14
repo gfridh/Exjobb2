@@ -11,6 +11,8 @@ public class HouseCoordinates : MonoBehaviour {
     public float livingArea;
     public float constructionYear;
     public float plotArea;
+    public float rent;
+    public int priceDecrease;
 
 
     // Use this for initialization

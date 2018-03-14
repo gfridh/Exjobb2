@@ -53,7 +53,7 @@ public class rayCast : MonoBehaviour
                     
                     prevDistance = Vector3.Distance (transform.position, googleHolder.transform.position);
                 }
-                else if(prevDistance - Vector3.Distance (transform.position, googleHolder.transform.position) < -0.2f){
+                else if(prevDistance - Vector3.Distance (transform.position, googleHolder.transform.position) < -0.2f && prevZoom != 8){
                     googleScript.lat = prevLat;
                     googleScript.lon = prevLon;
 
@@ -81,7 +81,6 @@ public class rayCast : MonoBehaviour
             Cube.transform.position = hit.point;
         }
         else{
-                         print("I'm looking at nothing!"); 
         }
 
     }
