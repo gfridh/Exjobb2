@@ -42,7 +42,7 @@ public class Menu : MonoBehaviour {
     void Start () {
         leftControllerCollision = leftControllerObject.GetComponent<ControllerCollision>();
         rightControllerCollision = rightControllerObject.GetComponent<ControllerCollision>();
-        leftControllerObject.GetComponent<VRTK_ControllerEvents>().TriggerClicked += new ControllerInteractionEventHandler(LeftTriggerClicked);
+        //leftControllerObject.GetComponent<VRTK_ControllerEvents>().TriggerClicked += new ControllerInteractionEventHandler(LeftTriggerClicked);
 		rightControllerObject.GetComponent<VRTK_ControllerEvents>().TriggerClicked += new ControllerInteractionEventHandler(RightTriggerClicked);
 /* 		placeButton(2,4,90,0,false);
 		placeButton(2,3,90,90,false);
@@ -91,10 +91,13 @@ public class Menu : MonoBehaviour {
                 }
 				else{
 					temp = Instantiate(outerCircleButton, pos, Quaternion.identity);
+                    temp.GetComponent<TextMesh>().text = list[i];
 					temp.tag = list[i] ;    
 					temp.transform.parent = parent.transform;
 					temp.transform.localPosition = pos;
-				}    
+                    temp.transform.rotation = temp.transform.parent.rotation;
+                    temp.transform.Rotate(0, 180, 0);
+            }    
 	
 		}
 	}
@@ -109,16 +112,26 @@ public class Menu : MonoBehaviour {
 				leftMenuStuck = false;
 			}
 			if(!rightmenuActive){
-				print("triggerClicked");
-				parent.transform.position = rightControllerObject.transform.position;
-				parent.transform.parent = rightControllerObject.transform;
-				List<string> bigButtons = new List<string>();
-				bigButtons.Add("price");
-				bigButtons.Add("date");
-				bigButtons.Add("houseType");
-				bigButtons.Add("area");
-				placeButton(1.5f,4,360,0,true,bigButtons);
-				rightmenuActive = true;
+                if (rightControllerCollision.intervalUp)
+                {
+                    Destroy(rightControllerCollision.instantiatedInterval);
+                    rightControllerCollision.intervalUp = false;
+                    rightControllerCollision.booliScript.filterActive = false;
+                }
+                else
+                {
+                    print("triggerClicked");
+                    parent.transform.position = rightControllerObject.transform.position;
+                    parent.transform.parent = rightControllerObject.transform;
+                    List<string> bigButtons = new List<string>();
+                    bigButtons.Add("price");
+                    bigButtons.Add("date");
+                    bigButtons.Add("houseType");
+                    bigButtons.Add("area");
+                    placeButton(1.5f, 4, 360, 0, true, bigButtons);
+                    rightmenuActive = true;
+            }
+
 			}
 			else{
 				if(!rightMenuStuck){
@@ -126,68 +139,64 @@ public class Menu : MonoBehaviour {
 					rightMenuStuck = true;
 				}
 				else{
-					 foreach (Transform child in parent.transform) {
-     					GameObject.Destroy(child.gameObject);
- 					}
-					rightmenuActive = false;
-					rightMenuStuck = false;
-                    if (rightControllerCollision.intervalUp == true)
-                    {
-                        Destroy(rightControllerCollision.instantiatedInterval);
-                        rightControllerCollision.intervalUp = false;
-                        rightControllerCollision.booliScript.filterActive = false;
-                    }
+                        foreach (Transform child in parent.transform)
+                        {
+                            GameObject.Destroy(child.gameObject);
+                        }
+                        rightmenuActive = false;
+                        rightMenuStuck = false;
+
                     
-				}
-			}
-
-        }
-
-
-		private void LeftTriggerClicked(object sender, ControllerInteractionEventArgs e)
-        {
-
-			if(rightmenuActive){
-				foreach (Transform child in parent.transform) {
-     				GameObject.Destroy(child.gameObject);
- 				}
-				rightmenuActive = false;
-				rightMenuStuck = false;
-			}
-
-			if(!leftmenuActive){
-				print("triggerClicked");
-				parent.transform.position = leftControllerObject.transform.position;
-				parent.transform.parent = leftControllerObject.transform;
-				List<string> bigButtons = new List<string>();
-				bigButtons.Add("price");
-				bigButtons.Add("date");
-				bigButtons.Add("houseType");
-				bigButtons.Add("area");
-				placeButton(1.5f,4,360,0,true,bigButtons);
-				leftmenuActive = true;
-			}
-			else{
-				if(!leftMenuStuck){
-					parent.transform.parent = null;
-					leftMenuStuck = true;
-				}
-				else{
-					 foreach (Transform child in parent.transform) {
-     					GameObject.Destroy(child.gameObject);
- 					}
-					leftmenuActive = false;
-					leftMenuStuck = false;
-                    if (leftControllerCollision.intervalUp == true)
-                    {
-                        Destroy(leftControllerCollision.instantiatedInterval);
-                        leftControllerCollision.intervalUp = false;
-                        leftControllerCollision.booliScript.filterActive = false;
-                    }
             }
 			}
 
         }
+
+
+		//private void LeftTriggerClicked(object sender, ControllerInteractionEventArgs e)
+  //      {
+
+		//	if(rightmenuActive){
+		//		foreach (Transform child in parent.transform) {
+  //   				GameObject.Destroy(child.gameObject);
+ 	//			}
+		//		rightmenuActive = false;
+		//		rightMenuStuck = false;
+		//	}
+
+		//	if(!leftmenuActive){
+		//		print("triggerClicked");
+		//		parent.transform.position = leftControllerObject.transform.position;
+		//		parent.transform.parent = leftControllerObject.transform;
+		//		List<string> bigButtons = new List<string>();
+		//		bigButtons.Add("price");
+		//		bigButtons.Add("date");
+		//		bigButtons.Add("houseType");
+		//		bigButtons.Add("area");
+		//		placeButton(1.5f,4,360,0,true,bigButtons);
+		//		leftmenuActive = true;
+		//	}
+		//	else{
+		//		if(!leftMenuStuck){
+		//			parent.transform.parent = null;
+		//			leftMenuStuck = true;
+		//		}
+		//		else{
+		//			 foreach (Transform child in parent.transform) {
+  //   					GameObject.Destroy(child.gameObject);
+ 	//				}
+		//			leftmenuActive = false;
+		//			leftMenuStuck = false;
+  //                  if (leftControllerCollision.intervalUp == true)
+  //                  {
+  //                      Destroy(leftControllerCollision.instantiatedInterval);
+  //                      leftControllerCollision.intervalUp = false;
+  //                      leftControllerCollision.booliScript.filterActive = false;
+  //                  }
+  //          }
+		//	}
+
+  //      }
 }
 
 

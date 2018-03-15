@@ -1130,6 +1130,9 @@ MonoBehaviour:
   headObject: {fileID: 517548233}
   booliHolder: {fileID: 1214165399}
   booliScript: {fileID: 0}
+  BinaryParent: {fileID: 1393282137551120, guid: 066144c3dd2c49148806f87855b0df29,
+    type: 2}
+  binaryParent: {fileID: 0}
 --- !u!54 &219801698
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1318,7 +1321,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 4e99de4e0ed076f44bcc4ad47ecdb323, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1363,7 +1366,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 254963996}
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -150, y: -93, z: 0}
+  m_LocalPosition: {x: -65.1, y: -93, z: 0}
   m_LocalScale: {x: 500, y: 6.8215437, z: 519.44635}
   m_Children: []
   m_Father: {fileID: 0}
@@ -4257,48 +4260,6 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 742788210}
---- !u!1001 &764027117
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4156803864216906, guid: bb8c3910b48f92540b9f0bf01ceaaa61, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4156803864216906, guid: bb8c3910b48f92540b9f0bf01ceaaa61, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4156803864216906, guid: bb8c3910b48f92540b9f0bf01ceaaa61, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4156803864216906, guid: bb8c3910b48f92540b9f0bf01ceaaa61, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4156803864216906, guid: bb8c3910b48f92540b9f0bf01ceaaa61, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4156803864216906, guid: bb8c3910b48f92540b9f0bf01ceaaa61, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4156803864216906, guid: bb8c3910b48f92540b9f0bf01ceaaa61, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4156803864216906, guid: bb8c3910b48f92540b9f0bf01ceaaa61, type: 2}
-      propertyPath: m_RootOrder
-      value: 17
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: bb8c3910b48f92540b9f0bf01ceaaa61, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1 &772442821
 GameObject:
   m_ObjectHideFlags: 0
@@ -8362,7 +8323,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 4e99de4e0ed076f44bcc4ad47ecdb323, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -8407,7 +8368,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1579438646}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 96, z: 0}
+  m_LocalPosition: {x: 0, y: 66.6, z: 0}
   m_LocalScale: {x: 520.0098, y: 6.8215437, z: 519.44635}
   m_Children: []
   m_Father: {fileID: 0}
@@ -8563,6 +8524,8 @@ MonoBehaviour:
   headObject: {fileID: 517548233}
   booliHolder: {fileID: 1214165399}
   booliScript: {fileID: 0}
+  BinaryParent: {fileID: 0}
+  binaryParent: {fileID: 0}
 --- !u!1 &1614787846
 GameObject:
   m_ObjectHideFlags: 0
@@ -8977,7 +8940,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 4e99de4e0ed076f44bcc4ad47ecdb323, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -9022,7 +8985,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1658978911}
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 150, y: -93, z: 0}
+  m_LocalPosition: {x: 68.8, y: -93, z: 0}
   m_LocalScale: {x: 520.0098, y: 6.8215437, z: 519.44635}
   m_Children: []
   m_Father: {fileID: 0}
@@ -9788,7 +9751,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 4e99de4e0ed076f44bcc4ad47ecdb323, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -9833,7 +9796,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1770700307}
   m_LocalRotation: {x: -0.7071068, y: -0, z: 0.7071068, w: 0}
-  m_LocalPosition: {x: 11, y: -93, z: 157}
+  m_LocalPosition: {x: 11, y: -64, z: 157}
   m_LocalScale: {x: 520.0098, y: 6.8215437, z: 519.44635}
   m_Children: []
   m_Father: {fileID: 0}
@@ -10693,6 +10656,8 @@ MonoBehaviour:
   listpriceMin: 0
   listPriceMax: 10000000
   rentMax: 100000000
+  plotAreaMin: 0
+  plotAreaMax: 100000000
   PriceDecrease: 0
 --- !u!4 &1933109062
 Transform:
@@ -11126,7 +11091,7 @@ MonoBehaviour:
   radiusY: 0
   innerCircleButton: {fileID: 1802190989681168, guid: 365a33e21f4848045a751b4b73724969,
     type: 2}
-  outerCircleButton: {fileID: 1790387580943428, guid: e8b5a6c01255ffc428d6e10ef28c3f4e,
+  outerCircleButton: {fileID: 1490086311973442, guid: 2f8b6c3a6b31e5148b73eedabc355efb,
     type: 2}
   pricePrefab: {fileID: 1434135894910862, guid: 0d6e1a3c18bc1344aa1a5aac44489f7a,
     type: 2}

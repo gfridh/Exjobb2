@@ -292,9 +292,13 @@ private void placeHouseOnMap(float longitude , float lat, GameObject target){
     private bool FilterObjects(GameObject target)
     {
         if (
-            target.GetComponent<HouseCoordinates>().listPrice < filteringValues.listPriceMax && target.GetComponent<HouseCoordinates>().listPrice > filteringValues.listpriceMin &&
-            target.GetComponent<HouseCoordinates>().rent < filteringValues.rentMax &&
-            target.GetComponent<HouseCoordinates>().priceDecrease == filteringValues.PriceDecrease
+            target.GetComponent<HouseCoordinates>().listPrice <= filteringValues.listPriceMax 
+            && target.GetComponent<HouseCoordinates>().listPrice >= filteringValues.listpriceMin 
+            && target.GetComponent<HouseCoordinates>().rent <= filteringValues.rentMax
+            && target.GetComponent<HouseCoordinates>().priceDecrease == filteringValues.PriceDecrease 
+            && target.GetComponent<HouseCoordinates>().plotArea <= filteringValues.plotAreaMax
+            && target.GetComponent<HouseCoordinates>().plotArea >= filteringValues.plotAreaMin
+
             )
         {
             return true;

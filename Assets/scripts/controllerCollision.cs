@@ -15,6 +15,8 @@ public class ControllerCollision : MonoBehaviour {
     public GameObject headObject;
     public GameObject booliHolder;
     public BooliApi booliScript;
+    public GameObject BinaryParent;
+    public GameObject binaryParent;
 
 
 	// Use this for initialization
@@ -70,7 +72,7 @@ public class ControllerCollision : MonoBehaviour {
                 interValScript.head = headObject;
 				interValScript.controllerLeft = leftController;
 				interValScript.controllerRight = rightController;
-                interValScript.maxValue = 5000000;
+                interValScript.maxValue = 10000000;
                 interValScript.minValue = 0;
                 interValScript.currentFilter = "propertyPrice";
 				intervalUp = true;
@@ -92,9 +94,10 @@ public class ControllerCollision : MonoBehaviour {
                 interValScript.controllerLeft = leftController;
                 interValScript.controllerRight = rightController;
                 interValScript.head = headObject;
-                interValScript.maxValue = 10000;
+                interValScript.maxValue = 20000;
                 interValScript.minValue = 0;
                 interValScript.currentFilter = "rent";
+                interValScript.oneWayInterval = true;
                 intervalUp = true;
                 booliScript.filterActive = true;
             }
@@ -105,7 +108,32 @@ public class ControllerCollision : MonoBehaviour {
                 booliScript.filterActive = false;
             }
         }
-
+        else if (other.tag == "plotArea")
+        {
+            if (!intervalUp)
+            {
+                instantiatedInterval = Instantiate(interval);
+                interValScript = GameObject.FindGameObjectWithTag("smallInterval").GetComponent<Line>();
+                interValScript.controllerLeft = leftController;
+                interValScript.controllerRight = rightController;
+                interValScript.head = headObject;
+                interValScript.maxValue = 50000;
+                interValScript.minValue = 0;
+                interValScript.currentFilter = "plotArea";
+                intervalUp = true;
+                booliScript.filterActive = true;
+            }
+            else
+            {
+                Destroy(instantiatedInterval);
+                intervalUp = false;
+                booliScript.filterActive = false;
+            }
+        }
+        else if (other.tag == "priceReduced")
+        {
+            BinaryFilter(other.tag);
+        }
 
     }
 
@@ -118,4 +146,10 @@ public class ControllerCollision : MonoBehaviour {
 			i++;
  		}
 	}
+
+    private void BinaryFilter(string type)
+    {
+        binaryParent = Instantiate(BinaryParent);
+        binaryParent.transform.position = rightController.transform.position ;
+    }
 }
