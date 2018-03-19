@@ -2175,7 +2175,6 @@ MonoBehaviour:
   mapHeight: 512
   mapSelected: 0
   scale: 0
-  camera: {fileID: 0}
 --- !u!114 &349996432
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2764,7 +2763,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 4e99de4e0ed076f44bcc4ad47ecdb323, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2872,7 +2871,6 @@ MonoBehaviour:
   mapHeight: 512
   mapSelected: 0
   scale: 0
-  camera: {fileID: 517548233}
 --- !u!114 &480438309
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7711,7 +7709,6 @@ MonoBehaviour:
   mapHeight: 512
   mapSelected: 0
   scale: 0
-  camera: {fileID: 0}
 --- !u!114 &1493114937
 MonoBehaviour:
   m_ObjectHideFlags: 0

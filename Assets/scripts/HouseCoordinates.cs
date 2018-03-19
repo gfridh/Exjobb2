@@ -7,12 +7,15 @@ public class HouseCoordinates : MonoBehaviour {
     public float latitude;
     public float listPrice;
     //public float objectType;
-    public float rooms;
+    public float numberOfrooms;
     public float livingArea;
     public float constructionYear;
     public float plotArea;
     public float rent;
     public int priceDecrease;
+    public string houseType;
+    public float m2Price;
+    public int soonForSale;
 
 
     // Use this for initialization

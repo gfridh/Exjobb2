@@ -139,6 +139,7 @@ public class Menu : MonoBehaviour {
 					rightMenuStuck = true;
 				}
 				else{
+                        
                         foreach (Transform child in parent.transform)
                         {
                             GameObject.Destroy(child.gameObject);

@@ -41,9 +41,9 @@ public class rayCast : MonoBehaviour
 /*             print(((internalCoordinates.y/256)*(170/Mathf.Pow(2, zoomLevel)/2)*2 + currentMiddlelatitude));
             print((internalCoordinates.x/256)*(360/Mathf.Pow(2, zoomLevel)/2)*2 + currentMiddlelongitude); */
             
-            if (movementDifference > 0.2f || movementDifference < -0.2f ){
+            if (movementDifference > 0.3f || movementDifference < -0.3f ){
                 prevZoom = googleScript.zoom;
-                if(prevDistance - Vector3.Distance (transform.position, googleHolder.transform.position) > 0.2f){
+                if(prevDistance - Vector3.Distance (transform.position, googleHolder.transform.position) > 0.3f){
                     googleScript.lat = (internalCoordinates.y / 64) * (170 / Mathf.Pow(2, zoomLevel) / 2) * 2 + currentMiddlelatitude;
                     googleScript.lon = (internalCoordinates.x / 64) * (360 / Mathf.Pow(2, zoomLevel) / 2) * 2 + currentMiddlelongitude;
                     prevLat = googleScript.lat;
@@ -53,7 +53,7 @@ public class rayCast : MonoBehaviour
                     
                     prevDistance = Vector3.Distance (transform.position, googleHolder.transform.position);
                 }
-                else if(prevDistance - Vector3.Distance (transform.position, googleHolder.transform.position) < -0.2f && prevZoom != 8){
+                else if(prevDistance - Vector3.Distance (transform.position, googleHolder.transform.position) < -0.3f && prevZoom != 8){
                     googleScript.lat = prevLat;
                     googleScript.lon = prevLon;
 

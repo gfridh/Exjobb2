@@ -17,13 +17,16 @@ public class ControllerCollision : MonoBehaviour {
     public BooliApi booliScript;
     public GameObject BinaryParent;
     public GameObject binaryParent;
+    private FilteringValues filteringValues;
 
 
-	// Use this for initialization
-	void Start () {
+
+    // Use this for initialization
+    void Start () {
         booliScript = booliHolder.GetComponent<BooliApi>();
         menuScript = menuController.GetComponent<Menu>();
-	}
+        filteringValues = GameObject.FindWithTag("FilteringValues").GetComponent<FilteringValues>();
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -47,9 +50,8 @@ public class ControllerCollision : MonoBehaviour {
 			removeChilds();
 			List<string> dateButtons = new List<string>();
 			dateButtons.Add("constructionYear");
-			dateButtons.Add("newProduction");
 			dateButtons.Add("soonForSale");
-			menuScript.placeButton(3,3,90,90,false,dateButtons);
+			menuScript.placeButton(3,2,90,90,false,dateButtons);
 		}
 		else if(other.tag == "houseType"){
 			removeChilds();
@@ -65,6 +67,10 @@ public class ControllerCollision : MonoBehaviour {
 			areaButtons.Add("plotArea");
 			menuScript.placeButton(3,3,90,270,false,areaButtons);
 		}
+
+
+
+
 		else if(other.tag == "propertyPrice"){
 			if(!intervalUp){
 				instantiatedInterval = Instantiate(interval);
@@ -130,9 +136,42 @@ public class ControllerCollision : MonoBehaviour {
                 booliScript.filterActive = false;
             }
         }
+
+        else if (other.tag == "numberOfRooms")
+        {
+            if (!intervalUp)
+            {
+                instantiatedInterval = Instantiate(interval);
+                interValScript = GameObject.FindGameObjectWithTag("smallInterval").GetComponent<Line>();
+                interValScript.controllerLeft = leftController;
+                interValScript.controllerRight = rightController;
+                interValScript.head = headObject;
+                interValScript.maxValue = 10;
+                interValScript.minValue = 0;
+                interValScript.currentFilter = "numberOfRooms";
+                intervalUp = true;
+                booliScript.filterActive = true;
+            }
+            else
+            {
+                Destroy(instantiatedInterval);
+                intervalUp = false;
+                booliScript.filterActive = false;
+            }
+        }
+
         else if (other.tag == "priceReduced")
         {
             BinaryFilter(other.tag);
+        }
+
+        if(other.tag == "yes")
+        {
+            filteringValues.PriceDecrease = 1;
+        }
+        else if (other.tag == "no")
+        {
+            filteringValues.PriceDecrease = 0;
         }
 
     }
@@ -149,7 +188,18 @@ public class ControllerCollision : MonoBehaviour {
 
     private void BinaryFilter(string type)
     {
-        binaryParent = Instantiate(BinaryParent);
-        binaryParent.transform.position = rightController.transform.position ;
+        if (!intervalUp)
+        {
+            instantiatedInterval = Instantiate(BinaryParent);
+            instantiatedInterval.transform.position = rightController.transform.position;
+            intervalUp = true;
+            booliScript.filterActive = true;
+        }
+        else
+        {
+            Destroy(instantiatedInterval);
+            intervalUp = false;
+            booliScript.filterActive = false;
+        }
     }
 }

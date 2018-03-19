@@ -151,11 +151,11 @@ public class Line : MonoBehaviour {
             leftText.GetComponent<TextMesh>().text = " ";
             if (bigValue>maxValue)
             {
-                rightText.GetComponent<TextMesh>().text = (Mathf.Round((maxValue / 1000) * 10f) / 10f).ToString()+"+";
+                rightText.GetComponent<TextMesh>().text = (Mathf.Round((maxValue / 1000) * 10f) / 10f).ToString()+"t"+"+";
             }
             else
             {
-                rightText.GetComponent<TextMesh>().text = (Mathf.Round((bigValue / 1000) * 10f) / 10f).ToString();
+                rightText.GetComponent<TextMesh>().text = (Mathf.Round((bigValue / 1000) * 10f) / 10f).ToString()+"t";
             }
         }
 
@@ -163,14 +163,14 @@ public class Line : MonoBehaviour {
         {
             filteringValues.listPriceMax = bigValue;
             filteringValues.listpriceMin = smallValue;
-            leftText.GetComponent<TextMesh>().text = (Mathf.Round((smallValue / 1000000) * 10f) / 10f).ToString();
+            leftText.GetComponent<TextMesh>().text = (Mathf.Round((smallValue / 1000000) * 10f) / 10f).ToString() + "M";
             if (bigValue > maxValue)
             {
-                rightText.GetComponent<TextMesh>().text = (Mathf.Round((maxValue / 1000000) * 10f) / 10f).ToString() + "+";
+                rightText.GetComponent<TextMesh>().text = (Mathf.Round((maxValue / 1000000) * 10f) / 10f).ToString()+"M" + "+";
             }
             else
             {
-                rightText.GetComponent<TextMesh>().text = (Mathf.Round((bigValue / 1000000) * 10f) / 10f).ToString();
+                rightText.GetComponent<TextMesh>().text = (Mathf.Round((bigValue / 1000000) * 10f) / 10f).ToString()+ "M";
             }
 
         }
@@ -186,15 +186,34 @@ public class Line : MonoBehaviour {
             leftText.GetComponent<TextMesh>().text = Mathf.Round(smallValue).ToString();
             if (bigValue > maxValue)
             {
-                rightText.GetComponent<TextMesh>().text = Mathf.Round(bigValue).ToString() + "+";
+                rightText.GetComponent<TextMesh>().text = Mathf.Round(bigValue).ToString() + "m2"+ "+";
             }
             else
             {
-                rightText.GetComponent<TextMesh>().text = Mathf.Round(bigValue).ToString();
+                rightText.GetComponent<TextMesh>().text = Mathf.Round(bigValue).ToString() + "m2";
             }
 
 
         }
+
+
+        else if (currentFilter == "numberOfRooms")
+
+        {
+            filteringValues.numberOfRoomsMax = Mathf.RoundToInt(bigValue);
+            filteringValues.numberOfRoomsMin = Mathf.RoundToInt(smallValue);
+            leftText.GetComponent<TextMesh>().text = Mathf.RoundToInt(smallValue).ToString() + " rooms";
+            if (Mathf.RoundToInt(bigValue) > maxValue)
+            {
+                rightText.GetComponent<TextMesh>().text = maxValue.ToString() + "rooms" + "+";
+            }
+            else
+            {
+                rightText.GetComponent<TextMesh>().text = Mathf.RoundToInt(bigValue).ToString() + "rooms";
+            }
+
+        }
+
 
 
         //print((bigInterval.transform.InverseTransformPoint(ballLeft.transform.position).x+(bigIntervalWidth))*maxValue + " - " + ((bigInterval.transform.InverseTransformPoint(ballRight.transform.position).x+(bigIntervalWidth))*maxValue ));

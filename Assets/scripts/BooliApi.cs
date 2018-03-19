@@ -22,13 +22,16 @@ public class BooliApi : MonoBehaviour {
     private float houseInternalLat;
     private float houseInternalLon;
     public object[] allListings;
-    public float rooms;
+    public float numberOfrooms;
     public float livingArea;
     public float constructionYear;
     public float listPrice;
     public float plotArea;
     public float rent;
     public int priceDecrease;
+    public string houseType;
+    public float m2Price;
+    public int soonForSale;
 
     public bool filterActive = false;
     public float currentPriceFilteringBig;
@@ -100,11 +103,11 @@ public class BooliApi : MonoBehaviour {
 
                             if ( o["listings"][i]["rooms"] != null)
                             {
-                                 rooms = (float)o["listings"][i]["rooms"];
+                                 numberOfrooms = (float)o["listings"][i]["rooms"];
                             }
                             else
                             {
-                                rooms = 0;
+                                numberOfrooms = 0;
                             }
 
 
@@ -115,6 +118,7 @@ public class BooliApi : MonoBehaviour {
                             else
                             {
                                 livingArea = 0;
+
                             }
 
                                
@@ -125,6 +129,7 @@ public class BooliApi : MonoBehaviour {
                             else
                             {
                                 constructionYear = 0;
+                                
                             }
 
 
@@ -144,7 +149,9 @@ public class BooliApi : MonoBehaviour {
                             else
                             {
                                 rent = 0;
+                                   
                             }
+
                             if (o["listings"][i]["listPriceChange"] != null && (float)o["listings"][i]["listPriceChange"] < 0)
                             {
                                 priceDecrease = 1;
@@ -154,23 +161,31 @@ public class BooliApi : MonoBehaviour {
                                 priceDecrease = 0;
                             }
 
+                            m2Price = listPrice / livingArea;
+                            
+                            houseType = "lagenhet";
+                            soonForSale = 0;
 
 
 
-                GameObject house = Instantiate(housePrefab, new Vector3(0, 0, 0), Quaternion.Euler(new Vector3(90, 0, 0))) as GameObject;
-                    house.GetComponent<HouseCoordinates>().longitude = longitude;
-                    house.GetComponent<HouseCoordinates>().latitude = latitude;
-                    house.GetComponent<HouseCoordinates>().listPrice = listPrice;
-                    house.GetComponent<HouseCoordinates>().rooms = rooms;
-                    house.GetComponent<HouseCoordinates>().livingArea = livingArea;
-                    house.GetComponent<HouseCoordinates>().constructionYear = constructionYear;
-                    house.GetComponent<HouseCoordinates>().plotArea = plotArea;
-                    house.GetComponent<HouseCoordinates>().rent = rent;
-                    house.GetComponent<HouseCoordinates>().priceDecrease = priceDecrease;
-                placeHouseOnMap(longitude, latitude, house);
+
+                            GameObject house = Instantiate(housePrefab, new Vector3(0, 0, 0), Quaternion.Euler(new Vector3(90, 0, 0))) as GameObject;
+                            house.GetComponent<HouseCoordinates>().longitude = longitude;
+                            house.GetComponent<HouseCoordinates>().latitude = latitude;
+                            house.GetComponent<HouseCoordinates>().listPrice = listPrice;
+                            house.GetComponent<HouseCoordinates>().numberOfrooms = numberOfrooms;
+                            house.GetComponent<HouseCoordinates>().livingArea = livingArea;
+                            house.GetComponent<HouseCoordinates>().constructionYear = constructionYear;
+                            house.GetComponent<HouseCoordinates>().plotArea = plotArea;
+                            house.GetComponent<HouseCoordinates>().rent = rent;
+                            house.GetComponent<HouseCoordinates>().priceDecrease = priceDecrease;
+                            house.GetComponent<HouseCoordinates>().houseType = houseType;
+                            house.GetComponent<HouseCoordinates>().m2Price = m2Price;
+                            house.GetComponent<HouseCoordinates>().soonForSale = soonForSale;
+                            placeHouseOnMap(longitude, latitude, house);
 
 
-                                y++;
+                            y++;
 
                         }
 
@@ -298,6 +313,8 @@ private void placeHouseOnMap(float longitude , float lat, GameObject target){
             && target.GetComponent<HouseCoordinates>().priceDecrease == filteringValues.PriceDecrease 
             && target.GetComponent<HouseCoordinates>().plotArea <= filteringValues.plotAreaMax
             && target.GetComponent<HouseCoordinates>().plotArea >= filteringValues.plotAreaMin
+            && target.GetComponent<HouseCoordinates>().numberOfrooms >= filteringValues.numberOfRoomsMin
+            && target.GetComponent<HouseCoordinates>().numberOfrooms <= filteringValues.numberOfRoomsMax
 
             )
         {

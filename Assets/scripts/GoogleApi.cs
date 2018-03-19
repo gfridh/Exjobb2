@@ -25,9 +25,8 @@ public class GoogleApi : MonoBehaviour
     public enum mapType { roadmap, satellite, hybrid, terrain }
     public mapType mapSelected;
     public int scale;
+    private Material material;
 
-    public GameObject camera;
-    
 
 
     public IEnumerator Map()
@@ -39,11 +38,8 @@ public class GoogleApi : MonoBehaviour
         WWW www = new WWW(url);
         yield return www;
         img.texture = www.texture;
-        Material material = new Material(Shader.Find("Diffuse"));
-        material.mainTexture = www.texture;
         plane.GetComponent<Renderer>().material = material;
         /*         img.SetNativeSize(); */
-        prevZoom = zoom;
 
     }
     // Use this for initialization
@@ -51,38 +47,18 @@ public class GoogleApi : MonoBehaviour
     {
         StartCoroutine(Map());
         img = gameObject.GetComponent<RawImage>();
-/*         GetComponent<RectTransform>().sizeDelta = new Vector2( W, H) */
+        /*         GetComponent<RectTransform>().sizeDelta = new Vector2( W, H) */
     }
 
     // Update is called once per frame
     void Update()
-    {   
-        if(zoom != prevZoom){
+    {
+        if (zoom != prevZoom)
+        {
+            print("zoomar");
             StartCoroutine(Map());
+            prevZoom = zoom;
         }
-        var dist = Vector3.Distance(camera.transform.position, transform.position);
-/*         Debug.Log(dist); */
-/*         if(dist > 1000 && zoom != 8){
-            zoom = 8;
-            StartCoroutine(Map());
-        }
-        else if (dist>=600 && dist<=800 && zoom != 9){
-            zoom = 10;
-            StartCoroutine(Map());
-        }
-        else if (dist < 600 && dist>=400 && zoom != 10){
-            zoom = 12;
-            StartCoroutine(Map());
-        }
-        else if (dist < 400 && dist>=200 && zoom != 11){
-            zoom = 14;
-            StartCoroutine(Map());
-        }
-        else if (dist < 200 && zoom != 12){
-            zoom = 16;
-            StartCoroutine(Map());
-        }
- */
 
     }
 }
