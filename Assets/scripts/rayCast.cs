@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class rayCast : MonoBehaviour
 {
@@ -38,9 +39,12 @@ public class rayCast : MonoBehaviour
         if (Physics.Raycast(ray, out hit) && hit.transform.tag == "Map")
         {
             internalCoordinates = map.transform.InverseTransformPoint( hit.point );
-/*             print(((internalCoordinates.y/256)*(170/Mathf.Pow(2, zoomLevel)/2)*2 + currentMiddlelatitude));
-            print((internalCoordinates.x/256)*(360/Mathf.Pow(2, zoomLevel)/2)*2 + currentMiddlelongitude); */
-            
+            /*             print(((internalCoordinates.y/256)*(170/Mathf.Pow(2, zoomLevel)/2)*2 + currentMiddlelatitude));
+                        print((internalCoordinates.x/256)*(360/Mathf.Pow(2, zoomLevel)/2)*2 + currentMiddlelongitude); */
+            Color tmp = Cube.GetComponent<SpriteRenderer>().color;
+            print((Mathf.Abs(movementDifference) / 0.3f));
+            tmp.a = (Mathf.Abs(movementDifference)/0.3f);
+            Cube.GetComponent<SpriteRenderer>().color = tmp;
             if (movementDifference > 0.3f || movementDifference < -0.3f ){
                 prevZoom = googleScript.zoom;
                 if(prevDistance - Vector3.Distance (transform.position, googleHolder.transform.position) > 0.3f){

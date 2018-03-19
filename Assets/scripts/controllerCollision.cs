@@ -34,9 +34,29 @@ public class ControllerCollision : MonoBehaviour {
 		
 	}
 
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.GetComponent<TextMesh>())
+        {
+
+            other.GetComponent<TextMesh>().color = Color.blue;
+            other.GetComponent<TextMesh>().fontSize = 100;
+            Destroy(instantiatedInterval);
+            intervalUp = false;
+
+        }
+    }
+
     void OnTriggerEnter(Collider other) {
-		print(other.tag);
-        if(other.tag == "price"){
+        if(other.GetComponent<TextMesh>())
+        {
+
+            other.GetComponent<TextMesh>().color = Color.yellow;
+            other.GetComponent<TextMesh>().fontSize = 150;
+
+
+        }
+        if (other.tag == "price"){
 			removeChilds();
 			List<string> priceButtons = new List<string>();
 			priceButtons.Add("propertyPrice");
