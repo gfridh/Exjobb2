@@ -185,13 +185,64 @@ public class ControllerCollision : MonoBehaviour {
             BinaryFilter(other.tag);
         }
 
-        if(other.tag == "yes")
-        {
-            filteringValues.PriceDecrease = 1;
+            if(other.tag == "yes")
+            {
+                filteringValues.PriceDecrease = 1;
+            }
+            else if (other.tag == "no")
+            {
+                filteringValues.PriceDecrease = 0;
         }
-        else if (other.tag == "no")
+
+
+        else if (other.tag == "livingArea")
+
         {
-            filteringValues.PriceDecrease = 0;
+            if (!intervalUp)
+            {
+                instantiatedInterval = Instantiate(interval);
+                interValScript = GameObject.FindGameObjectWithTag("smallInterval").GetComponent<Line>();
+                interValScript.controllerLeft = leftController;
+                interValScript.controllerRight = rightController;
+                interValScript.head = headObject;
+                interValScript.maxValue = 500;
+                interValScript.minValue = 0;
+                interValScript.currentFilter = "livingArea";
+                intervalUp = true;
+                booliScript.filterActive = true;
+            }
+            else
+            {
+                Destroy(instantiatedInterval);
+                intervalUp = false;
+                booliScript.filterActive = false;
+            }
+
+        }
+
+        else if (other.tag == "constructionYear")
+
+        {
+            if (!intervalUp)
+            {
+                instantiatedInterval = Instantiate(interval);
+                interValScript = GameObject.FindGameObjectWithTag("smallInterval").GetComponent<Line>();
+                interValScript.controllerLeft = leftController;
+                interValScript.controllerRight = rightController;
+                interValScript.head = headObject;
+                interValScript.maxValue = 518;
+                interValScript.minValue = 0;
+                interValScript.currentFilter = "constructionYear";
+                intervalUp = true;
+                booliScript.filterActive = true;
+            }
+            else
+            {
+                Destroy(instantiatedInterval);
+                intervalUp = false;
+                booliScript.filterActive = false;
+            }
+
         }
 
     }

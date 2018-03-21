@@ -22,6 +22,8 @@ public class Line : MonoBehaviour {
 
 	public GameObject smallInterval;
 	public GameObject bigInterval;
+    private float handPositionModulation = 0.08f;
+    private float distanceBetweenBalls;
 
     public FilteringValues filteringValues;
 
@@ -41,8 +43,8 @@ public class Line : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        rightText = Instantiate(rightText,ballRight.transform);
-        leftText = Instantiate(leftText,ballLeft.transform);
+        rightText = GameObject.Find("highValue");
+        leftText = GameObject.Find("lowValue");
         booliScript = GameObject.FindWithTag("fullMap").GetComponent<BooliApi>();
         lineRendererInterval.positionCount = 2;
         lineRendererInterval.material = new Material(Shader.Find("Particles/Multiply"));
@@ -66,40 +68,63 @@ public class Line : MonoBehaviour {
 		lineRendererLeft.SetPosition(0,ballLeft.transform.localPosition+smallInterval.transform.localPosition);
 		lineRendererLeft.SetPosition(1,new Vector3(-(bigIntervalWidth),ballLeft.transform.localPosition.y,ballLeft.transform.localPosition.z));
 		bigInterval.transform.position = new Vector3(head.transform.position.x,middleOfControllers.y,middleOfControllers.z) + new Vector3(0,0,0.5f);
+        
 
-		distanceBetweenControllers =  (new Vector3(controllerRight.transform.position.x,0,controllerRight.transform.position.z) - new Vector3(controllerLeft.transform.position.x,0,controllerLeft.transform.position.z)).magnitude;
-        /* 		distanceBetweenControllers = (controllerRight.transform.position.x - controllerLeft.transform.position.x); */
+		distanceBetweenControllers =  (controllerRight.transform.position.x - handPositionModulation) - (controllerLeft.transform.position.x + handPositionModulation);
+        print(distanceBetweenControllers);
+        /* 		distanceBetweenControllers = ((controllerRight.transform.position.x - handPositionModulation) - (controllerLeft.transform.position.x + handPositionModulation)); */
 
         intervalPosition =  middleOfControllers.x - head.transform.position.x;
         smallInterval.transform.localPosition = new Vector3(0, 0, 0);
+
         if (oneWayInterval == false)
         {
-            if (controllerRight.transform.position.x - head.transform.position.x >= 0.5 && controllerLeft.transform.position.x - head.transform.position.x >= -0.5)
+            if ((controllerRight.transform.position.x - handPositionModulation) - head.transform.position.x >= 0.5 && (controllerLeft.transform.position.x + handPositionModulation) - head.transform.position.x >= -0.5)
             {
                 ballRight.transform.localPosition = new Vector3(0.50f, 0, 0);
-                ballLeft.transform.localPosition = new Vector3(controllerLeft.transform.position.x - head.transform.position.x, 0, 0);
+                ballLeft.transform.localPosition = new Vector3((controllerLeft.transform.position.x + handPositionModulation) - head.transform.position.x, 0, 0);
+                if (distanceBetweenControllers <= 0)
+                {
+                     ballLeft.transform.position = ballRight.transform.position;
+
+                }
                 smallValue = (bigInterval.transform.InverseTransformPoint(ballLeft.transform.position).x + (bigIntervalWidth)) * maxValue;
                 bigValue = 100000000;
             }
-            else if (controllerLeft.transform.position.x - head.transform.position.x <= -0.5 && controllerRight.transform.position.x - head.transform.position.x <= 0.5f)
+            else if ((controllerLeft.transform.position.x + handPositionModulation) - head.transform.position.x <= -0.5 && (controllerRight.transform.position.x - handPositionModulation) - head.transform.position.x <= 0.5f)
             {
-                ballRight.transform.localPosition = new Vector3(controllerRight.transform.position.x - head.transform.position.x, 0, 0);
+                ballRight.transform.localPosition = new Vector3((controllerRight.transform.position.x - handPositionModulation) - head.transform.position.x, 0, 0);
                 ballLeft.transform.localPosition = new Vector3(-0.50f, 0, 0);
+                if (distanceBetweenControllers <= 0)
+                {
+                    ballRight.transform.position = ballLeft.transform.position;
+
+                }
                 smallValue = 0;
                 bigValue = (bigInterval.transform.InverseTransformPoint(ballRight.transform.position).x + (bigIntervalWidth)) * maxValue;
             }
 
-            else if (controllerLeft.transform.position.x - head.transform.position.x >= -0.5 && controllerRight.transform.position.x - head.transform.position.x <= 0.5f)
+            else if ((controllerLeft.transform.position.x + handPositionModulation) - head.transform.position.x >= -0.5 && (controllerRight.transform.position.x - handPositionModulation) - head.transform.position.x <= 0.5f)
             {
-                ballRight.transform.localPosition = new Vector3(controllerRight.transform.position.x - head.transform.position.x, 0, 0);
-                ballLeft.transform.localPosition = new Vector3(controllerLeft.transform.position.x - head.transform.position.x, 0, 0);
+                ballRight.transform.localPosition = new Vector3((controllerRight.transform.position.x - handPositionModulation) - head.transform.position.x, 0, 0);
+                ballLeft.transform.localPosition = new Vector3((controllerLeft.transform.position.x + handPositionModulation) - head.transform.position.x, 0, 0);
+                if (distanceBetweenControllers <= 0)
+                {
+                    ballRight.transform.position = ballLeft.transform.position;
+
+                }
                 smallValue = (bigInterval.transform.InverseTransformPoint(ballLeft.transform.position).x + (bigIntervalWidth)) * maxValue;
                 bigValue = (bigInterval.transform.InverseTransformPoint(ballRight.transform.position).x + (bigIntervalWidth)) * maxValue;
             }
-            else if (controllerLeft.transform.position.x - head.transform.position.x <= -0.5 && controllerRight.transform.position.x - head.transform.position.x >= 0.5f)
+            else if ((controllerLeft.transform.position.x + handPositionModulation) - head.transform.position.x <= -0.5 && (controllerRight.transform.position.x - handPositionModulation) - head.transform.position.x >= 0.5f)
             {
                 ballRight.transform.localPosition = new Vector3(0.50f, 0, 0);
                 ballLeft.transform.localPosition = new Vector3(-0.50f, 0, 0);
+                if (distanceBetweenControllers <= 0)
+                {
+                    ballRight.transform.position = ballLeft.transform.position;
+
+                }
                 smallValue = minValue;
                 bigValue = 100000000;
             }
@@ -108,9 +133,9 @@ public class Line : MonoBehaviour {
         {
             smallValue = 0;
             ballLeft.transform.localPosition = new Vector3(-0.50f, 0, 0);
-            if (controllerRight.transform.position.x - head.transform.position.x <= 0.5f)
+            if ((controllerRight.transform.position.x - handPositionModulation) - head.transform.position.x <= 0.5f)
             {
-                ballRight.transform.localPosition = new Vector3(controllerRight.transform.position.x - head.transform.position.x, 0, 0);
+                ballRight.transform.localPosition = new Vector3((controllerRight.transform.position.x - handPositionModulation) - head.transform.position.x, 0, 0);
                 bigValue = (bigInterval.transform.InverseTransformPoint(ballRight.transform.position).x + (bigIntervalWidth)) * maxValue;
 
             }
@@ -178,8 +203,6 @@ public class Line : MonoBehaviour {
         else if (currentFilter == "plotArea")
 
         {
-            smallValue = (bigInterval.transform.InverseTransformPoint(ballLeft.transform.position).x + (bigIntervalWidth)) * 500;
-            bigValue = (bigInterval.transform.InverseTransformPoint(ballRight.transform.position).x + (bigIntervalWidth)) * 500;
             filteringValues.plotAreaMax = bigValue;
             filteringValues.plotAreaMin = smallValue;
             rightText.GetComponent<TextMesh>().text = Mathf.Round(bigValue).ToString();
@@ -213,6 +236,46 @@ public class Line : MonoBehaviour {
             }
 
         }
+
+        else if (currentFilter == "livingArea")
+
+        {
+            filteringValues.livingAreaMin = Mathf.RoundToInt(smallValue);
+            filteringValues.livingAreaMax = Mathf.RoundToInt(bigValue);
+            leftText.GetComponent<TextMesh>().text = smallValue.ToString();
+            if (bigValue > maxValue)
+            {
+                rightText.GetComponent<TextMesh>().text =maxValue.ToString() +  "+";
+            }
+            else
+            {
+                rightText.GetComponent<TextMesh>().text =bigValue.ToString();
+            }
+
+        }
+
+        else if (currentFilter == "constructionYear")
+
+        {
+            smallValue += 1500;
+            bigValue += 1500;
+            smallValue = Mathf.RoundToInt(smallValue);
+            bigValue = Mathf.RoundToInt(bigValue);
+            filteringValues.constructionYearMin = Mathf.RoundToInt(smallValue);
+            filteringValues.constructionYearMax = Mathf.RoundToInt(bigValue);
+            leftText.GetComponent<TextMesh>().text = smallValue.ToString();
+            if (bigValue > maxValue+1500)
+            {
+                rightText.GetComponent<TextMesh>().text = 2018.ToString();
+            }
+            else
+            {
+
+                rightText.GetComponent<TextMesh>().text = bigValue.ToString();
+            }
+
+        }
+
 
 
 

@@ -315,6 +315,11 @@ private void placeHouseOnMap(float longitude , float lat, GameObject target){
             && target.GetComponent<HouseCoordinates>().plotArea >= filteringValues.plotAreaMin
             && target.GetComponent<HouseCoordinates>().numberOfrooms >= filteringValues.numberOfRoomsMin
             && target.GetComponent<HouseCoordinates>().numberOfrooms <= filteringValues.numberOfRoomsMax
+            && target.GetComponent<HouseCoordinates>().livingArea >= filteringValues.livingAreaMin
+            && target.GetComponent<HouseCoordinates>().livingArea <= filteringValues.livingAreaMax
+            && target.GetComponent<HouseCoordinates>().constructionYear >= filteringValues.constructionYearMin
+            && target.GetComponent<HouseCoordinates>().constructionYear <= filteringValues.constructionYearMax
+
 
             )
         {
