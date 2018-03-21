@@ -47,16 +47,10 @@ public class Overview: MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        listPrice.GetComponent<TextMesh>().text = "Listing price: " + (Mathf.Round((filteringValues.listpriceMin / 1000000) * 10f) / 10f).ToString() + "M - " + (Mathf.Round((filteringValues.listPriceMax / 1000000) * 10f) / 10f).ToString() + "M";
-        numberOfrooms.GetComponent<TextMesh>().text = "Rooms: " + filteringValues.numberOfRoomsMin + " - " + filteringValues.numberOfRoomsMax + "";
-        livingArea.GetComponent<TextMesh>().text = "Living area: " + filteringValues.livingAreaMin + " m2 - " + filteringValues.livingAreaMax + " m2";
-        constructionYear.GetComponent<TextMesh>().text = "Construction year: " + filteringValues.constructionYearMin + " - " + filteringValues.constructionYearMax + "";
-        plotArea.GetComponent<TextMesh>().text = "Plot area: " + filteringValues.plotAreaMin + " m2 - " + filteringValues.plotAreaMax + " m2";
-        priceDecrease.GetComponent<TextMesh>().text = "Price decreased: " + filteringValues.PriceDecrease;
-        houseType.GetComponent<TextMesh>().text = "House types: " + filteringValues.houseType;
-        m2Price.GetComponent<TextMesh>().text = "m2-price: " + filteringValues.m2PriceMin + " - " + filteringValues.m2PriceMax + "";
-        soonForSale.GetComponent<TextMesh>().text = "Soon for sale: " + filteringValues.soonForSale + "";
-        rent.GetComponent<TextMesh>().text = "Rent max: " + filteringValues.rentMax + "";
+
+
+
+      
     }
     private void LeftTriggerClicked(object sender, ControllerInteractionEventArgs e)
     {

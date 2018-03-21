@@ -154,11 +154,11 @@ public class BooliApi : MonoBehaviour {
 
                             if (o["listings"][i]["listPriceChange"] != null && (float)o["listings"][i]["listPriceChange"] < 0)
                             {
-                                priceDecrease = 1;
+                                priceDecrease = 0;
                             }
                             else
                             {
-                                priceDecrease = 0;
+                                priceDecrease = 1;
                             }
 
                             m2Price = listPrice / livingArea;
@@ -310,7 +310,7 @@ private void placeHouseOnMap(float longitude , float lat, GameObject target){
             target.GetComponent<HouseCoordinates>().listPrice <= filteringValues.listPriceMax 
             && target.GetComponent<HouseCoordinates>().listPrice >= filteringValues.listpriceMin 
             && target.GetComponent<HouseCoordinates>().rent <= filteringValues.rentMax
-            && target.GetComponent<HouseCoordinates>().priceDecrease == filteringValues.PriceDecrease 
+            && target.GetComponent<HouseCoordinates>().priceDecrease <= filteringValues.PriceDecrease 
             && target.GetComponent<HouseCoordinates>().plotArea <= filteringValues.plotAreaMax
             && target.GetComponent<HouseCoordinates>().plotArea >= filteringValues.plotAreaMin
             && target.GetComponent<HouseCoordinates>().numberOfrooms >= filteringValues.numberOfRoomsMin
@@ -319,6 +319,8 @@ private void placeHouseOnMap(float longitude , float lat, GameObject target){
             && target.GetComponent<HouseCoordinates>().livingArea <= filteringValues.livingAreaMax
             && target.GetComponent<HouseCoordinates>().constructionYear >= filteringValues.constructionYearMin
             && target.GetComponent<HouseCoordinates>().constructionYear <= filteringValues.constructionYearMax
+            && target.GetComponent<HouseCoordinates>().listPrice / target.GetComponent<HouseCoordinates>().livingArea < filteringValues.m2PriceMax
+            && target.GetComponent<HouseCoordinates>().listPrice / target.GetComponent<HouseCoordinates>().livingArea > filteringValues.m2PriceMin
 
 
             )

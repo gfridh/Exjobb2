@@ -10625,7 +10625,7 @@ MonoBehaviour:
   rentMax: 100000000
   plotAreaMin: 0
   plotAreaMax: 100000000
-  PriceDecrease: 0
+  PriceDecrease: 1
   houseType: lagenhet
   m2PriceMin: 0
   m2PriceMax: 100000000

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Line : MonoBehaviour {
     private BooliApi booliScript;
-
+    private Overview overViewScript;
     public GameObject ballRight;
 	public GameObject ballLeft;
     public GameObject rightText;
@@ -54,6 +54,8 @@ public class Line : MonoBehaviour {
 		lineRendererRight.useWorldSpace = false;
 		lineRendererLeft.useWorldSpace = false;
         filteringValues = GameObject.FindWithTag("FilteringValues").GetComponent<FilteringValues>();
+        overViewScript = GameObject.Find("OverView").GetComponent<Overview>();
+
 
     }
 	
@@ -85,11 +87,19 @@ public class Line : MonoBehaviour {
                 ballLeft.transform.localPosition = new Vector3((controllerLeft.transform.position.x + handPositionModulation) - head.transform.position.x, 0, 0);
                 if (distanceBetweenControllers <= 0)
                 {
-                     ballLeft.transform.position = ballRight.transform.position;
+                    ballLeft.transform.position = ballRight.transform.position;
 
                 }
                 smallValue = (bigInterval.transform.InverseTransformPoint(ballLeft.transform.position).x + (bigIntervalWidth)) * maxValue;
                 bigValue = 100000000;
+            }
+
+            else if ((controllerRight.transform.position.x - handPositionModulation) - head.transform.position.x >= 0.5 && (controllerLeft.transform.position.x + handPositionModulation) - head.transform.position.x >= 0.5)
+            {
+                ballRight.transform.localPosition = new Vector3(0.50f, 0, 0);
+                ballLeft.transform.localPosition = new Vector3(0.50f, 0, 0);
+                smallValue = maxValue;
+                bigValue = 1000000;
             }
             else if ((controllerLeft.transform.position.x + handPositionModulation) - head.transform.position.x <= -0.5 && (controllerRight.transform.position.x - handPositionModulation) - head.transform.position.x <= 0.5f)
             {
@@ -97,6 +107,8 @@ public class Line : MonoBehaviour {
                 ballLeft.transform.localPosition = new Vector3(-0.50f, 0, 0);
                 if (distanceBetweenControllers <= 0)
                 {
+                    ballLeft.transform.position = ballRight.transform.position;
+
                     ballRight.transform.position = ballLeft.transform.position;
 
                 }
@@ -110,6 +122,8 @@ public class Line : MonoBehaviour {
                 ballLeft.transform.localPosition = new Vector3((controllerLeft.transform.position.x + handPositionModulation) - head.transform.position.x, 0, 0);
                 if (distanceBetweenControllers <= 0)
                 {
+                    ballLeft.transform.position = ballRight.transform.position;
+
                     ballRight.transform.position = ballLeft.transform.position;
 
                 }
@@ -122,6 +136,8 @@ public class Line : MonoBehaviour {
                 ballLeft.transform.localPosition = new Vector3(-0.50f, 0, 0);
                 if (distanceBetweenControllers <= 0)
                 {
+                    ballLeft.transform.position = ballRight.transform.position;
+
                     ballRight.transform.position = ballLeft.transform.position;
 
                 }
@@ -182,6 +198,8 @@ public class Line : MonoBehaviour {
             {
                 rightText.GetComponent<TextMesh>().text = (Mathf.Round((bigValue / 1000) * 10f) / 10f).ToString()+"t";
             }
+            print(overViewScript.rent.GetComponent<TextMesh>().text);
+            overViewScript.rent.GetComponent<TextMesh>().text = "Max rent: " + rightText.GetComponent<TextMesh>().text;
         }
 
         else if (currentFilter == "propertyPrice")
@@ -197,6 +215,7 @@ public class Line : MonoBehaviour {
             {
                 rightText.GetComponent<TextMesh>().text = (Mathf.Round((bigValue / 1000000) * 10f) / 10f).ToString()+ "M";
             }
+            overViewScript.listPrice.GetComponent<TextMesh>().text = "Property price: " + leftText.GetComponent<TextMesh>().text+" - " + rightText.GetComponent<TextMesh>().text;
 
         }
 
@@ -215,6 +234,7 @@ public class Line : MonoBehaviour {
             {
                 rightText.GetComponent<TextMesh>().text = Mathf.Round(bigValue).ToString() + "m2";
             }
+            overViewScript.plotArea.GetComponent<TextMesh>().text = "Plot area: " + leftText.GetComponent<TextMesh>().text + " - " + rightText.GetComponent<TextMesh>().text;
 
 
         }
@@ -234,6 +254,7 @@ public class Line : MonoBehaviour {
             {
                 rightText.GetComponent<TextMesh>().text = Mathf.RoundToInt(bigValue).ToString() + "rooms";
             }
+            overViewScript.numberOfrooms.GetComponent<TextMesh>().text = "Rooms: " + leftText.GetComponent<TextMesh>().text + " - " + rightText.GetComponent<TextMesh>().text;
 
         }
 
@@ -251,6 +272,7 @@ public class Line : MonoBehaviour {
             {
                 rightText.GetComponent<TextMesh>().text =bigValue.ToString();
             }
+            overViewScript.livingArea.GetComponent<TextMesh>().text = "Living area: " + leftText.GetComponent<TextMesh>().text + " - " + rightText.GetComponent<TextMesh>().text;
 
         }
 
@@ -273,6 +295,26 @@ public class Line : MonoBehaviour {
 
                 rightText.GetComponent<TextMesh>().text = bigValue.ToString();
             }
+            overViewScript.constructionYear.GetComponent<TextMesh>().text = "Construction year: " + leftText.GetComponent<TextMesh>().text + " - " + rightText.GetComponent<TextMesh>().text;
+        }
+        else if (currentFilter == "m2price")
+
+        {
+            smallValue = Mathf.RoundToInt(smallValue);
+            bigValue = Mathf.RoundToInt(bigValue);
+            filteringValues.m2PriceMin = Mathf.RoundToInt(smallValue);
+            filteringValues.m2PriceMax = Mathf.RoundToInt(bigValue);
+            leftText.GetComponent<TextMesh>().text = (Mathf.Round((smallValue / 1000) * 10f) / 10f).ToString() + "k";
+            if (bigValue > maxValue)
+            {
+                bigValue = 100000000;
+                rightText.GetComponent<TextMesh>().text = (Mathf.Round((maxValue / 1000) * 10f) / 10f).ToString() + "k" + "+";
+            }
+            else
+            {
+                rightText.GetComponent<TextMesh>().text = (Mathf.Round((bigValue / 1000) * 10f) / 10f).ToString() + "k";
+            }
+            overViewScript.m2Price.GetComponent<TextMesh>().text = "m2 Price: " + leftText.GetComponent<TextMesh>().text + " - " + rightText.GetComponent<TextMesh>().text;
 
         }
 

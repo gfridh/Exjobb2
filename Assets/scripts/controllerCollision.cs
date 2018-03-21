@@ -244,6 +244,30 @@ public class ControllerCollision : MonoBehaviour {
             }
 
         }
+        else if (other.tag == "m2price")
+
+        {
+            if (!intervalUp)
+            {
+                instantiatedInterval = Instantiate(interval);
+                interValScript = GameObject.FindGameObjectWithTag("smallInterval").GetComponent<Line>();
+                interValScript.controllerLeft = leftController;
+                interValScript.controllerRight = rightController;
+                interValScript.head = headObject;
+                interValScript.maxValue = 200000;
+                interValScript.minValue = 0;
+                interValScript.currentFilter = "m2price";
+                intervalUp = true;
+                booliScript.filterActive = true;
+            }
+            else
+            {
+                Destroy(instantiatedInterval);
+                intervalUp = false;
+                booliScript.filterActive = false;
+            }
+
+        }
 
     }
 
