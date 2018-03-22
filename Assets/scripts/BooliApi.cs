@@ -37,6 +37,11 @@ public class BooliApi : MonoBehaviour {
     public float currentPriceFilteringBig;
     public float currentPriceFilteringSmall;
 
+    public GameObject overviewHolder;
+    private Overview overview;
+
+
+
 
     private int oldZoom;
     bigBooliObject booliObject;
@@ -81,8 +86,8 @@ public class BooliApi : MonoBehaviour {
                         }  */
                         int y = 0;
                     for (int z=0; z <= 8000; z+=500){
-                        //string objectText = File.ReadAllText(@"c:\Users/Claremont/Github/Exjobb2/Assets/jsonFiles/"+z+".json");
-						string objectText = File.ReadAllText(@"d:\Desktop/Exjobb2/Assets/jsonFiles/"+z+".json");
+                        string objectText = File.ReadAllText(@"c:\Users/Claremont/Github/Exjobb2/Assets/jsonFiles/"+z+".json");
+						//string objectText = File.ReadAllText(@"d:\Desktop/Exjobb2/Assets/jsonFiles/"+z+".json");
                         JObject o = JObject.Parse(objectText);
                         //booliObject = JsonConvert.DeserializeObject<bigBooliObject>(File.ReadAllText(@"c:\Users/Claremont/Github/Exjobb2/Assets/jsonFiles/"+z+".json"));  
                         GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("house");
@@ -197,6 +202,7 @@ public class BooliApi : MonoBehaviour {
     }
         void Start()
     {
+        overview = overviewHolder.GetComponent<Overview>();
         /* booliObject = JsonConvert.DeserializeObject<bigBooliObject>(File.ReadAllText(@"c:\Users/Bamse/0.json")) */;
         googleScript = googleHolder.GetComponent<GoogleApi>();
         filteringValues = GameObject.FindWithTag("FilteringValues").GetComponent<FilteringValues>();
@@ -204,13 +210,16 @@ public class BooliApi : MonoBehaviour {
         oldZoom = googleScript.zoom;
         List<object> allListings = new List<object>();
         StartCoroutine(go( allListings ));
+        
+
     }
 
 
 
 
         void Update(){
-            if(googleScript.zoom != oldZoom || filterActive == true)
+            if(googleScript.zoom != oldZoom || filterActive == true || overview.reset == true)
+            overview.reset =false;
         {
                 offset = 0;
                 GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("house");

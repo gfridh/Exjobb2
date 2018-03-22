@@ -30,6 +30,7 @@ TagManager:
   - bigInterval
   - yes
   - no
+  - Overview
   layers:
   - Default
   - TransparentFX

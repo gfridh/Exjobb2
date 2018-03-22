@@ -12,7 +12,7 @@ public class FilteringValues : MonoBehaviour {
     public string houseType = "lagenhet";
     public float m2PriceMin = 0;
     public float m2PriceMax = 100000000;
-    public int constructionYearMin = 1950;
+    public int constructionYearMin = 1500;
     public int constructionYearMax = 2018;
     public int numberOfRoomsMin = 0;
     public int numberOfRoomsMax = 10000;
@@ -29,4 +29,23 @@ public class FilteringValues : MonoBehaviour {
 	void Update () {
 		
 	}
+
+    public void Restart(){
+    listpriceMin = 0;
+    listPriceMax = 100000000;
+    rentMax = 1000000;
+    plotAreaMin = 0;
+    plotAreaMax = 100000000;
+    PriceDecrease = 0;
+    houseType = "lagenhet";
+    m2PriceMin = 0;
+    m2PriceMax = 100000000;
+    constructionYearMin = 1500;
+    constructionYearMax = 2018;
+    numberOfRoomsMin = 0;
+    numberOfRoomsMax = 10000;
+    livingAreaMin = 0;
+    livingAreaMax = 1000000000;
+    soonForSale = 0;
+    }
 }

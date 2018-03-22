@@ -98,7 +98,7 @@ public class ControllerCollision : MonoBehaviour {
                 interValScript.head = headObject;
 				interValScript.controllerLeft = leftController;
 				interValScript.controllerRight = rightController;
-                interValScript.maxValue = 10000000;
+                interValScript.maxValue = 20000000;
                 interValScript.minValue = 0;
                 interValScript.currentFilter = "propertyPrice";
 				intervalUp = true;
@@ -120,7 +120,7 @@ public class ControllerCollision : MonoBehaviour {
                 interValScript.controllerLeft = leftController;
                 interValScript.controllerRight = rightController;
                 interValScript.head = headObject;
-                interValScript.maxValue = 20000;
+                interValScript.maxValue = 10000;
                 interValScript.minValue = 0;
                 interValScript.currentFilter = "rent";
                 interValScript.oneWayInterval = true;

@@ -6221,6 +6221,7 @@ MonoBehaviour:
   filterActive: 0
   currentPriceFilteringBig: 0
   currentPriceFilteringSmall: 0
+  overviewHolder: {fileID: 1262434563}
   housePrefab: {fileID: 1441325612729452, guid: d84b074b7a631b046ba82174ee337b2e,
     type: 2}
 --- !u!1 &1227652339
@@ -6573,7 +6574,7 @@ GameObject:
   - component: {fileID: 1262434564}
   m_Layer: 0
   m_Name: OverView
-  m_TagString: Untagged
+  m_TagString: Overview
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6602,6 +6603,7 @@ MonoBehaviour:
   listPrice: {fileID: 0}
   i: 0
   leftControllerObject: {fileID: 1589707502}
+  reset: 0
 --- !u!4 &1262434565
 Transform:
   m_ObjectHideFlags: 0
@@ -8353,7 +8355,6 @@ GameObject:
   - component: {fileID: 1589707505}
   - component: {fileID: 1589707506}
   - component: {fileID: 1589707507}
-  - component: {fileID: 1589707508}
   m_Layer: 0
   m_Name: Controller (left)
   m_TagString: Untagged
@@ -8470,29 +8471,6 @@ CapsuleCollider:
   m_Height: 0.12
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: -0.06}
---- !u!114 &1589707508
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 114500263574270000, guid: c960b2c310e57cd4ba9de190965f9548,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1589707502}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7751a080b026e014bb851f308635b231, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  menuController: {fileID: 2029425530}
-  interval: {fileID: 1643152966978834, guid: 81d5bd6cd5166a64f8d57dfa04603cb5, type: 2}
-  intervalUp: 0
-  instantiatedInterval: {fileID: 0}
-  leftController: {fileID: 1589707502}
-  rightController: {fileID: 219801693}
-  headObject: {fileID: 517548233}
-  booliHolder: {fileID: 1214165399}
-  booliScript: {fileID: 0}
-  BinaryParent: {fileID: 0}
-  binaryParent: {fileID: 0}
 --- !u!1 &1614787846
 GameObject:
   m_ObjectHideFlags: 0
@@ -10629,7 +10607,7 @@ MonoBehaviour:
   houseType: lagenhet
   m2PriceMin: 0
   m2PriceMax: 100000000
-  constructionYearMin: 1950
+  constructionYearMin: 0
   constructionYearMax: 2018
   numberOfRoomsMin: 0
   numberOfRoomsMax: 10000

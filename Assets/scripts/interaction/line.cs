@@ -41,6 +41,9 @@ public class Line : MonoBehaviour {
 	public float bigIntervalWidth = 0.5f;
     public bool oneWayInterval = false;
 
+    public GameObject overviewHolder;
+    private Overview overview;
+
 	// Use this for initialization
 	void Start () {
         rightText = GameObject.Find("highValue");
@@ -55,6 +58,9 @@ public class Line : MonoBehaviour {
 		lineRendererLeft.useWorldSpace = false;
         filteringValues = GameObject.FindWithTag("FilteringValues").GetComponent<FilteringValues>();
         overViewScript = GameObject.Find("OverView").GetComponent<Overview>();
+        rightText.GetComponent<TextMesh>().fontSize = 60;
+        rightText.transform.localPosition = new Vector3 (rightText.transform.localPosition.x, rightText.transform.localPosition.y-1, rightText.transform.localPosition.z);
+        leftText.GetComponent<TextMesh>().fontSize = 60;
 
 
     }
@@ -292,7 +298,6 @@ public class Line : MonoBehaviour {
             }
             else
             {
-
                 rightText.GetComponent<TextMesh>().text = bigValue.ToString();
             }
             overViewScript.constructionYear.GetComponent<TextMesh>().text = "Construction year: " + leftText.GetComponent<TextMesh>().text + " - " + rightText.GetComponent<TextMesh>().text;
