@@ -18,6 +18,11 @@ public class ControllerCollision : MonoBehaviour {
     public GameObject BinaryParent;
     public GameObject binaryParent;
     private FilteringValues filteringValues;
+    public GameObject overViewHolder;
+    private Overview overViewScript;
+    public GameObject houseTypeParent;
+    public bool houseTypeFilterActive = false;
+    public string collisionName = "";
 
 
 
@@ -26,19 +31,222 @@ public class ControllerCollision : MonoBehaviour {
         booliScript = booliHolder.GetComponent<BooliApi>();
         menuScript = menuController.GetComponent<Menu>();
         filteringValues = GameObject.FindWithTag("FilteringValues").GetComponent<FilteringValues>();
+        overViewScript = overViewHolder.GetComponent<Overview>();
+        houseTypeParent.transform.localPosition = new Vector3(0,0,0);
+        houseTypeParent.SetActive(false);
+
     }
 	
 	// Update is called once per frame
 	void Update () {
+        //overViewScript = GameObject.Find("OverView").GetComponent<Overview>();
+        houseTypeParent.transform.LookAt(headObject.transform.position);
+        if(collisionName != "")
+        { 
+            if (collisionName == "propertyPrice")
+            {
+                if (!intervalUp)
+                {
+                    instantiatedInterval = Instantiate(interval);
+                    interValScript = GameObject.FindGameObjectWithTag("smallInterval").GetComponent<Line>();
+                    interValScript.head = headObject;
+                    interValScript.controllerLeft = leftController;
+                    interValScript.controllerRight = rightController;
+                    interValScript.maxValue = 20000000;
+                    interValScript.minValue = 0;
+                    interValScript.currentFilter = "propertyPrice";
+                    intervalUp = true;
+                    booliScript.filterActive = true;
+                }
+                else
+                {
 
-		
-	}
+                        Destroy(instantiatedInterval);
+                        intervalUp = false;
+                        booliScript.filterActive = false;
+                    
+                }
+
+            }
+            else if (collisionName == "maxRent")
+            {
+                if (!intervalUp)
+                {
+                    instantiatedInterval = Instantiate(interval);
+                    interValScript = GameObject.FindGameObjectWithTag("smallInterval").GetComponent<Line>();
+                    interValScript.controllerLeft = leftController;
+                    interValScript.controllerRight = rightController;
+                    interValScript.head = headObject;
+                    interValScript.maxValue = 10000;
+                    interValScript.minValue = 0;
+                    interValScript.currentFilter = "rent";
+                    interValScript.oneWayInterval = true;
+                    intervalUp = true;
+                    booliScript.filterActive = true;
+                }
+                else
+                {
+
+                        Destroy(instantiatedInterval);
+                        intervalUp = false;
+                        booliScript.filterActive = false;
+                    }
+                
+            }
+            else if( collisionName == "plotArea")
+            {
+                if (!intervalUp)
+                {
+                    instantiatedInterval = Instantiate(interval);
+                    interValScript = GameObject.FindGameObjectWithTag("smallInterval").GetComponent<Line>();
+                    interValScript.controllerLeft = leftController;
+                    interValScript.controllerRight = rightController;
+                    interValScript.head = headObject;
+                    interValScript.maxValue = 50000;
+                    interValScript.minValue = 0;
+                    interValScript.currentFilter = "plotArea";
+                    intervalUp = true;
+                    booliScript.filterActive = true;
+                }
+                else
+                {
+
+                        Destroy(instantiatedInterval);
+                        intervalUp = false;
+                        booliScript.filterActive = false;
+                    
+                }
+            }
+
+            else if (collisionName == "numberOfRooms")
+            {
+                if (!intervalUp)
+                {
+                    instantiatedInterval = Instantiate(interval);
+                    interValScript = GameObject.FindGameObjectWithTag("smallInterval").GetComponent<Line>();
+                    interValScript.controllerLeft = leftController;
+                    interValScript.controllerRight = rightController;
+                    interValScript.head = headObject;
+                    interValScript.maxValue = 10;
+                    interValScript.minValue = 0;
+                    interValScript.currentFilter = "numberOfRooms";
+                    intervalUp = true;
+                    booliScript.filterActive = true;
+                }
+                else
+                {
+
+                        Destroy(instantiatedInterval);
+                        intervalUp = false;
+                        booliScript.filterActive = false;
+                    
+                }
+            }
+
+            else if (collisionName == "priceReduced")
+            {
+                BinaryFilter(collisionName);
+            }
+
+
+            else if (collisionName == "livingArea")
+
+            {
+                if (!intervalUp)
+                {
+                    instantiatedInterval = Instantiate(interval);
+                    interValScript = GameObject.FindGameObjectWithTag("smallInterval").GetComponent<Line>();
+                    interValScript.controllerLeft = leftController;
+                    interValScript.controllerRight = rightController;
+                    interValScript.head = headObject;
+                    interValScript.maxValue = 500;
+                    interValScript.minValue = 0;
+                    interValScript.currentFilter = "livingArea";
+                    intervalUp = true;
+                    booliScript.filterActive = true;
+                }
+                else
+                {
+
+                        Destroy(instantiatedInterval);
+                        intervalUp = false;
+                        booliScript.filterActive = false;
+                    
+                }
+
+            }
+
+            else if (collisionName == "constructionYear")
+
+            {
+                if (!intervalUp)
+                {
+                    instantiatedInterval = Instantiate(interval);
+                    interValScript = GameObject.FindGameObjectWithTag("smallInterval").GetComponent<Line>();
+                    interValScript.controllerLeft = leftController;
+                    interValScript.controllerRight = rightController;
+                    interValScript.head = headObject;
+                    interValScript.maxValue = 518;
+                    interValScript.minValue = 0;
+                    interValScript.currentFilter = "constructionYear";
+                    intervalUp = true;
+                    booliScript.filterActive = true;
+                }
+                else
+                {
+
+                        Destroy(instantiatedInterval);
+                        intervalUp = false;
+                        booliScript.filterActive = false;
+                    
+                }
+
+            }
+            else if (collisionName == "m2price")
+
+            {
+                if (!intervalUp)
+                {
+                    instantiatedInterval = Instantiate(interval);
+                    interValScript = GameObject.FindGameObjectWithTag("smallInterval").GetComponent<Line>();
+                    interValScript.controllerLeft = leftController;
+                    interValScript.controllerRight = rightController;
+                    interValScript.head = headObject;
+                    interValScript.maxValue = 200000;
+                    interValScript.minValue = 0;
+                    interValScript.currentFilter = "m2price";
+                    intervalUp = true;
+                    booliScript.filterActive = true;
+                }
+                else
+                {
+
+                        Destroy(instantiatedInterval);
+                        intervalUp = false;
+                        booliScript.filterActive = false;
+                    
+                }
+
+            }
+            if (collisionName == "houseType2")
+            {
+                houseTypeParent.transform.parent = transform;
+                houseTypeParent.transform.localPosition = new Vector3();
+                houseTypeParent.transform.rotation = houseTypeParent.transform.parent.rotation;
+                houseTypeParent.transform.Rotate(0, 180, 0);
+                HouseTypeFilter(collisionName);
+            }
+            collisionName = "";
+        }
+    }
 
     private void OnTriggerExit(Collider other)
     {
         if (other.GetComponent<TextMesh>())
         {
-            if (other.tag != "yes" || other.tag != "no")
+          if (other.tag != "villa" || other.tag != "Lagenhet" || other.tag != "fritidshus" || other.tag != "gard" || other.tag != "radhus" || other.tag != "tomt")
+            {
+                                if (other.tag != "yes" || other.tag != "no")
             {
 
                 other.GetComponent<TextMesh>().color = Color.blue;
@@ -52,6 +260,8 @@ public class ControllerCollision : MonoBehaviour {
                 other.GetComponent<TextMesh>().color = Color.blue;
                 other.GetComponent<TextMesh>().fontSize = 100;
             }
+
+            }
         }
     }
 
@@ -59,11 +269,13 @@ public class ControllerCollision : MonoBehaviour {
         if(other.GetComponent<TextMesh>())
         {
 
+
             other.GetComponent<TextMesh>().color = Color.yellow;
             other.GetComponent<TextMesh>().fontSize = 150;
 
 
         }
+        collisionName = other.tag;
         if (other.tag == "price"){
 			removeChilds();
 			List<string> priceButtons = new List<string>();
@@ -95,186 +307,29 @@ public class ControllerCollision : MonoBehaviour {
 			areaButtons.Add("plotArea");
 			menuScript.placeButton(3,3,90,270,false,areaButtons);
 		}
-
-
-
-
-		else if(other.tag == "propertyPrice"){
-			if(!intervalUp){
-				instantiatedInterval = Instantiate(interval);
-				interValScript = GameObject.FindGameObjectWithTag("smallInterval").GetComponent<Line>();
-                interValScript.head = headObject;
-				interValScript.controllerLeft = leftController;
-				interValScript.controllerRight = rightController;
-                interValScript.maxValue = 20000000;
-                interValScript.minValue = 0;
-                interValScript.currentFilter = "propertyPrice";
-				intervalUp = true;
-                booliScript.filterActive = true;
-			}
-            else
-            {
-                Destroy(instantiatedInterval);
-                intervalUp = false;
-                booliScript.filterActive = false;
-            }
-        }
-        else if (other.tag == "maxRent")
-        {
-            if (!intervalUp)
-            {
-                instantiatedInterval = Instantiate(interval);
-                interValScript = GameObject.FindGameObjectWithTag("smallInterval").GetComponent<Line>();
-                interValScript.controllerLeft = leftController;
-                interValScript.controllerRight = rightController;
-                interValScript.head = headObject;
-                interValScript.maxValue = 10000;
-                interValScript.minValue = 0;
-                interValScript.currentFilter = "rent";
-                interValScript.oneWayInterval = true;
-                intervalUp = true;
-                booliScript.filterActive = true;
-            }
-            else
-            {
-                Destroy(instantiatedInterval);
-                intervalUp = false;
-                booliScript.filterActive = false;
-            }
-        }
-        else if (other.tag == "plotArea")
-        {
-            if (!intervalUp)
-            {
-                instantiatedInterval = Instantiate(interval);
-                interValScript = GameObject.FindGameObjectWithTag("smallInterval").GetComponent<Line>();
-                interValScript.controllerLeft = leftController;
-                interValScript.controllerRight = rightController;
-                interValScript.head = headObject;
-                interValScript.maxValue = 50000;
-                interValScript.minValue = 0;
-                interValScript.currentFilter = "plotArea";
-                intervalUp = true;
-                booliScript.filterActive = true;
-            }
-            else
-            {
-                Destroy(instantiatedInterval);
-                intervalUp = false;
-                booliScript.filterActive = false;
-            }
-        }
-
-        else if (other.tag == "numberOfRooms")
-        {
-            if (!intervalUp)
-            {
-                instantiatedInterval = Instantiate(interval);
-                interValScript = GameObject.FindGameObjectWithTag("smallInterval").GetComponent<Line>();
-                interValScript.controllerLeft = leftController;
-                interValScript.controllerRight = rightController;
-                interValScript.head = headObject;
-                interValScript.maxValue = 10;
-                interValScript.minValue = 0;
-                interValScript.currentFilter = "numberOfRooms";
-                intervalUp = true;
-                booliScript.filterActive = true;
-            }
-            else
-            {
-                Destroy(instantiatedInterval);
-                intervalUp = false;
-                booliScript.filterActive = false;
-            }
-        }
-
-        else if (other.tag == "priceReduced")
-        {
-            BinaryFilter(other.tag);
-        }
+		
 
             if(other.tag == "yes")
             {
                 filteringValues.PriceDecrease = 1;
-            }
+                overViewScript.listPrice.GetComponent<TextMesh>().text = "Only price reduced: No";
+
+        }
             else if (other.tag == "no")
             {
                 filteringValues.PriceDecrease = 0;
+                overViewScript.listPrice.GetComponent<TextMesh>().text = "Only price reduced: Yes";
         }
-
-
-        else if (other.tag == "livingArea")
-
+        if (other.tag == "villa" || other.tag == "Lagenhet" || other.tag == "fritidshus" || other.tag == "gard" || other.tag == "radhus" || other.tag == "tomt")
         {
-            if (!intervalUp)
+            if (other.GetComponent<TextMesh>().color != Color.yellow)
             {
-                instantiatedInterval = Instantiate(interval);
-                interValScript = GameObject.FindGameObjectWithTag("smallInterval").GetComponent<Line>();
-                interValScript.controllerLeft = leftController;
-                interValScript.controllerRight = rightController;
-                interValScript.head = headObject;
-                interValScript.maxValue = 500;
-                interValScript.minValue = 0;
-                interValScript.currentFilter = "livingArea";
-                intervalUp = true;
-                booliScript.filterActive = true;
+                other.GetComponent<TextMesh>().color = Color.yellow;
             }
             else
             {
-                Destroy(instantiatedInterval);
-                intervalUp = false;
-                booliScript.filterActive = false;
+                other.GetComponent<TextMesh>().color = Color.blue;
             }
-
-        }
-
-        else if (other.tag == "constructionYear")
-
-        {
-            if (!intervalUp)
-            {
-                instantiatedInterval = Instantiate(interval);
-                interValScript = GameObject.FindGameObjectWithTag("smallInterval").GetComponent<Line>();
-                interValScript.controllerLeft = leftController;
-                interValScript.controllerRight = rightController;
-                interValScript.head = headObject;
-                interValScript.maxValue = 518;
-                interValScript.minValue = 0;
-                interValScript.currentFilter = "constructionYear";
-                intervalUp = true;
-                booliScript.filterActive = true;
-            }
-            else
-            {
-                Destroy(instantiatedInterval);
-                intervalUp = false;
-                booliScript.filterActive = false;
-            }
-
-        }
-        else if (other.tag == "m2price")
-
-        {
-            if (!intervalUp)
-            {
-                instantiatedInterval = Instantiate(interval);
-                interValScript = GameObject.FindGameObjectWithTag("smallInterval").GetComponent<Line>();
-                interValScript.controllerLeft = leftController;
-                interValScript.controllerRight = rightController;
-                interValScript.head = headObject;
-                interValScript.maxValue = 200000;
-                interValScript.minValue = 0;
-                interValScript.currentFilter = "m2price";
-                intervalUp = true;
-                booliScript.filterActive = true;
-            }
-            else
-            {
-                Destroy(instantiatedInterval);
-                intervalUp = false;
-                booliScript.filterActive = false;
-            }
-
         }
 
     }
@@ -304,5 +359,24 @@ public class ControllerCollision : MonoBehaviour {
             intervalUp = false;
             booliScript.filterActive = false;
         }
+    }
+
+
+    private void HouseTypeFilter(string type)
+    {
+        if (!intervalUp)
+        {
+            houseTypeParent.SetActive(true);
+            intervalUp = true;
+            houseTypeFilterActive = true;
+            booliScript.filterActive = true;
+        }
+        else
+        {
+            houseTypeParent.SetActive(false);
+            intervalUp = false;
+            booliScript.filterActive = false;
+            houseTypeFilterActive = false;
+}
     }
 }

@@ -39,11 +39,11 @@ public class Overview: MonoBehaviour {
     {
         if (overviewActive)
         {
-            this.gameObject.SetActive(false);
+            this.gameObject.transform.position = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y + 100, this.gameObject.transform.position.z);
             overviewActive = false;
         }
         else {
-            this.gameObject.SetActive(true);
+            this.gameObject.transform.position = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y - 100, this.gameObject.transform.position.z);
             overviewActive = true;
         }
     }

@@ -32,15 +32,14 @@ public class Menu : MonoBehaviour {
 	private Line interValScript;
 	private bool intervalUp = false;
 	private GameObject instantiatedInterval;
-    private ControllerCollision leftControllerCollision;
     private ControllerCollision rightControllerCollision;
+    private bool filterStuck = false;
 
 
 
 
     // Use this for initialization
     void Start () {
-        leftControllerCollision = leftControllerObject.GetComponent<ControllerCollision>();
         rightControllerCollision = rightControllerObject.GetComponent<ControllerCollision>();
         //leftControllerObject.GetComponent<VRTK_ControllerEvents>().TriggerClicked += new ControllerInteractionEventHandler(LeftTriggerClicked);
 		rightControllerObject.GetComponent<VRTK_ControllerEvents>().TriggerClicked += new ControllerInteractionEventHandler(RightTriggerClicked);
@@ -48,6 +47,15 @@ public class Menu : MonoBehaviour {
 		placeButton(2,3,90,90,false);
 		placeButton(2,3,90,180,false);
 		placeButton(2,1,90,270,false); */
+        parent.transform.position = rightControllerObject.transform.position;
+        parent.transform.parent = rightControllerObject.transform;
+        List<string> bigButtons = new List<string>();
+        bigButtons.Add("price");
+        bigButtons.Add("date");
+        bigButtons.Add("houseType");
+        bigButtons.Add("area");
+        placeButton(1.5f, 4, 360, 0, true, bigButtons);
+        rightmenuActive = true;
 			}
 	// Update is called once per frame
 	void Update () {
@@ -91,8 +99,46 @@ public class Menu : MonoBehaviour {
                 }
 				else{
 					temp = Instantiate(outerCircleButton, pos, Quaternion.identity);
-                    temp.GetComponent<TextMesh>().text = list[i];
-					temp.tag = list[i] ;    
+                    if (list[i] == "propertyPrice")
+                    {
+                        temp.GetComponent<TextMesh>().text = "Property price";
+                    }
+                    else if (list[i] == "maxRent")
+                    {
+                        temp.GetComponent<TextMesh>().text = "Max rent";
+                    }
+                    else if (list[i] == "plotArea")
+                    {
+                        temp.GetComponent<TextMesh>().text = "Plot area";
+                    }
+                    else if (list[i] == "numberOfRooms")
+                    {
+                        temp.GetComponent<TextMesh>().text = "Number of rooms";
+                    }
+                    else if (list[i] == "priceReduced")
+                    {
+                        temp.GetComponent<TextMesh>().text = "Price reduced";
+                    }
+                    else if (list[i] == "livingArea")
+                    {
+                        temp.GetComponent<TextMesh>().text = "Living area";
+                    }
+                    else if (list[i] == "constructionYear")
+                    {
+                        temp.GetComponent<TextMesh>().text = "Construction year";
+                    }
+                    else if (list[i] == "m2price")
+                    {
+                        temp.GetComponent<TextMesh>().text = "m2-Price";
+                    }
+                    else if (list[i] == "houseType2")
+                    {
+                        temp.GetComponent<TextMesh>().text = "House types";
+                    }
+
+
+
+                temp.tag = list[i] ;    
 					temp.transform.parent = parent.transform;
 					temp.transform.localPosition = pos;
                     temp.transform.rotation = temp.transform.parent.rotation;
@@ -104,22 +150,24 @@ public class Menu : MonoBehaviour {
 
         private void RightTriggerClicked(object sender, ControllerInteractionEventArgs e)
         {
-			if(leftmenuActive){
-				foreach (Transform child in parent.transform) {
-     				GameObject.Destroy(child.gameObject);
- 				}
-				leftmenuActive = false;
-				leftMenuStuck = false;
-			}
-			if(!rightmenuActive){
-                if (rightControllerCollision.intervalUp)
-                {
+        if (rightControllerCollision.houseTypeFilterActive == true && filterStuck == false && rightmenuActive == false )
+        {
+            rightControllerCollision.houseTypeParent.transform.parent = null;
+            filterStuck = true;
+        }
+        else if (rightControllerCollision.houseTypeFilterActive == true && filterStuck == true)
+        {
+            rightControllerCollision.houseTypeParent.transform.parent = rightControllerCollision.transform;
+            rightControllerCollision.houseTypeParent.SetActive(false);
+            filterStuck = false;
+            rightControllerCollision.houseTypeFilterActive = false;
+
+        }
+        if (!rightmenuActive && rightControllerCollision.houseTypeFilterActive == false)
+        {
                     Destroy(rightControllerCollision.instantiatedInterval);
                     rightControllerCollision.intervalUp = false;
                     rightControllerCollision.booliScript.filterActive = false;
-                }
-                else
-                {
                     print("triggerClicked");
                     parent.transform.position = rightControllerObject.transform.position;
                     parent.transform.parent = rightControllerObject.transform;
@@ -130,16 +178,14 @@ public class Menu : MonoBehaviour {
                     bigButtons.Add("area");
                     placeButton(1.5f, 4, 360, 0, true, bigButtons);
                     rightmenuActive = true;
-            }
-
 			}
+
 			else{
 				if(!rightMenuStuck){
 					parent.transform.parent = null;
 					rightMenuStuck = true;
 				}
 				else{
-                        
                         foreach (Transform child in parent.transform)
                         {
                             GameObject.Destroy(child.gameObject);
@@ -147,7 +193,6 @@ public class Menu : MonoBehaviour {
                         rightmenuActive = false;
                         rightMenuStuck = false;
 
-                    
             }
 			}
 

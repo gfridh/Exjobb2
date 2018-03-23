@@ -8,7 +8,7 @@ public class FilteringValues : MonoBehaviour {
     public float rentMax = 1000000;
     public float plotAreaMin = 0;
     public float plotAreaMax = 100000000;
-    public int PriceDecrease = 0;
+    public int PriceDecrease = 1;
     public string houseType = "lagenhet";
     public float m2PriceMin = 0;
     public float m2PriceMax = 100000000;
@@ -36,7 +36,7 @@ public class FilteringValues : MonoBehaviour {
     rentMax = 1000000;
     plotAreaMin = 0;
     plotAreaMax = 100000000;
-    PriceDecrease = 0;
+    PriceDecrease = 1;
     houseType = "lagenhet";
     m2PriceMin = 0;
     m2PriceMax = 100000000;

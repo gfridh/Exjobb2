@@ -31,6 +31,12 @@ TagManager:
   - yes
   - no
   - Overview
+  - villa
+  - Lagenhet
+  - fritidshus
+  - gard
+  - radhus
+  - tomt
   layers:
   - Default
   - TransparentFX
