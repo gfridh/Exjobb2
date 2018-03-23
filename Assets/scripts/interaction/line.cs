@@ -42,7 +42,7 @@ public class Line : MonoBehaviour {
     public bool oneWayInterval = false;
 
     public GameObject overviewHolder;
-    private Overview overview;
+    private Overview overviewScript;
 
 	// Use this for initialization
 	void Start () {
@@ -57,7 +57,6 @@ public class Line : MonoBehaviour {
 		lineRendererRight.useWorldSpace = false;
 		lineRendererLeft.useWorldSpace = false;
         filteringValues = GameObject.FindWithTag("FilteringValues").GetComponent<FilteringValues>();
-        overViewScript = GameObject.Find("OverView").GetComponent<Overview>();
         rightText.GetComponent<TextMesh>().fontSize = 60;
         rightText.transform.localPosition = new Vector3 (rightText.transform.localPosition.x, rightText.transform.localPosition.y-1, rightText.transform.localPosition.z);
         leftText.GetComponent<TextMesh>().fontSize = 60;
@@ -67,7 +66,8 @@ public class Line : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		Vector3 normalizedIntervalVector = (controllerLeft.transform.position - controllerRight.transform.position).normalized;
+        overViewScript = GameObject.Find("OverView").GetComponent<Overview>();
+        Vector3 normalizedIntervalVector = (controllerLeft.transform.position - controllerRight.transform.position).normalized;
 		Vector3 middleOfControllers =controllerRight.transform.position + (controllerLeft.transform.position - controllerRight.transform.position)/2;
 		lineRendererInterval.SetPosition(0,ballRight.transform.localPosition);
         lineRendererInterval.SetPosition(1,ballLeft.transform.localPosition);

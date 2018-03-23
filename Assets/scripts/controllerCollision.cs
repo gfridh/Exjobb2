@@ -38,12 +38,20 @@ public class ControllerCollision : MonoBehaviour {
     {
         if (other.GetComponent<TextMesh>())
         {
+            if (other.tag != "yes" || other.tag != "no")
+            {
 
-            other.GetComponent<TextMesh>().color = Color.blue;
-            other.GetComponent<TextMesh>().fontSize = 100;
-            Destroy(instantiatedInterval);
-            intervalUp = false;
+                other.GetComponent<TextMesh>().color = Color.blue;
+                other.GetComponent<TextMesh>().fontSize = 100;
+                //Destroy(instantiatedInterval);
+                //intervalUp = false;
 
+            }
+            else
+            {
+                other.GetComponent<TextMesh>().color = Color.blue;
+                other.GetComponent<TextMesh>().fontSize = 100;
+            }
         }
     }
 

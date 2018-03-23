@@ -1130,7 +1130,7 @@ MonoBehaviour:
   headObject: {fileID: 517548233}
   booliHolder: {fileID: 1214165399}
   booliScript: {fileID: 0}
-  BinaryParent: {fileID: 1393282137551120, guid: 066144c3dd2c49148806f87855b0df29,
+  BinaryParent: {fileID: 1144900192800350, guid: 066144c3dd2c49148806f87855b0df29,
     type: 2}
   binaryParent: {fileID: 0}
 --- !u!54 &219801698
