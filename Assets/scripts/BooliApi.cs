@@ -53,41 +53,11 @@ public class BooliApi : MonoBehaviour {
     IEnumerator go( List<object>allListings)
     {
         yield return null;
-
-         /* string unique = GenerateId();
-        string hashedText = hash("fridhg"+"1516652346"+"04q8PzkbcduSoqWDeg7sCH4xe61XuN4F0eO3E1Ax"+unique);
-        hashedText = String.Join("", hashedText.Split('-'));
-        url = "https://api.booli.se/listings?isNewConstruction=0&offset="+offset+"&limit=499&bbox="+minLat +","+minLong + "," + maxLat + "," + maxLong+"&callerId=fridhg&time=1516652346&unique="+unique+"&hash=" + hashedText;
-        using (WWW www = new WWW(url))
-        {
-            yield return www;
-
-                var booliObject = JsonConvert.DeserializeObject<bigBooliObject>(www.text); 
-        
-                for (int i=0; i<booliObject.listings.Count;i++){
-
-                    allListings.Add(booliObject.listings[i]);
-
-                }
-                if(offset < booliObject.totalCount){
-                    using (StreamWriter file = File.CreateText(@"c:\Users/Bamse/"+offset+".json"))
-                        {
-                            JsonSerializer serializer = new JsonSerializer();
-                            serializer.Serialize(file, booliObject);
-                        } 
-                    StartCoroutine(go(allListings));
-                    offset += 500;
-                }
-                else{
-                    using (StreamWriter file = File.CreateText(@"c:\Users/Bamse/"+offset+".json"))
-                        {
-                            JsonSerializer serializer = new JsonSerializer();
-                            serializer.Serialize(file, booliObject);
-                        }  */
                         int y = 0;
                     for (int z=0; z <= 8000; z+=500){
                         //string objectText = File.ReadAllText(@"c:\Users/Claremont/Github/Exjobb2/Assets/jsonFiles/"+z+".json");
-						string objectText = File.ReadAllText(@"d:\Desktop/Exjobb2/Assets/jsonFiles/"+z+".json");
+						//string objectText = File.ReadAllText(@"d:\Desktop/Exjobb2/Assets/jsonFiles/"+z+".json");
+                        string objectText = File.ReadAllText(@"c:\Users/Bamse/"+z+".json");
                         JObject o = JObject.Parse(objectText);
                         //booliObject = JsonConvert.DeserializeObject<bigBooliObject>(File.ReadAllText(@"c:\Users/Claremont/Github/Exjobb2/Assets/jsonFiles/"+z+".json"));  
                         GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("house");
@@ -165,10 +135,21 @@ public class BooliApi : MonoBehaviour {
                             {
                                 priceDecrease = 1;
                             }
+                            
+                            if (o["listings"][i]["objectType"] != null)
+                            {
+                                houseType = (string)o["listings"][i]["objectType"];
+                            }
+                            else
+                            {
+                                houseType = "";
+                                   
+                            }
+
+                            
 
                             m2Price = listPrice / livingArea;
                             
-                            houseType = "lagenhet";
                             soonForSale = 0;
 
 
@@ -193,10 +174,6 @@ public class BooliApi : MonoBehaviour {
                             y++;
 
                         }
-
-/*                     } 
-
-                } */
 
         } 
     }
@@ -330,6 +307,7 @@ private void placeHouseOnMap(float longitude , float lat, GameObject target){
             && target.GetComponent<HouseCoordinates>().constructionYear <= filteringValues.constructionYearMax
             && target.GetComponent<HouseCoordinates>().listPrice / target.GetComponent<HouseCoordinates>().livingArea < filteringValues.m2PriceMax
             && target.GetComponent<HouseCoordinates>().listPrice / target.GetComponent<HouseCoordinates>().livingArea > filteringValues.m2PriceMin
+            && filteringValues.houseTypes.Contains(target.GetComponent<HouseCoordinates>().houseType)
 
 
             )
