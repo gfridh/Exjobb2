@@ -42,7 +42,6 @@ public class rayCast : MonoBehaviour
             /*             print(((internalCoordinates.y/256)*(170/Mathf.Pow(2, zoomLevel)/2)*2 + currentMiddlelatitude));
                         print((internalCoordinates.x/256)*(360/Mathf.Pow(2, zoomLevel)/2)*2 + currentMiddlelongitude); */
             Color tmp = Cube.GetComponent<SpriteRenderer>().color;
-            print((Mathf.Abs(movementDifference) / 0.3f));
             tmp.a = (Mathf.Abs(movementDifference)/0.3f);
             Cube.GetComponent<SpriteRenderer>().color = tmp;
             if (movementDifference > 0.3f || movementDifference < -0.3f ){

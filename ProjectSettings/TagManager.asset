@@ -31,12 +31,14 @@ TagManager:
   - yes
   - no
   - Overview
-  - villa
-  - Lagenhet
-  - fritidshus
-  - gard
-  - radhus
-  - tomt
+  - Villa
+  - "L\xE4genhet"
+  - "G\xE5rd"
+  - Fritidshus
+  - Radhus
+  - Tomt/Mark
+  - controllerLeft
+  - controllerRight
   layers:
   - Default
   - TransparentFX

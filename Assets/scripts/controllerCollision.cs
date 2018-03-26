@@ -2,16 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ControllerCollision : MonoBehaviour {
-	public GameObject menuController;
+public class ControllerCollision : MonoBehaviour
+{
+    public GameObject menuController;
     private Menu menuScript;
-	public GameObject interval;
-	private GameObject smallInterval;
-	private Line interValScript;
-	public bool intervalUp = false;
-	public GameObject instantiatedInterval;
-	public GameObject leftController;
-	public GameObject rightController;
+    public GameObject interval;
+    private GameObject smallInterval;
+    private Line interValScript;
+    public bool intervalUp = false;
+    public GameObject instantiatedInterval;
+    public GameObject leftController;
+    public GameObject rightController;
     public GameObject headObject;
     public GameObject booliHolder;
     public BooliApi booliScript;
@@ -27,22 +28,24 @@ public class ControllerCollision : MonoBehaviour {
 
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         booliScript = booliHolder.GetComponent<BooliApi>();
         menuScript = menuController.GetComponent<Menu>();
         filteringValues = GameObject.FindWithTag("FilteringValues").GetComponent<FilteringValues>();
         overViewScript = overViewHolder.GetComponent<Overview>();
-        houseTypeParent.transform.localPosition = new Vector3(0,0,0);
+        houseTypeParent.transform.localPosition = new Vector3(0, 0, 0);
         houseTypeParent.SetActive(false);
 
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update()
+    {
         //overViewScript = GameObject.Find("OverView").GetComponent<Overview>();
         houseTypeParent.transform.LookAt(headObject.transform.position);
-        if(collisionName != "")
-        { 
+        if (collisionName != "" && menuScript.triggerClicked == true)
+        {
             if (collisionName == "propertyPrice")
             {
                 if (!intervalUp)
@@ -61,10 +64,10 @@ public class ControllerCollision : MonoBehaviour {
                 else
                 {
 
-                        Destroy(instantiatedInterval);
-                        intervalUp = false;
-                        booliScript.filterActive = false;
-                    
+                    Destroy(instantiatedInterval);
+                    intervalUp = false;
+                    booliScript.filterActive = false;
+
                 }
 
             }
@@ -87,13 +90,13 @@ public class ControllerCollision : MonoBehaviour {
                 else
                 {
 
-                        Destroy(instantiatedInterval);
-                        intervalUp = false;
-                        booliScript.filterActive = false;
-                    }
-                
+                    Destroy(instantiatedInterval);
+                    intervalUp = false;
+                    booliScript.filterActive = false;
+                }
+
             }
-            else if( collisionName == "plotArea")
+            else if (collisionName == "plotArea")
             {
                 if (!intervalUp)
                 {
@@ -111,10 +114,10 @@ public class ControllerCollision : MonoBehaviour {
                 else
                 {
 
-                        Destroy(instantiatedInterval);
-                        intervalUp = false;
-                        booliScript.filterActive = false;
-                    
+                    Destroy(instantiatedInterval);
+                    intervalUp = false;
+                    booliScript.filterActive = false;
+
                 }
             }
 
@@ -136,10 +139,10 @@ public class ControllerCollision : MonoBehaviour {
                 else
                 {
 
-                        Destroy(instantiatedInterval);
-                        intervalUp = false;
-                        booliScript.filterActive = false;
-                    
+                    Destroy(instantiatedInterval);
+                    intervalUp = false;
+                    booliScript.filterActive = false;
+
                 }
             }
 
@@ -168,10 +171,10 @@ public class ControllerCollision : MonoBehaviour {
                 else
                 {
 
-                        Destroy(instantiatedInterval);
-                        intervalUp = false;
-                        booliScript.filterActive = false;
-                    
+                    Destroy(instantiatedInterval);
+                    intervalUp = false;
+                    booliScript.filterActive = false;
+
                 }
 
             }
@@ -195,10 +198,10 @@ public class ControllerCollision : MonoBehaviour {
                 else
                 {
 
-                        Destroy(instantiatedInterval);
-                        intervalUp = false;
-                        booliScript.filterActive = false;
-                    
+                    Destroy(instantiatedInterval);
+                    intervalUp = false;
+                    booliScript.filterActive = false;
+
                 }
 
             }
@@ -221,10 +224,10 @@ public class ControllerCollision : MonoBehaviour {
                 else
                 {
 
-                        Destroy(instantiatedInterval);
-                        intervalUp = false;
-                        booliScript.filterActive = false;
-                    
+                    Destroy(instantiatedInterval);
+                    intervalUp = false;
+                    booliScript.filterActive = false;
+
                 }
 
             }
@@ -237,6 +240,7 @@ public class ControllerCollision : MonoBehaviour {
                 HouseTypeFilter(collisionName);
             }
             collisionName = "";
+            menuScript.triggerClicked = false;
         }
     }
 
@@ -244,105 +248,121 @@ public class ControllerCollision : MonoBehaviour {
     {
         if (other.GetComponent<TextMesh>())
         {
-          if (other.tag != "villa" || other.tag != "Lagenhet" || other.tag != "fritidshus" || other.tag != "gard" || other.tag != "radhus" || other.tag != "tomt")
+            if (other.tag != "Villa" && other.tag != "Lägenhet" && other.tag != "Fritidshus" && other.tag != "Gård" && other.tag != "Radhus" && other.tag != "Tomt/Mark")
             {
-                                if (other.tag != "yes" || other.tag != "no")
-            {
+                if (other.tag != "yes" || other.tag != "no")
+                {
 
-                other.GetComponent<TextMesh>().color = Color.blue;
-                other.GetComponent<TextMesh>().fontSize = 100;
-                //Destroy(instantiatedInterval);
-                //intervalUp = false;
+                    other.GetComponent<TextMesh>().color = Color.blue;
+                    other.GetComponent<TextMesh>().fontSize = 100;
+                    //Destroy(instantiatedInterval);
+                    //intervalUp = false;
 
-            }
-            else
-            {
-                other.GetComponent<TextMesh>().color = Color.blue;
-                other.GetComponent<TextMesh>().fontSize = 100;
-            }
+                }
+                else
+                {
+                    other.GetComponent<TextMesh>().color = Color.blue;
+                    other.GetComponent<TextMesh>().fontSize = 100;
+                }
 
             }
         }
     }
 
-    void OnTriggerEnter(Collider other) {
-        if(other.GetComponent<TextMesh>())
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.GetComponent<TextMesh>())
         {
+            if (other.tag != "Villa" && other.tag != "Lägenhet" && other.tag != "Fritidshus" && other.tag != "Gård" && other.tag != "Radhus" && other.tag != "Tomt/Mark")
+            {
 
-
-            other.GetComponent<TextMesh>().color = Color.yellow;
-            other.GetComponent<TextMesh>().fontSize = 150;
+                other.GetComponent<TextMesh>().color = Color.yellow;
+                other.GetComponent<TextMesh>().fontSize = 150;
+            }
 
 
         }
         collisionName = other.tag;
-        if (other.tag == "price"){
-			removeChilds();
-			List<string> priceButtons = new List<string>();
-			priceButtons.Add("propertyPrice");
-			priceButtons.Add("maxRent");
-			priceButtons.Add("m2price");
-			priceButtons.Add("priceReduced");
-			menuScript.placeButton(3,4,90,0,false,priceButtons);
-		}
-
-		else if(other.tag == "date"){
-			removeChilds();
-			List<string> dateButtons = new List<string>();
-			dateButtons.Add("constructionYear");
-			dateButtons.Add("soonForSale");
-			menuScript.placeButton(3,2,90,90,false,dateButtons);
-		}
-		else if(other.tag == "houseType"){
-			removeChilds();
-			List<string> houseTypeButtons = new List<string>();
-			houseTypeButtons.Add("houseType2");
-			menuScript.placeButton(3,1,90,180,false,houseTypeButtons);
-		}
-		else if(other.tag == "area"){
-			removeChilds();
-			List<string> areaButtons = new List<string>();
-			areaButtons.Add("numberOfRooms");
-			areaButtons.Add("livingArea");
-			areaButtons.Add("plotArea");
-			menuScript.placeButton(3,3,90,270,false,areaButtons);
-		}
-		
-
-            if(other.tag == "yes")
-            {
-                filteringValues.PriceDecrease = 1;
-                overViewScript.listPrice.GetComponent<TextMesh>().text = "Only price reduced: No";
-
-        }
-            else if (other.tag == "no")
-            {
-                filteringValues.PriceDecrease = 0;
-                overViewScript.listPrice.GetComponent<TextMesh>().text = "Only price reduced: Yes";
-        }
-        if (other.tag == "villa" || other.tag == "Lagenhet" || other.tag == "fritidshus" || other.tag == "gard" || other.tag == "radhus" || other.tag == "tomt")
+        if (other.tag == "price")
         {
-            if (other.GetComponent<TextMesh>().color != Color.yellow)
-            {
-                other.GetComponent<TextMesh>().color = Color.yellow;
-            }
-            else
+            removeChilds();
+            List<string> priceButtons = new List<string>();
+            priceButtons.Add("propertyPrice");
+            priceButtons.Add("maxRent");
+            priceButtons.Add("m2price");
+            priceButtons.Add("priceReduced");
+            menuScript.placeButton(3, 4, 90, 0, false, priceButtons);
+        }
+
+        else if (other.tag == "date")
+        {
+            removeChilds();
+            List<string> dateButtons = new List<string>();
+            dateButtons.Add("constructionYear");
+            dateButtons.Add("soonForSale");
+            menuScript.placeButton(3, 2, 90, 90, false, dateButtons);
+        }
+        else if (other.tag == "houseType")
+        {
+            removeChilds();
+            List<string> houseTypeButtons = new List<string>();
+            houseTypeButtons.Add("houseType2");
+            menuScript.placeButton(3, 1, 90, 180, false, houseTypeButtons);
+        }
+        else if (other.tag == "area")
+        {
+            removeChilds();
+            List<string> areaButtons = new List<string>();
+            areaButtons.Add("numberOfRooms");
+            areaButtons.Add("livingArea");
+            areaButtons.Add("plotArea");
+            menuScript.placeButton(3, 3, 90, 270, false, areaButtons);
+        }
+
+
+        if (other.tag == "yes")
+        {
+            filteringValues.PriceDecrease = 1;
+            overViewScript.priceDecrease.GetComponent<TextMesh>().text = "Only price reduced: No";
+
+        }
+        else if (other.tag == "no")
+        {
+            filteringValues.PriceDecrease = 0;
+            overViewScript.priceDecrease.GetComponent<TextMesh>().text = "Only price reduced: Yes";
+        }
+
+        if (other.tag == "Villa" || other.tag == "Lägenhet" || other.tag == "Fritidshus" || other.tag == "Gård" || other.tag == "Radhus" || other.tag == "Tomt/Mark")
+        {
+            if (filteringValues.houseTypes.Contains(other.tag))
             {
                 other.GetComponent<TextMesh>().color = Color.blue;
+                filteringValues.houseTypes = filteringValues.houseTypes.Replace(other.tag, "");
+
+            }
+
+            else
+            {
+                other.GetComponent<TextMesh>().color = Color.yellow;
+                filteringValues.houseTypes += other.tag;
+
             }
         }
 
     }
 
-	private void removeChilds(){
-		int i = 1;
-		foreach (Transform child in menuScript.parent.transform) {
-			if(i>4){
-				GameObject.Destroy(child.gameObject);
-			}
-			i++;
- 		}
-	}
+    private void removeChilds()
+    {
+        int i = 1;
+        foreach (Transform child in menuScript.parent.transform)
+        {
+            if (i > 4)
+            {
+                GameObject.Destroy(child.gameObject);
+            }
+            i++;
+        }
+    }
 
     private void BinaryFilter(string type)
     {
@@ -377,6 +397,6 @@ public class ControllerCollision : MonoBehaviour {
             intervalUp = false;
             booliScript.filterActive = false;
             houseTypeFilterActive = false;
-}
+        }
     }
 }

@@ -476,7 +476,12 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1919452764497274, guid: 2236ea0e0a4434a4aaa9b60fac33cfda, type: 2}
       propertyPath: m_TagString
-      value: tomt
+      value: Tomt/Mark
+      objectReference: {fileID: 0}
+    - target: {fileID: 102337007388237226, guid: 2236ea0e0a4434a4aaa9b60fac33cfda,
+        type: 2}
+      propertyPath: m_Color.rgba
+      value: 4278255615
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2236ea0e0a4434a4aaa9b60fac33cfda, type: 2}
@@ -1102,7 +1107,7 @@ GameObject:
   - component: {fileID: 219801699}
   m_Layer: 0
   m_Name: Controller (right)
-  m_TagString: Untagged
+  m_TagString: controllerRight
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1197,6 +1202,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7751a080b026e014bb851f308635b231, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  menuController: {fileID: 2029425530}
+  interval: {fileID: 1156904676766068, guid: 2e617f7661b079f4bb739a092889cd28, type: 2}
+  intervalUp: 0
+  instantiatedInterval: {fileID: 0}
+  leftController: {fileID: 1589707502}
+  rightController: {fileID: 219801693}
+  headObject: {fileID: 517548233}
+  booliHolder: {fileID: 1214165399}
+  booliScript: {fileID: 0}
+  BinaryParent: {fileID: 1408221611253720, guid: 74067a6d95b36424e9ae15381935bba6,
+    type: 2}
+  binaryParent: {fileID: 1408221611253720, guid: 74067a6d95b36424e9ae15381935bba6,
+    type: 2}
+  overViewHolder: {fileID: 1262434563}
+  houseTypeParent: {fileID: 497084521}
+  houseTypeFilterActive: 0
+  collisionName: 
 --- !u!54 &219801698
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3649,7 +3671,12 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1919452764497274, guid: 2236ea0e0a4434a4aaa9b60fac33cfda, type: 2}
       propertyPath: m_TagString
-      value: Lagenhet
+      value: "L\xE4genhet"
+      objectReference: {fileID: 0}
+    - target: {fileID: 102337007388237226, guid: 2236ea0e0a4434a4aaa9b60fac33cfda,
+        type: 2}
+      propertyPath: m_Color.rgba
+      value: 4278255615
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2236ea0e0a4434a4aaa9b60fac33cfda, type: 2}
@@ -4712,7 +4739,12 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1919452764497274, guid: 2236ea0e0a4434a4aaa9b60fac33cfda, type: 2}
       propertyPath: m_TagString
-      value: fritidshus
+      value: Fritidshus
+      objectReference: {fileID: 0}
+    - target: {fileID: 102337007388237226, guid: 2236ea0e0a4434a4aaa9b60fac33cfda,
+        type: 2}
+      propertyPath: m_Color.rgba
+      value: 4278255615
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2236ea0e0a4434a4aaa9b60fac33cfda, type: 2}
@@ -5049,7 +5081,12 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1919452764497274, guid: 2236ea0e0a4434a4aaa9b60fac33cfda, type: 2}
       propertyPath: m_TagString
-      value: radhus
+      value: Radhus
+      objectReference: {fileID: 0}
+    - target: {fileID: 102337007388237226, guid: 2236ea0e0a4434a4aaa9b60fac33cfda,
+        type: 2}
+      propertyPath: m_Color.rgba
+      value: 4278255615
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2236ea0e0a4434a4aaa9b60fac33cfda, type: 2}
@@ -7042,13 +7079,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1262434563}
-  m_LocalRotation: {x: -0, y: -0.393676, z: -0, w: 0.91924924}
-  m_LocalPosition: {x: -3.03, y: 3.0800018, z: 1.59}
+  m_LocalRotation: {x: 0.4162049, y: -0, z: -0, w: 0.90927094}
+  m_LocalPosition: {x: 0, y: -1, z: 3}
   m_LocalScale: {x: 0.1, y: 0.10000015, z: 0.10000015}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 16
-  m_LocalEulerAnglesHint: {x: 0, y: -46.367, z: 0}
+  m_LocalEulerAnglesHint: {x: 49.190002, y: 0, z: 0}
 --- !u!1 &1270292274
 GameObject:
   m_ObjectHideFlags: 0
@@ -8789,7 +8826,7 @@ GameObject:
   - component: {fileID: 1589707507}
   m_Layer: 0
   m_Name: Controller (left)
-  m_TagString: Untagged
+  m_TagString: controllerLeft
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10011,7 +10048,12 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1919452764497274, guid: 2236ea0e0a4434a4aaa9b60fac33cfda, type: 2}
       propertyPath: m_TagString
-      value: villa
+      value: Villa
+      objectReference: {fileID: 0}
+    - target: {fileID: 102337007388237226, guid: 2236ea0e0a4434a4aaa9b60fac33cfda,
+        type: 2}
+      propertyPath: m_Color.rgba
+      value: 4278255615
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2236ea0e0a4434a4aaa9b60fac33cfda, type: 2}
@@ -10172,6 +10214,49 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1736963652}
+--- !u!1 &1740497470
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1740497471}
+  - component: {fileID: 1740497472}
+  m_Layer: 0
+  m_Name: DataLogger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1740497471
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1740497470}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 18
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1740497472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1740497470}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 527c9b7462e4f2a479ecc16806a29bf9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timerStarted: 0
+  time: 0
+  times: []
 --- !u!1 &1770700307
 GameObject:
   m_ObjectHideFlags: 0
@@ -11133,7 +11218,7 @@ MonoBehaviour:
   plotAreaMin: 0
   plotAreaMax: 100000000
   PriceDecrease: 1
-  houseTypes: "VillaL\xE4genhet"
+  houseTypes: "L\xE4genhetTomt/MarkVillaRadhusG\xE5rdFritidshus"
   m2PriceMin: 0
   m2PriceMax: 100000000
   constructionYearMin: 0
@@ -11481,7 +11566,12 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1919452764497274, guid: 2236ea0e0a4434a4aaa9b60fac33cfda, type: 2}
       propertyPath: m_TagString
-      value: gard
+      value: "G\xE5rd"
+      objectReference: {fileID: 0}
+    - target: {fileID: 102337007388237226, guid: 2236ea0e0a4434a4aaa9b60fac33cfda,
+        type: 2}
+      propertyPath: m_Color.rgba
+      value: 4278255615
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2236ea0e0a4434a4aaa9b60fac33cfda, type: 2}
@@ -11664,6 +11754,7 @@ MonoBehaviour:
   leftControllerObject: {fileID: 1589707502}
   rightControllerObject: {fileID: 219801693}
   interval: {fileID: 1156904676766068, guid: 2e617f7661b079f4bb739a092889cd28, type: 2}
+  triggerClicked: 0
 --- !u!4 &2029425532
 Transform:
   m_ObjectHideFlags: 0

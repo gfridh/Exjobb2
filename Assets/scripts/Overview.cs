@@ -25,6 +25,8 @@ public class Overview: MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        leftControllerObject.GetComponent<VRTK_ControllerEvents>().TriggerClicked += new ControllerInteractionEventHandler(LeftTriggerClicked);
+        leftControllerObject.GetComponent<VRTK_ControllerEvents>().GripPressed += new ControllerInteractionEventHandler(GripClicked);
         DeleteAll();
     }
 	
@@ -37,7 +39,7 @@ public class Overview: MonoBehaviour {
     }
     private void LeftTriggerClicked(object sender, ControllerInteractionEventArgs e)
     {
-        if (overviewActive)
+        if (overviewActive == true)
         {
             this.gameObject.transform.position = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y + 100, this.gameObject.transform.position.z);
             overviewActive = false;
@@ -54,11 +56,14 @@ public class Overview: MonoBehaviour {
         DeleteAll();
         filteringValues.Restart();
         reset = true;
+        overviewActive = false;
     }
 
 
 
     private void DeleteAll(){
+        i = 0;
+        print(transform.position);
         Destroy(listPrice);
         Destroy(numberOfrooms);
         Destroy(livingArea);
@@ -87,8 +92,6 @@ public class Overview: MonoBehaviour {
             child.transform.localPosition = new Vector3(child.transform.localPosition.x, child.transform.localPosition.y + i*2, child.transform.localPosition.z);
             i++;
         }
-        leftControllerObject.GetComponent<VRTK_ControllerEvents>().TriggerClicked += new ControllerInteractionEventHandler(LeftTriggerClicked);
-        leftControllerObject.GetComponent<VRTK_ControllerEvents>().GripPressed += new ControllerInteractionEventHandler(GripClicked);
 
         reset = true;
     }

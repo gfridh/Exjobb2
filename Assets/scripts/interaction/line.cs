@@ -43,9 +43,11 @@ public class Line : MonoBehaviour {
 
     public GameObject overviewHolder;
     private Overview overviewScript;
+    private GameObject currentFilterText;
 
 	// Use this for initialization
 	void Start () {
+        
         rightText = GameObject.Find("highValue");
         leftText = GameObject.Find("lowValue");
         booliScript = GameObject.FindWithTag("fullMap").GetComponent<BooliApi>();
@@ -60,12 +62,16 @@ public class Line : MonoBehaviour {
         rightText.GetComponent<TextMesh>().fontSize = 60;
         rightText.transform.localPosition = new Vector3 (rightText.transform.localPosition.x, rightText.transform.localPosition.y-1, rightText.transform.localPosition.z);
         leftText.GetComponent<TextMesh>().fontSize = 60;
+        controllerLeft = GameObject.FindWithTag("controllerLeft");
+        controllerRight = GameObject.FindWithTag("controllerRight");
+        head = GameObject.FindWithTag("MainCamera");
 
 
     }
 	
 	// Update is called once per frame
 	void Update () {
+
         overViewScript = GameObject.Find("OverView").GetComponent<Overview>();
         Vector3 normalizedIntervalVector = (controllerLeft.transform.position - controllerRight.transform.position).normalized;
 		Vector3 middleOfControllers =controllerRight.transform.position + (controllerLeft.transform.position - controllerRight.transform.position)/2;
@@ -79,7 +85,6 @@ public class Line : MonoBehaviour {
         
 
 		distanceBetweenControllers =  (controllerRight.transform.position.x - handPositionModulation) - (controllerLeft.transform.position.x + handPositionModulation);
-        print(distanceBetweenControllers);
         /* 		distanceBetweenControllers = ((controllerRight.transform.position.x - handPositionModulation) - (controllerLeft.transform.position.x + handPositionModulation)); */
 
         intervalPosition =  middleOfControllers.x - head.transform.position.x;
