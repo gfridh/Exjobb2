@@ -1197,22 +1197,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7751a080b026e014bb851f308635b231, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  menuController: {fileID: 2029425530}
-  interval: {fileID: 1156904676766068, guid: 2e617f7661b079f4bb739a092889cd28, type: 2}
-  intervalUp: 0
-  instantiatedInterval: {fileID: 0}
-  leftController: {fileID: 1589707502}
-  rightController: {fileID: 219801693}
-  headObject: {fileID: 517548233}
-  booliHolder: {fileID: 1214165399}
-  booliScript: {fileID: 0}
-  BinaryParent: {fileID: 1408221611253720, guid: 74067a6d95b36424e9ae15381935bba6,
-    type: 2}
-  binaryParent: {fileID: 0}
-  overViewHolder: {fileID: 1262434563}
-  houseTypeParent: {fileID: 497084521}
-  houseTypeFilterActive: 0
-  collisionName: 
 --- !u!54 &219801698
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -6491,6 +6475,7 @@ GameObject:
   - component: {fileID: 1214165401}
   - component: {fileID: 1214165400}
   - component: {fileID: 1214165407}
+  - component: {fileID: 1214165408}
   m_Layer: 5
   m_Name: fullMap
   m_TagString: fullMap
@@ -6654,6 +6639,23 @@ MonoBehaviour:
   overviewHolder: {fileID: 1262434563}
   housePrefab: {fileID: 1441325612729452, guid: d84b074b7a631b046ba82174ee337b2e,
     type: 2}
+--- !u!114 &1214165408
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1214165399}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 455076d31e092d949abecab567f40025, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  url: 
+  minLong: 16.65711
+  maxLong: 19.46937
+  maxLat: 59.9986
+  minLat: 58.67059
+  offset: 0
 --- !u!1 &1227652339
 GameObject:
   m_ObjectHideFlags: 0
@@ -11131,7 +11133,7 @@ MonoBehaviour:
   plotAreaMin: 0
   plotAreaMax: 100000000
   PriceDecrease: 1
-  houseType: lagenhet
+  houseTypes: "VillaL\xE4genhet"
   m2PriceMin: 0
   m2PriceMax: 100000000
   constructionYearMin: 0
