@@ -7,6 +7,8 @@ public class DataLogger : MonoBehaviour
     public bool timerStarted = false;
     public float time = 0;
     public List<float> times;
+    public float actions = 0;
+    public List<float> actionsList;
 
     // Use this for initialization
     void Start()
@@ -27,9 +29,11 @@ public class DataLogger : MonoBehaviour
             {
                 timerStarted = false;
                 times.Add(time);
+                actionsList.Add(actions);
 
                 foreach (float item in times) { print(item); }
                 time = 0;
+                actions = 0;
             }
 
         }

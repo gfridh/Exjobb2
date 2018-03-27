@@ -57,8 +57,17 @@ public class rayCast : MonoBehaviour
                     prevDistance = Vector3.Distance (transform.position, googleHolder.transform.position);
                 }
                 else if(prevDistance - Vector3.Distance (transform.position, googleHolder.transform.position) < -0.3f && prevZoom != 8){
-                    googleScript.lat = prevLat;
-                    googleScript.lon = prevLon;
+                    if (prevZoom == 10)
+                    {
+                        googleScript.lat = 59.33459f;
+                        googleScript.lon = 18.06324f;
+                    }
+                    else
+                    {
+                        googleScript.lat = prevLat;
+                        googleScript.lon = prevLon;
+                    }
+
 
                     googleScript.zoom -= 2;
                     zoomLevel -= 2;

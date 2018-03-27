@@ -105,7 +105,7 @@ public class ControllerCollision : MonoBehaviour
                     interValScript.controllerLeft = leftController;
                     interValScript.controllerRight = rightController;
                     interValScript.head = headObject;
-                    interValScript.maxValue = 50000;
+                    interValScript.maxValue = 2000;
                     interValScript.minValue = 0;
                     interValScript.currentFilter = "plotArea";
                     intervalUp = true;
@@ -299,8 +299,7 @@ public class ControllerCollision : MonoBehaviour
             removeChilds();
             List<string> dateButtons = new List<string>();
             dateButtons.Add("constructionYear");
-            dateButtons.Add("soonForSale");
-            menuScript.placeButton(3, 2, 90, 90, false, dateButtons);
+            menuScript.placeButton(3, 1, 90, 90, false, dateButtons);
         }
         else if (other.tag == "houseType")
         {
@@ -324,12 +323,14 @@ public class ControllerCollision : MonoBehaviour
         {
             filteringValues.PriceDecrease = 1;
             overViewScript.priceDecrease.GetComponent<TextMesh>().text = "Only price reduced: No";
+            other.tag = "no";
 
         }
         else if (other.tag == "no")
         {
             filteringValues.PriceDecrease = 0;
             overViewScript.priceDecrease.GetComponent<TextMesh>().text = "Only price reduced: Yes";
+            other.tag = "yes";
         }
 
         if (other.tag == "Villa" || other.tag == "Lägenhet" || other.tag == "Fritidshus" || other.tag == "Gård" || other.tag == "Radhus" || other.tag == "Tomt/Mark")

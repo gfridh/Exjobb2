@@ -239,7 +239,7 @@ public class Line : MonoBehaviour {
             leftText.GetComponent<TextMesh>().text = Mathf.Round(smallValue).ToString();
             if (bigValue > maxValue)
             {
-                rightText.GetComponent<TextMesh>().text = Mathf.Round(bigValue).ToString() + "m2"+ "+";
+                rightText.GetComponent<TextMesh>().text = Mathf.Round(maxValue).ToString() + "m2"+ "+";
             }
             else
             {

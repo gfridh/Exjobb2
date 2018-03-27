@@ -36,6 +36,8 @@ public class Menu : MonoBehaviour
     private ControllerCollision rightControllerCollision;
     private bool filterStuck = false;
     public bool triggerClicked = false;
+    public GameObject dataloggerHolder;
+    private DataLogger dataloggerScript;
 
 
 
@@ -59,6 +61,8 @@ public class Menu : MonoBehaviour
         bigButtons.Add("area");
         placeButton(1.5f, 4, 360, 0, true, bigButtons);
         rightmenuActive = true;
+        dataloggerScript = dataloggerHolder.GetComponent<DataLogger>();
+
     }
     // Update is called once per frame
     void Update()
@@ -158,8 +162,12 @@ public class Menu : MonoBehaviour
     private void RightTriggerClicked(object sender, ControllerInteractionEventArgs e)
 
     {
+        dataloggerScript.actions++;
+        print(dataloggerScript.actions);
         triggerClicked = true;
-        if (rightControllerCollision.houseTypeFilterActive == true && filterStuck == false && rightmenuActive == false)
+        if (rightControllerCollision.houseTypeFilterActive == true
+            && filterStuck == false
+            && rightmenuActive == false)
         {
             rightControllerCollision.houseTypeParent.transform.parent = null;
             filterStuck = true;
