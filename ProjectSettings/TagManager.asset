@@ -36,9 +36,9 @@ TagManager:
   - "G\xE5rd"
   - Fritidshus
   - Radhus
-  - Tomt/Mark
   - controllerLeft
   - controllerRight
+  - Tomt
   layers:
   - Default
   - TransparentFX

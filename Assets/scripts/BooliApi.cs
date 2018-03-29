@@ -139,11 +139,14 @@ public class BooliApi : MonoBehaviour {
                             if (o["listings"][i]["objectType"] != null)
                             {
                                 houseType = (string)o["listings"][i]["objectType"];
+                                if (houseType.Contains("Tomt"))
+                                {
+                                    houseType = "Tomt";
+                                }
                             }
                             else
                             {
                                 houseType = "";
-                                   
                             }
 
                             
@@ -152,10 +155,7 @@ public class BooliApi : MonoBehaviour {
                             
                             soonForSale = 0;
 
-
-
-
-                            GameObject house = Instantiate(housePrefab, new Vector3(0, 0, 0), Quaternion.Euler(new Vector3(90, 0, 0))) as GameObject;
+                GameObject house = Instantiate(housePrefab, new Vector3(0, 0, 0), Quaternion.Euler(new Vector3(90, 0, 0))) as GameObject;
                             house.GetComponent<HouseCoordinates>().longitude = longitude;
                             house.GetComponent<HouseCoordinates>().latitude = latitude;
                             house.GetComponent<HouseCoordinates>().listPrice = listPrice;
@@ -304,18 +304,33 @@ private void placeHouseOnMap(float longitude , float lat, GameObject target){
             && target.GetComponent<HouseCoordinates>().livingArea <= filteringValues.livingAreaMax
             && target.GetComponent<HouseCoordinates>().constructionYear >= filteringValues.constructionYearMin
             && target.GetComponent<HouseCoordinates>().constructionYear <= filteringValues.constructionYearMax
-            && target.GetComponent<HouseCoordinates>().listPrice / target.GetComponent<HouseCoordinates>().livingArea < filteringValues.m2PriceMax
-            && target.GetComponent<HouseCoordinates>().listPrice / target.GetComponent<HouseCoordinates>().livingArea > filteringValues.m2PriceMin
             && filteringValues.houseTypes.Contains(target.GetComponent<HouseCoordinates>().houseType)
 
 
             )
         {
-            return true;
+            if (target.GetComponent<HouseCoordinates>().listPrice / target.GetComponent<HouseCoordinates>().livingArea < filteringValues.m2PriceMax
+            && target.GetComponent<HouseCoordinates>().listPrice / target.GetComponent<HouseCoordinates>().livingArea > filteringValues.m2PriceMin)
+            {
+                return true;
+            }
+
+            else if (target.GetComponent<HouseCoordinates>().listPrice / target.GetComponent<HouseCoordinates>().livingArea > 10000000000 && filteringValues.houseTypes.Contains(target.GetComponent<HouseCoordinates>().houseType) && target.GetComponent<HouseCoordinates>().houseType == "Tomt")
+            {
+                return true;
+            }
+
+            else
+            {
+                return false;
+            }
         }
         else
         {
-            return false;
+
+                return false;
+            
+    
         }
     }
 }

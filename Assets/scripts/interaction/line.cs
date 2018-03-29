@@ -43,7 +43,7 @@ public class Line : MonoBehaviour {
 
     public GameObject overviewHolder;
     private Overview overviewScript;
-    private GameObject currentFilterText;
+    public GameObject currentFilterText;
 
 	// Use this for initialization
 	void Start () {
@@ -65,6 +65,8 @@ public class Line : MonoBehaviour {
         controllerLeft = GameObject.FindWithTag("controllerLeft");
         controllerRight = GameObject.FindWithTag("controllerRight");
         head = GameObject.FindWithTag("MainCamera");
+        currentFilterText.transform.parent = transform.parent;
+        currentFilterText.transform.localPosition = new Vector3(0,-0.05f,0);
 
 
     }
@@ -274,14 +276,14 @@ public class Line : MonoBehaviour {
         {
             filteringValues.livingAreaMin = Mathf.RoundToInt(smallValue);
             filteringValues.livingAreaMax = Mathf.RoundToInt(bigValue);
-            leftText.GetComponent<TextMesh>().text = smallValue.ToString();
+            leftText.GetComponent<TextMesh>().text = filteringValues.livingAreaMin.ToString()+"m2";
             if (bigValue > maxValue)
             {
-                rightText.GetComponent<TextMesh>().text =maxValue.ToString() +  "+";
+                rightText.GetComponent<TextMesh>().text =maxValue.ToString() +"m2"+  "+";
             }
             else
             {
-                rightText.GetComponent<TextMesh>().text =bigValue.ToString();
+                rightText.GetComponent<TextMesh>().text = filteringValues.livingAreaMax.ToString() + "m2";
             }
             overViewScript.livingArea.GetComponent<TextMesh>().text = "Living area: " + leftText.GetComponent<TextMesh>().text + " - " + rightText.GetComponent<TextMesh>().text;
 

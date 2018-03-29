@@ -9,7 +9,7 @@ public class FilteringValues : MonoBehaviour {
     public float plotAreaMin = 0;
     public float plotAreaMax = 100000000;
     public int PriceDecrease = 1;
-    public string houseTypes = "LägenhetTomt/MarkVillaRadhusGårdFritidshus";
+    public string houseTypes = "LägenhetTomtVillaRadhusGårdFritidshus";
     public float m2PriceMin = 0;
     public float m2PriceMax = 100000000;
     public int constructionYearMin = 1500;
@@ -38,7 +38,7 @@ public class FilteringValues : MonoBehaviour {
     plotAreaMin = 0;
     plotAreaMax = 100000000;
     PriceDecrease = 1;
-    houseTypes = "LägenhetTomt/MarkVillaRadhusGårdFritidshus";
+    houseTypes = "LägenhetTomtVillaRadhusGårdFritidshus";
     m2PriceMin = 0;
     m2PriceMax = 100000000;
     constructionYearMin = 1500;

@@ -24,6 +24,8 @@ public class ControllerCollision : MonoBehaviour
     public GameObject houseTypeParent;
     public bool houseTypeFilterActive = false;
     public string collisionName = "";
+    public string houseTypeTemp;
+    public GameObject currentFilter;
 
 
 
@@ -58,6 +60,8 @@ public class ControllerCollision : MonoBehaviour
                     interValScript.maxValue = 20000000;
                     interValScript.minValue = 0;
                     interValScript.currentFilter = "propertyPrice";
+                    interValScript.currentFilterText = Instantiate(currentFilter);
+                    interValScript.currentFilterText.GetComponent<TextMesh>().text = "Property price";
                     intervalUp = true;
                     booliScript.filterActive = true;
                 }
@@ -83,6 +87,8 @@ public class ControllerCollision : MonoBehaviour
                     interValScript.maxValue = 10000;
                     interValScript.minValue = 0;
                     interValScript.currentFilter = "rent";
+                    interValScript.currentFilterText = Instantiate(currentFilter);
+                    interValScript.currentFilterText.GetComponent<TextMesh>().text = "Max rent";
                     interValScript.oneWayInterval = true;
                     intervalUp = true;
                     booliScript.filterActive = true;
@@ -108,6 +114,8 @@ public class ControllerCollision : MonoBehaviour
                     interValScript.maxValue = 2000;
                     interValScript.minValue = 0;
                     interValScript.currentFilter = "plotArea";
+                    interValScript.currentFilterText = Instantiate(currentFilter);
+                    interValScript.currentFilterText.GetComponent<TextMesh>().text = "Plot area";
                     intervalUp = true;
                     booliScript.filterActive = true;
                 }
@@ -133,6 +141,8 @@ public class ControllerCollision : MonoBehaviour
                     interValScript.maxValue = 10;
                     interValScript.minValue = 0;
                     interValScript.currentFilter = "numberOfRooms";
+                    interValScript.currentFilterText = Instantiate(currentFilter);
+                    interValScript.currentFilterText.GetComponent<TextMesh>().text = "Rooms";
                     intervalUp = true;
                     booliScript.filterActive = true;
                 }
@@ -165,6 +175,8 @@ public class ControllerCollision : MonoBehaviour
                     interValScript.maxValue = 500;
                     interValScript.minValue = 0;
                     interValScript.currentFilter = "livingArea";
+                    interValScript.currentFilterText = Instantiate(currentFilter);
+                    interValScript.currentFilterText.GetComponent<TextMesh>().text = "Living area";
                     intervalUp = true;
                     booliScript.filterActive = true;
                 }
@@ -192,6 +204,8 @@ public class ControllerCollision : MonoBehaviour
                     interValScript.maxValue = 518;
                     interValScript.minValue = 0;
                     interValScript.currentFilter = "constructionYear";
+                    interValScript.currentFilterText = Instantiate(currentFilter);
+                    interValScript.currentFilterText.GetComponent<TextMesh>().text = "Construction year";
                     intervalUp = true;
                     booliScript.filterActive = true;
                 }
@@ -218,6 +232,8 @@ public class ControllerCollision : MonoBehaviour
                     interValScript.maxValue = 200000;
                     interValScript.minValue = 0;
                     interValScript.currentFilter = "m2price";
+                    interValScript.currentFilterText = Instantiate(currentFilter);
+                    interValScript.currentFilterText.GetComponent<TextMesh>().text = "m2-price";
                     intervalUp = true;
                     booliScript.filterActive = true;
                 }
@@ -248,7 +264,7 @@ public class ControllerCollision : MonoBehaviour
     {
         if (other.GetComponent<TextMesh>())
         {
-            if (other.tag != "Villa" && other.tag != "Lägenhet" && other.tag != "Fritidshus" && other.tag != "Gård" && other.tag != "Radhus" && other.tag != "Tomt/Mark")
+            if (other.tag != "Villa" && other.tag != "Lägenhet" && other.tag != "Fritidshus" && other.tag != "Gård" && other.tag != "Radhus" && other.tag != "Tomt")
             {
                 if (other.tag != "yes" || other.tag != "no")
                 {
@@ -273,7 +289,7 @@ public class ControllerCollision : MonoBehaviour
     {
         if (other.GetComponent<TextMesh>())
         {
-            if (other.tag != "Villa" && other.tag != "Lägenhet" && other.tag != "Fritidshus" && other.tag != "Gård" && other.tag != "Radhus" && other.tag != "Tomt/Mark")
+            if (other.tag != "Villa" && other.tag != "Lägenhet" && other.tag != "Fritidshus" && other.tag != "Gård" && other.tag != "Radhus" && other.tag != "Tomt")
             {
 
                 other.GetComponent<TextMesh>().color = Color.yellow;
@@ -333,17 +349,29 @@ public class ControllerCollision : MonoBehaviour
             other.tag = "yes";
         }
 
-        if (other.tag == "Villa" || other.tag == "Lägenhet" || other.tag == "Fritidshus" || other.tag == "Gård" || other.tag == "Radhus" || other.tag == "Tomt/Mark")
+        if (other.tag == "Villa" || other.tag == "Lägenhet" || other.tag == "Fritidshus" || other.tag == "Gård" || other.tag == "Radhus" || other.tag == "Tomt")
         {
+            if (filteringValues.houseTypes == "LägenhetTomtVillaRadhusGårdFritidshus")
+            {
+                overViewScript.houseType.GetComponent<TextMesh>().text = "Lägenhet, Tomt, Villa, Radhus, Gård, Fritidshus, ";
+            }
+
             if (filteringValues.houseTypes.Contains(other.tag))
             {
                 other.GetComponent<TextMesh>().color = Color.blue;
                 filteringValues.houseTypes = filteringValues.houseTypes.Replace(other.tag, "");
+                houseTypeTemp = overViewScript.houseType.GetComponent<TextMesh>().text;
+                string temp = other.tag + ", ";
+                houseTypeTemp = houseTypeTemp.Replace(temp , "");
+                overViewScript.houseType.GetComponent<TextMesh>().text = houseTypeTemp;
 
             }
 
             else
             {
+                houseTypeTemp = overViewScript.houseType.GetComponent<TextMesh>().text;
+                houseTypeTemp += other.tag + ", ";
+                overViewScript.houseType.GetComponent<TextMesh>().text = houseTypeTemp;
                 other.GetComponent<TextMesh>().color = Color.yellow;
                 filteringValues.houseTypes += other.tag;
 

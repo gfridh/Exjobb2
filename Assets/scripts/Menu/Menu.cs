@@ -178,6 +178,7 @@ public class Menu : MonoBehaviour
             rightControllerCollision.houseTypeParent.SetActive(false);
             filterStuck = false;
             rightControllerCollision.houseTypeFilterActive = false;
+            rightMenuStuck = false;
 
         }
 

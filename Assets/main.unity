@@ -476,7 +476,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1919452764497274, guid: 2236ea0e0a4434a4aaa9b60fac33cfda, type: 2}
       propertyPath: m_TagString
-      value: Tomt/Mark
+      value: Tomt
       objectReference: {fileID: 0}
     - target: {fileID: 102337007388237226, guid: 2236ea0e0a4434a4aaa9b60fac33cfda,
         type: 2}
@@ -1217,6 +1217,9 @@ MonoBehaviour:
   houseTypeParent: {fileID: 497084521}
   houseTypeFilterActive: 0
   collisionName: 
+  houseTypeTemp: 
+  currentFilter: {fileID: 1261786257596692, guid: 36b1865993b42e54087245ae02d803df,
+    type: 2}
 --- !u!54 &219801698
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -7110,22 +7113,23 @@ MonoBehaviour:
   m2Price: {fileID: 0}
   soonForSale: {fileID: 0}
   listPrice: {fileID: 0}
-  i: 0
   leftControllerObject: {fileID: 1589707502}
   reset: 0
+  houseTypeParent: {fileID: 497084521}
+  head: {fileID: 517548233}
 --- !u!4 &1262434565
 Transform:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1262434563}
-  m_LocalRotation: {x: 0.4162049, y: -0, z: -0, w: 0.90927094}
-  m_LocalPosition: {x: 0, y: -1, z: 1}
+  m_LocalRotation: {x: 0.5054315, y: 0, z: 0, w: 0.86286676}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.1, y: 0.10000015, z: 0.10000015}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 17
-  m_LocalEulerAnglesHint: {x: 49.190002, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 60.72, y: 0, z: 0}
 --- !u!1 &1270292274
 GameObject:
   m_ObjectHideFlags: 0
@@ -8557,11 +8561,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4669239881092622, guid: 74067a6d95b36424e9ae15381935bba6, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -19.41
       objectReference: {fileID: 0}
     - target: {fileID: 4669239881092622, guid: 74067a6d95b36424e9ae15381935bba6, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -277.1
       objectReference: {fileID: 0}
     - target: {fileID: 4669239881092622, guid: 74067a6d95b36424e9ae15381935bba6, type: 2}
       propertyPath: m_LocalRotation.x
@@ -8599,6 +8603,31 @@ Prefab:
         type: 2}
       propertyPath: m_Anchor
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 65784604006901914, guid: 74067a6d95b36424e9ae15381935bba6,
+        type: 2}
+      propertyPath: m_Size.x
+      value: 64.79664
+      objectReference: {fileID: 0}
+    - target: {fileID: 65784604006901914, guid: 74067a6d95b36424e9ae15381935bba6,
+        type: 2}
+      propertyPath: m_Size.y
+      value: 20.215399
+      objectReference: {fileID: 0}
+    - target: {fileID: 65784604006901914, guid: 74067a6d95b36424e9ae15381935bba6,
+        type: 2}
+      propertyPath: m_Center.x
+      value: -1.0584176
+      objectReference: {fileID: 0}
+    - target: {fileID: 65784604006901914, guid: 74067a6d95b36424e9ae15381935bba6,
+        type: 2}
+      propertyPath: m_Center.y
+      value: -1.0641724
+      objectReference: {fileID: 0}
+    - target: {fileID: 65784604006901914, guid: 74067a6d95b36424e9ae15381935bba6,
+        type: 2}
+      propertyPath: m_Center.z
+      value: -0.11188537
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 74067a6d95b36424e9ae15381935bba6, type: 2}
@@ -11406,7 +11435,7 @@ MonoBehaviour:
   plotAreaMin: 0
   plotAreaMax: 100000000
   PriceDecrease: 1
-  houseTypes: "L\xE4genhetTomt/MarkVillaRadhusG\xE5rdFritidshus"
+  houseTypes: "L\xE4genhetTomtVillaRadhusG\xE5rdFritidshus"
   m2PriceMin: 0
   m2PriceMax: 100000000
   constructionYearMin: 0
