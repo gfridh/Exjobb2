@@ -572,6 +572,8 @@ MonoBehaviour:
   bigValue: 0
   bigIntervalWidth: 0.5
   oneWayInterval: 0
+  overviewHolder: {fileID: 0}
+  currentFilterText: {fileID: 0}
 --- !u!120 &120286698359613212
 LineRenderer:
   m_ObjectHideFlags: 1

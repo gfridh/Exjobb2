@@ -48,5 +48,8 @@ public class FilteringValues : MonoBehaviour {
     livingAreaMin = 0;
     livingAreaMax = 1000000000;
     soonForSale = 0;
+
+
+
     }
 }

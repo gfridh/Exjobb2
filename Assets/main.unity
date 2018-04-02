@@ -1212,14 +1212,13 @@ MonoBehaviour:
   booliHolder: {fileID: 1214165399}
   booliScript: {fileID: 0}
   BinaryParent: {fileID: 1931552133}
-  binaryParent: {fileID: 0}
+  binaryParent: {fileID: 1931552133}
   overViewHolder: {fileID: 1262434563}
   houseTypeParent: {fileID: 497084521}
   houseTypeFilterActive: 0
   collisionName: 
   houseTypeTemp: 
-  currentFilter: {fileID: 1261786257596692, guid: 36b1865993b42e54087245ae02d803df,
-    type: 2}
+  currentFilter: {fileID: 1385878473}
 --- !u!54 &219801698
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3077,7 +3076,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2052053865}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &517548235
 MonoBehaviour:
@@ -3164,6 +3163,8 @@ MonoBehaviour:
   currentMiddlelongitude: 0
   currentMiddlelatitude: 0
   googleHolder: {fileID: 480438306}
+  dataLoggerHolder: {fileID: 1740497470}
+  dataloggerScript: {fileID: 0}
 --- !u!1 &554007296
 GameObject:
   m_ObjectHideFlags: 0
@@ -3823,6 +3824,8 @@ MonoBehaviour:
   currentMiddlelongitude: 0
   currentMiddlelatitude: 0
   googleHolder: {fileID: 480438306}
+  dataLoggerHolder: {fileID: 0}
+  dataloggerScript: {fileID: 0}
 --- !u!1 &645988296
 GameObject:
   m_ObjectHideFlags: 0
@@ -6725,7 +6728,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1214165399}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 455076d31e092d949abecab567f40025, type: 3}
   m_Name: 
@@ -7624,6 +7627,11 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1294470342}
+--- !u!1 &1385878473 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1282788066137426, guid: 74067a6d95b36424e9ae15381935bba6,
+    type: 2}
+  m_PrefabInternal: {fileID: 1521880463}
 --- !u!1 &1395948514
 GameObject:
   m_ObjectHideFlags: 0
@@ -9049,7 +9057,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1589707502}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1515259480}
@@ -10469,6 +10477,10 @@ MonoBehaviour:
   times: []
   actions: 0
   actionsList: []
+  zoomIn: 0
+  zoomOut: 0
+  zoomInList: 
+  zoomOutList: 
 --- !u!1 &1770700307
 GameObject:
   m_ObjectHideFlags: 0
@@ -10500,7 +10512,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 4e99de4e0ed076f44bcc4ad47ecdb323, type: 2}
+  - {fileID: 2100000, guid: faa467590816ea149b413232ebddca3f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -11211,7 +11223,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2052053865}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1849861514
 MonoBehaviour:
@@ -11962,7 +11974,7 @@ MonoBehaviour:
     type: 2}
   pricePrefab: {fileID: 1434135894910862, guid: 0d6e1a3c18bc1344aa1a5aac44489f7a,
     type: 2}
-  datePrefab: {fileID: 1026722137183564, guid: 29141503e0f9ad947a3b63d04ef0e714, type: 2}
+  datePrefab: {fileID: 1747685193443678, guid: c638e40a007fa604fb862c705ce8cfe8, type: 2}
   areaPrefab: {fileID: 1958824221000232, guid: 1e42eae0602480c41a6af75243b775ba, type: 2}
   houseTypePrefab: {fileID: 1229522184651990, guid: 5a8aa646159dd9d48a95ca77620e906f,
     type: 2}
@@ -12115,8 +12127,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 517548234}
   - {fileID: 1849861513}
+  - {fileID: 517548234}
   m_Father: {fileID: 1270292275}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

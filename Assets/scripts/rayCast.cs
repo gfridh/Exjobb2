@@ -20,6 +20,8 @@ public class rayCast : MonoBehaviour
     private float prevLat;
     private float prevLon;
     private bool start = true;
+    public GameObject dataLoggerHolder;
+    public DataLogger dataloggerScript;
 
 
     void Start()
@@ -29,6 +31,7 @@ public class rayCast : MonoBehaviour
         currentMiddlelatitude = googleScript.lat;
         currentMiddlelongitude = googleScript.lon;
         zoomLevel = googleScript.zoom;
+        dataloggerScript = dataLoggerHolder.GetComponent<DataLogger>();
     }
 
     void Update()
@@ -53,6 +56,8 @@ public class rayCast : MonoBehaviour
                     prevLon = googleScript.lon;
                     googleScript.zoom += 2;
                     zoomLevel += 2;
+                    dataloggerScript.zoomIn += 1;
+
                     
                     prevDistance = Vector3.Distance (transform.position, googleHolder.transform.position);
                 }
@@ -71,6 +76,7 @@ public class rayCast : MonoBehaviour
 
                     googleScript.zoom -= 2;
                     zoomLevel -= 2;
+                    dataloggerScript.zoomOut += 1;
                     
                     prevDistance = Vector3.Distance (transform.position, googleHolder.transform.position);
                 }

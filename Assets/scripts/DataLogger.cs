@@ -10,6 +10,13 @@ public class DataLogger : MonoBehaviour
     public float actions = 0;
     public List<float> actionsList;
 
+    public int zoomIn= 0;
+    public int zoomOut = 0;
+    public List<int> zoomInList;
+
+    public List<int> zoomOutList;
+
+
     // Use this for initialization
     void Start()
     {
@@ -30,11 +37,15 @@ public class DataLogger : MonoBehaviour
                 timerStarted = false;
                 times.Add(time);
                 actionsList.Add(actions);
+                zoomInList.Add(zoomIn);
+                zoomOutList.Add(zoomOut);
 
                 foreach (float item in times) { print(item); }
                 time = 0;
                 actions = 0;
-            }
+                zoomIn = 0;
+                zoomOut = 0;
+              }
 
         }
 

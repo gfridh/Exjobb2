@@ -1,11 +1,23 @@
 fileFormatVersion: 2
 guid: 7751a080b026e014bb851f308635b231
-timeCreated: 1520177133
+timeCreated: 1522665858
 licenseType: Free
 MonoImporter:
-  externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - menuController: {instanceID: 0}
+  - interval: {fileID: 1156904676766068, guid: 2e617f7661b079f4bb739a092889cd28, type: 2}
+  - instantiatedInterval: {instanceID: 0}
+  - leftController: {instanceID: 0}
+  - rightController: {instanceID: 0}
+  - headObject: {instanceID: 0}
+  - booliHolder: {instanceID: 0}
+  - booliScript: {instanceID: 0}
+  - BinaryParent: {instanceID: 0}
+  - binaryParent: {instanceID: 0}
+  - overViewHolder: {instanceID: 0}
+  - houseTypeParent: {instanceID: 0}
+  - currentFilter: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

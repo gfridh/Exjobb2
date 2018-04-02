@@ -71,7 +71,7 @@ private string GenerateId()
 
                 }
                 if(offset < booliObject.totalCount){
-                using (StreamWriter file = File.CreateText(@"d:\Desktop/Exjobb2/Assets/jsonFiles/" + offset + ".json"))
+                using (StreamWriter file = File.CreateText(@"c:\Users/Claremont/Github/Exjobb2/Assets/jsonFiles/"+offset+".json"))
                 {
                     JsonSerializer serializer = new JsonSerializer();
                     serializer.Serialize(file, booliObject);
@@ -80,7 +80,7 @@ private string GenerateId()
                     offset += 500;
                 }
                 else{
-                    using (StreamWriter file = File.CreateText(@"d:\Desktop/Exjobb2/Assets/jsonFiles/" + offset + ".json"))
+                    using (StreamWriter file = File.CreateText(@"c:\Users/Claremont/Github/Exjobb2/Assets/jsonFiles/"+offset+".json"))
                         {
                             JsonSerializer serializer = new JsonSerializer();
                             serializer.Serialize(file, booliObject);
