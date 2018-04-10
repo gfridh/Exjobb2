@@ -27,7 +27,7 @@ public class Overview: MonoBehaviour {
     private int distanceFromHead = 1;
     // Use this for initialization
     void Start () {
-        leftControllerObject.GetComponent<VRTK_ControllerEvents>().TriggerClicked += new ControllerInteractionEventHandler(LeftTriggerClicked);
+        //leftControllerObject.GetComponent<VRTK_ControllerEvents>().TriggerClicked += new ControllerInteractionEventHandler(LeftTriggerClicked);
         leftControllerObject.GetComponent<VRTK_ControllerEvents>().GripPressed += new ControllerInteractionEventHandler(GripClicked);
         DeleteAll();
     }
@@ -39,18 +39,18 @@ public class Overview: MonoBehaviour {
 
 
     }
-    private void LeftTriggerClicked(object sender, ControllerInteractionEventArgs e)
-    {
-        if (overviewActive == true)
-        {
-            distanceFromHead = 1;
-            overviewActive = false;
-        }
-        else {
-            distanceFromHead = 1000000;
-            overviewActive = true;
-        }
-    }
+    //private void LeftTriggerClicked(object sender, ControllerInteractionEventArgs e)
+    //{
+    //    if (overviewActive == true)
+    //    {
+    //        distanceFromHead = 1;
+    //        overviewActive = false;
+    //    }
+    //    else {
+    //        distanceFromHead = 1000000;
+    //        overviewActive = true;
+    //    }
+    //}
 
         private void GripClicked(object sender, ControllerInteractionEventArgs e)
     {
@@ -60,7 +60,7 @@ public class Overview: MonoBehaviour {
         reset = true;
         foreach (Transform child in houseTypeParent.transform)
         {
-            child.GetComponent<TextMesh>().color = Color.yellow;
+            child.GetComponent<TextMesh>().color = Color.blue;
             // do what you want with the transform
         }
         i = 0;

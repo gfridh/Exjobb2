@@ -55,8 +55,8 @@ public class BooliApi : MonoBehaviour {
         yield return null;
                         int y = 0;
                     for (int z=0; z <= 8000; z+=500){
-                        string objectText = File.ReadAllText(@"c:\Users/Claremont/Github/Exjobb2/Assets/jsonFiles/"+z+".json");
-						//string objectText = File.ReadAllText(@"d:\Desktop/Exjobb2/Assets/jsonFiles/"+z+".json");
+                        //string objectText = File.ReadAllText(@"c:\Users/Claremont/Github/Exjobb2/Assets/jsonFiles/"+z+".json");
+						string objectText = File.ReadAllText(@"d:\Desktop/Exjobb2/Assets/jsonFiles/"+z+".json");
                         //string objectText = File.ReadAllText(@"c:\Users/Bamse/"+z+".json");
                         JObject o = JObject.Parse(objectText);
                         //booliObject = JsonConvert.DeserializeObject<bigBooliObject>(File.ReadAllText(@"c:\Users/Claremont/Github/Exjobb2/Assets/jsonFiles/"+z+".json"));  
@@ -187,7 +187,6 @@ public class BooliApi : MonoBehaviour {
         oldZoom = googleScript.zoom;
         List<object> allListings = new List<object>();
         StartCoroutine(go( allListings ));
-    
     }
 
 

@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using VRTK;
 public class Line : MonoBehaviour {
     private BooliApi booliScript;
     private Overview overViewScript;
@@ -44,9 +44,13 @@ public class Line : MonoBehaviour {
     public GameObject overviewHolder;
     private Overview overviewScript;
     public GameObject currentFilterText;
+    VRTK_ControllerEvents controllerEventsRight;
+    VRTK_ControllerEvents controllerEventsLeft;
+    private bool lockRightBall = false;
+    private bool lockLeftBall = false;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
         
         rightText = GameObject.Find("highValue");
         leftText = GameObject.Find("lowValue");
@@ -67,6 +71,11 @@ public class Line : MonoBehaviour {
         head = GameObject.FindWithTag("MainCamera");
         currentFilterText.transform.parent = transform.parent;
         currentFilterText.transform.localPosition = new Vector3(0,-0.05f,0);
+        controllerLeft.GetComponent<VRTK_ControllerEvents>().TriggerPressed += new ControllerInteractionEventHandler(LeftTriggerDown);
+        controllerLeft.GetComponent<VRTK_ControllerEvents>().TriggerReleased += new ControllerInteractionEventHandler(LeftTriggerUp);
+        controllerRight.GetComponent<VRTK_ControllerEvents>().TriggerReleased += new ControllerInteractionEventHandler(RightTriggerUp);
+        controllerRight.GetComponent<VRTK_ControllerEvents>().TriggerPressed += new ControllerInteractionEventHandler(RightTriggerDown);
+
 
 
     }
@@ -96,8 +105,16 @@ public class Line : MonoBehaviour {
         {
             if ((controllerRight.transform.position.x - handPositionModulation) - head.transform.position.x >= 0.5 && (controllerLeft.transform.position.x + handPositionModulation) - head.transform.position.x >= -0.5)
             {
-                ballRight.transform.localPosition = new Vector3(0.50f, 0, 0);
-                ballLeft.transform.localPosition = new Vector3((controllerLeft.transform.position.x + handPositionModulation) - head.transform.position.x, 0, 0);
+                if (!lockRightBall)
+                {
+                    ballRight.transform.localPosition = new Vector3(0.50f, 0, 0);
+                }
+
+                if (!lockLeftBall)
+                {
+                    ballLeft.transform.localPosition = new Vector3((controllerLeft.transform.position.x + handPositionModulation) - head.transform.position.x, 0, 0);
+                }
+
                 if (distanceBetweenControllers <= 0)
                 {
                     ballLeft.transform.position = ballRight.transform.position;
@@ -109,20 +126,46 @@ public class Line : MonoBehaviour {
 
             else if ((controllerRight.transform.position.x - handPositionModulation) - head.transform.position.x >= 0.5 && (controllerLeft.transform.position.x + handPositionModulation) - head.transform.position.x >= 0.5)
             {
-                ballRight.transform.localPosition = new Vector3(0.50f, 0, 0);
-                ballLeft.transform.localPosition = new Vector3(0.50f, 0, 0);
+                if (!lockRightBall)
+                {
+                    ballRight.transform.localPosition = new Vector3(0.50f, 0, 0);
+                }
+
+                if (!lockLeftBall)
+                {
+                    ballLeft.transform.localPosition = new Vector3(0.50f, 0, 0);
+                }
+
                 smallValue = maxValue;
                 bigValue = 1000000;
             }
             else if ((controllerLeft.transform.position.x + handPositionModulation) - head.transform.position.x <= -0.5 && (controllerRight.transform.position.x - handPositionModulation) - head.transform.position.x <= 0.5f)
             {
-                ballRight.transform.localPosition = new Vector3((controllerRight.transform.position.x - handPositionModulation) - head.transform.position.x, 0, 0);
-                ballLeft.transform.localPosition = new Vector3(-0.50f, 0, 0);
+                if (!lockRightBall)
+                {
+                    ballRight.transform.localPosition = new Vector3((controllerRight.transform.position.x - handPositionModulation) - head.transform.position.x, 0, 0);
+                }
+
+                if (!lockLeftBall)
+                {
+                    ballLeft.transform.localPosition = new Vector3(-0.50f, 0, 0);
+                }
+
+                
                 if (distanceBetweenControllers <= 0)
                 {
-                    ballLeft.transform.position = ballRight.transform.position;
+                    if (!lockRightBall)
+                    {
+                        ballRight.transform.position = ballLeft.transform.position;
+                    }
 
-                    ballRight.transform.position = ballLeft.transform.position;
+                    if (!lockLeftBall)
+                    {
+                        ballLeft.transform.position = ballRight.transform.position;
+                    }
+                    
+
+                    
 
                 }
                 smallValue = 0;
@@ -131,13 +174,32 @@ public class Line : MonoBehaviour {
 
             else if ((controllerLeft.transform.position.x + handPositionModulation) - head.transform.position.x >= -0.5 && (controllerRight.transform.position.x - handPositionModulation) - head.transform.position.x <= 0.5f)
             {
-                ballRight.transform.localPosition = new Vector3((controllerRight.transform.position.x - handPositionModulation) - head.transform.position.x, 0, 0);
-                ballLeft.transform.localPosition = new Vector3((controllerLeft.transform.position.x + handPositionModulation) - head.transform.position.x, 0, 0);
+                if (!lockRightBall)
+                {
+                    ballRight.transform.localPosition = new Vector3((controllerRight.transform.position.x - handPositionModulation) - head.transform.position.x, 0, 0);
+                }
+
+                if (!lockLeftBall)
+                {
+                    ballLeft.transform.localPosition = new Vector3((controllerLeft.transform.position.x + handPositionModulation) - head.transform.position.x, 0, 0);
+                }
+
+                
+                
                 if (distanceBetweenControllers <= 0)
                 {
-                    ballLeft.transform.position = ballRight.transform.position;
+                    if (!lockRightBall)
+                    {
+                        ballRight.transform.position = ballLeft.transform.position;
+                    }
 
-                    ballRight.transform.position = ballLeft.transform.position;
+                    if (!lockLeftBall)
+                    {
+                        ballLeft.transform.position = ballRight.transform.position;
+                    }
+                    
+
+                    
 
                 }
                 smallValue = (bigInterval.transform.InverseTransformPoint(ballLeft.transform.position).x + (bigIntervalWidth)) * maxValue;
@@ -145,13 +207,31 @@ public class Line : MonoBehaviour {
             }
             else if ((controllerLeft.transform.position.x + handPositionModulation) - head.transform.position.x <= -0.5 && (controllerRight.transform.position.x - handPositionModulation) - head.transform.position.x >= 0.5f)
             {
-                ballRight.transform.localPosition = new Vector3(0.50f, 0, 0);
-                ballLeft.transform.localPosition = new Vector3(-0.50f, 0, 0);
+                if (!lockRightBall)
+                {
+                    ballRight.transform.localPosition = new Vector3(0.50f, 0, 0);
+                }
+
+                if (!lockLeftBall)
+                {
+                    ballLeft.transform.localPosition = new Vector3(-0.50f, 0, 0);
+                }
+                
+                
                 if (distanceBetweenControllers <= 0)
                 {
-                    ballLeft.transform.position = ballRight.transform.position;
+                    if (!lockRightBall)
+                    {
+                        ballRight.transform.position = ballLeft.transform.position;
+                    }
 
-                    ballRight.transform.position = ballLeft.transform.position;
+                    if (!lockLeftBall)
+                    {
+                        ballLeft.transform.position = ballRight.transform.position;
+                    }
+                    
+
+                    
 
                 }
                 smallValue = minValue;
@@ -161,16 +241,27 @@ public class Line : MonoBehaviour {
         else
         {
             smallValue = 0;
-            ballLeft.transform.localPosition = new Vector3(-0.50f, 0, 0);
+            if (!lockLeftBall)
+            {
+                ballLeft.transform.localPosition = new Vector3(-0.50f, 0, 0);
+            }
+            
             if ((controllerRight.transform.position.x - handPositionModulation) - head.transform.position.x <= 0.5f)
             {
-                ballRight.transform.localPosition = new Vector3((controllerRight.transform.position.x - handPositionModulation) - head.transform.position.x, 0, 0);
+                if (!lockRightBall)
+                {
+                    ballRight.transform.localPosition = new Vector3((controllerRight.transform.position.x - handPositionModulation) - head.transform.position.x, 0, 0);
+                }
+                
                 bigValue = (bigInterval.transform.InverseTransformPoint(ballRight.transform.position).x + (bigIntervalWidth)) * maxValue;
 
             }
             else
             {
-                ballRight.transform.localPosition = new Vector3(0.50f, 0, 0);
+                if (!lockRightBall)
+                {
+                    ballRight.transform.localPosition = new Vector3(0.50f, 0, 0);
+                }
                 bigValue = 100000000;
             }
 
@@ -355,5 +446,25 @@ public class Line : MonoBehaviour {
                 lineRendererRight.SetPosition(0,ballRight.transform.position);
                 lineRendererRight.SetPosition(1,  middleOfControllers - normalizedIntervalVector*10); */
 
+    }
+
+    private void LeftTriggerDown(object sender, ControllerInteractionEventArgs e)
+    {
+        lockLeftBall = true;
+    }
+
+    private void RightTriggerUp(object sender, ControllerInteractionEventArgs e)
+    {
+        lockRightBall = false;
+    }   
+
+    private void RightTriggerDown(object sender, ControllerInteractionEventArgs e)
+    {
+        lockRightBall = true;
+    }
+
+    private void LeftTriggerUp(object sender, ControllerInteractionEventArgs e)
+    {
+        lockLeftBall = false;
     }
 }

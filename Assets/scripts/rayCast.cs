@@ -45,24 +45,33 @@ public class rayCast : MonoBehaviour
             /*             print(((internalCoordinates.y/256)*(170/Mathf.Pow(2, zoomLevel)/2)*2 + currentMiddlelatitude));
                         print((internalCoordinates.x/256)*(360/Mathf.Pow(2, zoomLevel)/2)*2 + currentMiddlelongitude); */
             Color tmp = Cube.GetComponent<SpriteRenderer>().color;
-            tmp.a = (Mathf.Abs(movementDifference)/0.3f);
+            tmp.a = (Mathf.Abs(movementDifference)/0.15f)/2;
             Cube.GetComponent<SpriteRenderer>().color = tmp;
-            if (movementDifference > 0.3f || movementDifference < -0.3f ){
+            if (movementDifference > 0.15f || movementDifference < -0.15f ){
                 prevZoom = googleScript.zoom;
-                if(prevDistance - Vector3.Distance (transform.position, googleHolder.transform.position) > 0.3f){
-                    googleScript.lat = (internalCoordinates.y / 64) * (170 / Mathf.Pow(2, zoomLevel) / 2) * 2 + currentMiddlelatitude;
-                    googleScript.lon = (internalCoordinates.x / 64) * (360 / Mathf.Pow(2, zoomLevel) / 2) * 2 + currentMiddlelongitude;
+                if (prevDistance - Vector3.Distance(transform.position, googleHolder.transform.position) > 0.15f)
+                {
+                    float lon_rad = googleScript.lon * Mathf.Deg2Rad;
+                    float lat_rad = googleScript.lat * Mathf.Deg2Rad;
+                    float n = Mathf.Pow(2, googleScript.zoom);
+                    float tileX = ((googleScript.lon + 180) / 360) * n;
+                    float tileY = n * (1 - (Mathf.Log(Mathf.Tan(lat_rad) + (1 / Mathf.Cos(lat_rad)), 2.71828f) / Mathf.PI)) / 2;
+                    float lon_deg = (tileX + (internalCoordinates.x / 64)) / n * 360 - 180;
+                    float lat_rad2 = Mathf.Atan((float)Math.Sinh(Mathf.PI * (1 - 2 * (tileY - (internalCoordinates.y / 64)) / n)));
+                    float lat_deg = lat_rad2 * 180.0f / Mathf.PI;
+                    googleScript.lat = lat_deg;
+                    googleScript.lon = lon_deg;
                     prevLat = googleScript.lat;
                     prevLon = googleScript.lon;
-                    googleScript.zoom += 2;
-                    zoomLevel += 2;
+                    googleScript.zoom += 1;
+                    zoomLevel += 1;
                     dataloggerScript.zoomIn += 1;
 
-                    
-                    prevDistance = Vector3.Distance (transform.position, googleHolder.transform.position);
+
+                    prevDistance = Vector3.Distance(transform.position, googleHolder.transform.position);
                 }
-                else if(prevDistance - Vector3.Distance (transform.position, googleHolder.transform.position) < -0.3f && prevZoom != 8){
-                    if (prevZoom == 10)
+                else if(prevDistance - Vector3.Distance (transform.position, googleHolder.transform.position) < -0.15f && prevZoom != 8){
+                    if (prevZoom == 9)
                     {
                         googleScript.lat = 59.33459f;
                         googleScript.lon = 18.06324f;
@@ -74,8 +83,8 @@ public class rayCast : MonoBehaviour
                     }
 
 
-                    googleScript.zoom -= 2;
-                    zoomLevel -= 2;
+                    googleScript.zoom -= 1;
+                    zoomLevel -= 1;
                     dataloggerScript.zoomOut += 1;
                     
                     prevDistance = Vector3.Distance (transform.position, googleHolder.transform.position);

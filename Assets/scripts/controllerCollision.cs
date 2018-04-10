@@ -48,6 +48,7 @@ public class ControllerCollision : MonoBehaviour
         houseTypeParent.transform.LookAt(headObject.transform.position);
         if (collisionName != "" && menuScript.triggerClicked == true)
         {
+
             if (collisionName == "propertyPrice")
             {
                 if (!intervalUp)
@@ -64,6 +65,7 @@ public class ControllerCollision : MonoBehaviour
                     interValScript.currentFilterText.GetComponent<TextMesh>().text = "Property price";
                     intervalUp = true;
                     booliScript.filterActive = true;
+
                 }
                 else
                 {
@@ -255,6 +257,15 @@ public class ControllerCollision : MonoBehaviour
                 houseTypeParent.transform.Rotate(0, 180, 0);
                 HouseTypeFilter(collisionName);
             }
+
+            if (intervalUp){
+                foreach (Transform child in menuScript.parent.transform)
+                {
+                    GameObject.Destroy(child.gameObject);
+                }
+                menuScript.rightmenuActive = false;
+                menuScript.rightMenuStuck = false;
+            }
             collisionName = "";
             menuScript.triggerClicked = false;
         }
@@ -266,7 +277,7 @@ public class ControllerCollision : MonoBehaviour
         {
             if (other.tag != "Villa" && other.tag != "Lägenhet" && other.tag != "Fritidshus" && other.tag != "Gård" && other.tag != "Radhus" && other.tag != "Tomt")
             {
-                if (other.tag != "yes" || other.tag != "no")
+                if (other.tag != "yes" && other.tag != "no")
                 {
 
                     other.GetComponent<TextMesh>().color = Color.blue;
@@ -274,11 +285,6 @@ public class ControllerCollision : MonoBehaviour
                     //Destroy(instantiatedInterval);
                     //intervalUp = false;
 
-                }
-                else
-                {
-                    other.GetComponent<TextMesh>().color = Color.blue;
-                    other.GetComponent<TextMesh>().fontSize = 100;
                 }
 
             }
@@ -289,7 +295,7 @@ public class ControllerCollision : MonoBehaviour
     {
         if (other.GetComponent<TextMesh>())
         {
-            if (other.tag != "Villa" && other.tag != "Lägenhet" && other.tag != "Fritidshus" && other.tag != "Gård" && other.tag != "Radhus" && other.tag != "Tomt")
+            if (other.tag != "Villa" && other.tag != "Lägenhet" && other.tag != "Fritidshus" && other.tag != "Gård" && other.tag != "Radhus" && other.tag != "Tomt" &&  other.tag != "yes" && other.tag != "no")
             {
 
                 other.GetComponent<TextMesh>().color = Color.yellow;
@@ -340,6 +346,7 @@ public class ControllerCollision : MonoBehaviour
             filteringValues.PriceDecrease = 1;
             overViewScript.priceDecrease.GetComponent<TextMesh>().text = "Only price reduced: No";
             other.tag = "no";
+            other.GetComponent<TextMesh>().color = Color.blue;
 
         }
         else if (other.tag == "no")
@@ -347,13 +354,15 @@ public class ControllerCollision : MonoBehaviour
             filteringValues.PriceDecrease = 0;
             overViewScript.priceDecrease.GetComponent<TextMesh>().text = "Only price reduced: Yes";
             other.tag = "yes";
+            other.GetComponent<TextMesh>().color = Color.yellow;
         }
 
         if (other.tag == "Villa" || other.tag == "Lägenhet" || other.tag == "Fritidshus" || other.tag == "Gård" || other.tag == "Radhus" || other.tag == "Tomt")
         {
             if (filteringValues.houseTypes == "LägenhetTomtVillaRadhusGårdFritidshus")
             {
-                overViewScript.houseType.GetComponent<TextMesh>().text = "Lägenhet, Tomt, Villa, Radhus, Gård, Fritidshus, ";
+                overViewScript.houseType.GetComponent<TextMesh>().text = " ";
+                filteringValues.houseTypes = "";
             }
 
             if (filteringValues.houseTypes.Contains(other.tag))

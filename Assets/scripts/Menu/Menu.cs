@@ -7,9 +7,9 @@ public class Menu : MonoBehaviour
 {
     private GameObject bigInterval;
     private bool leftmenuActive = false;
-    private bool rightmenuActive = false;
+    public bool rightmenuActive = false;
 
-    private bool rightMenuStuck = false;
+    public bool rightMenuStuck = false;
     private bool leftMenuStuck = false;
     public float radiusX = 0.0f;
     public float radiusY = 0.0f;
@@ -48,6 +48,7 @@ public class Menu : MonoBehaviour
         rightControllerCollision = rightControllerObject.GetComponent<ControllerCollision>();
         //leftControllerObject.GetComponent<VRTK_ControllerEvents>().TriggerClicked += new ControllerInteractionEventHandler(LeftTriggerClicked);
         rightControllerObject.GetComponent<VRTK_ControllerEvents>().TriggerClicked += new ControllerInteractionEventHandler(RightTriggerClicked);
+        rightControllerObject.GetComponent<VRTK_ControllerEvents>().GripPressed += new ControllerInteractionEventHandler(GripClicked);
         /* 		placeButton(2,4,90,0,false);
                 placeButton(2,3,90,90,false);
                 placeButton(2,3,90,180,false);
@@ -159,31 +160,9 @@ public class Menu : MonoBehaviour
         }
     }
 
-    private void RightTriggerClicked(object sender, ControllerInteractionEventArgs e)
-
+    private void GripClicked(object sender, ControllerInteractionEventArgs e)
     {
-        dataloggerScript.actions++;
-        print(dataloggerScript.actions);
-        triggerClicked = true;
-        if (rightControllerCollision.houseTypeFilterActive == true
-            && filterStuck == false
-            && rightmenuActive == false)
-        {
-            rightControllerCollision.houseTypeParent.transform.parent = null;
-            filterStuck = true;
-        }
-        else if (rightControllerCollision.houseTypeFilterActive == true && filterStuck == true)
-        {
-            rightControllerCollision.houseTypeParent.transform.parent = rightControllerCollision.transform;
-            rightControllerCollision.houseTypeParent.SetActive(false);
-            filterStuck = false;
-            rightControllerCollision.houseTypeFilterActive = false;
-            rightMenuStuck = false;
-
-        }
-
-
-        if (!rightmenuActive && rightControllerCollision.houseTypeFilterActive == false)
+        if (!rightmenuActive)
         {
             Destroy(rightControllerCollision.instantiatedInterval);
             rightControllerCollision.intervalUp = false;
@@ -198,9 +177,36 @@ public class Menu : MonoBehaviour
             bigButtons.Add("area");
             placeButton(1.5f, 4, 360, 0, true, bigButtons);
             rightmenuActive = true;
+             if (rightControllerCollision.houseTypeFilterActive == true && filterStuck == true)
+            {
+                rightControllerCollision.houseTypeParent.transform.parent = rightControllerCollision.transform;
+                rightControllerCollision.houseTypeParent.SetActive(false);
+                filterStuck = false;
+                rightControllerCollision.houseTypeFilterActive = false;
+                rightMenuStuck = false;
+
+            }
         }
 
-        else
+
+    }
+
+    private void RightTriggerClicked(object sender, ControllerInteractionEventArgs e)
+
+    {
+        dataloggerScript.actions++;
+        print(dataloggerScript.actions);
+        triggerClicked = true;
+        if (rightControllerCollision.houseTypeFilterActive == true
+            && filterStuck == false
+            && rightmenuActive == false)
+        {
+            rightControllerCollision.houseTypeParent.transform.parent = null;
+            filterStuck = true;
+        }
+
+
+        if(rightmenuActive)
         {
             if (!rightMenuStuck)
             {
@@ -209,13 +215,10 @@ public class Menu : MonoBehaviour
             }
             else
             {
-                foreach (Transform child in parent.transform)
-                {
-                    GameObject.Destroy(child.gameObject);
-                }
-                rightmenuActive = false;
-                rightMenuStuck = false;
 
+                parent.transform.parent = rightControllerObject.transform;
+                parent.transform.localPosition = new Vector3(0, 0, 0);
+                rightMenuStuck = false;
             }
         }
 
