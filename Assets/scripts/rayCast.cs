@@ -22,6 +22,7 @@ public class rayCast : MonoBehaviour
     private bool start = true;
     public GameObject dataLoggerHolder;
     public DataLogger dataloggerScript;
+    public GameObject loadingBar;
 
 
     void Start()
@@ -39,18 +40,20 @@ public class rayCast : MonoBehaviour
         Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
 /*         print(ray); */
         RaycastHit hit;
-        if (Physics.Raycast(ray, out hit) && hit.transform.tag == "Map")
+        if (Physics.Raycast(ray, out hit) && hit.transform.tag == "Map" || hit.transform.tag == "house")
         {
             internalCoordinates = map.transform.InverseTransformPoint( hit.point );
             /*             print(((internalCoordinates.y/256)*(170/Mathf.Pow(2, zoomLevel)/2)*2 + currentMiddlelatitude));
                         print((internalCoordinates.x/256)*(360/Mathf.Pow(2, zoomLevel)/2)*2 + currentMiddlelongitude); */
             Color tmp = Cube.GetComponent<SpriteRenderer>().color;
-            tmp.a = (Mathf.Abs(movementDifference)/0.15f)/2;
-            Cube.GetComponent<SpriteRenderer>().color = tmp;
+            //tmp.a = (Mathf.Abs(movementDifference)/0.15f);
+            loadingBar.transform.localScale = new Vector3(movementDifference/0.15f * 6, loadingBar.transform.localScale.y, loadingBar.transform.localScale.z);
+            //Cube.GetComponent<SpriteRenderer>().color = tmp;
             if (movementDifference > 0.15f || movementDifference < -0.15f ){
                 prevZoom = googleScript.zoom;
-                if (prevDistance - Vector3.Distance(transform.position, googleHolder.transform.position) > 0.15f)
+                if ((transform.position - googleHolder.transform.position).z - prevDistance > 0.15f)
                 {
+
                     float lon_rad = googleScript.lon * Mathf.Deg2Rad;
                     float lat_rad = googleScript.lat * Mathf.Deg2Rad;
                     float n = Mathf.Pow(2, googleScript.zoom);
@@ -64,13 +67,23 @@ public class rayCast : MonoBehaviour
                     prevLat = googleScript.lat;
                     prevLon = googleScript.lon;
                     googleScript.zoom += 1;
+                    if (googleScript.zoom == 13 && prevZoom == 12)
+                    {
+                        GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("house");
+                        foreach (GameObject target in gameObjects)
+                        {
+                            target.transform.localScale = new Vector3(1, 4, 1);
+                        }
+                    }
+
                     zoomLevel += 1;
                     dataloggerScript.zoomIn += 1;
 
 
-                    prevDistance = Vector3.Distance(transform.position, googleHolder.transform.position);
+                    prevDistance = (transform.position - googleHolder.transform.position).z;
                 }
-                else if(prevDistance - Vector3.Distance (transform.position, googleHolder.transform.position) < -0.15f && prevZoom != 8){
+                else if((transform.position - googleHolder.transform.position).z - prevDistance < -0.15f && prevZoom != 8){
+
                     if (prevZoom == 9)
                     {
                         googleScript.lat = 59.33459f;
@@ -86,8 +99,17 @@ public class rayCast : MonoBehaviour
                     googleScript.zoom -= 1;
                     zoomLevel -= 1;
                     dataloggerScript.zoomOut += 1;
-                    
-                    prevDistance = Vector3.Distance (transform.position, googleHolder.transform.position);
+
+                    if (googleScript.zoom == 12 && prevZoom == 13)
+                    {
+                        GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("house");
+                        foreach (GameObject target in gameObjects)
+                        {
+                            target.transform.localScale = new Vector3(0.5f, 1, 0.5f);
+                        }
+                    }
+
+                    prevDistance = (transform.position - googleHolder.transform.position).z;
                 }
                 
                 
@@ -100,10 +122,10 @@ public class rayCast : MonoBehaviour
             if(start){
                 movementDifference = 0;
                 start = false;
-                prevDistance = Vector3.Distance (transform.position, googleHolder.transform.position);
+                prevDistance =  (transform.position - googleHolder.transform.position).z;
             }
             else{
-                movementDifference = prevDistance - Vector3.Distance (transform.position, googleHolder.transform.position);
+                movementDifference = (transform.position - googleHolder.transform.position).z - prevDistance;
             }
             Cube.transform.position = hit.point;
         }

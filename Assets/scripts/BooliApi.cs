@@ -149,8 +149,6 @@ public class BooliApi : MonoBehaviour {
                                 houseType = "";
                             }
 
-                            
-
                             m2Price = listPrice / livingArea;
                             
                             soonForSale = 0;
