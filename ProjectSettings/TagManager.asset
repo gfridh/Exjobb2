@@ -39,6 +39,7 @@ TagManager:
   - controllerLeft
   - controllerRight
   - Tomt
+  - houseMarker
   layers:
   - Default
   - TransparentFX
