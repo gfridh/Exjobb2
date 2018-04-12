@@ -23,7 +23,6 @@ GameObject:
   - component: {fileID: 65934864490401578}
   - component: {fileID: 23442527882486176}
   - component: {fileID: 114529001190999686}
-  - component: {fileID: 114977640850963764}
   - component: {fileID: 54512400682331428}
   m_Layer: 0
   m_Name: Cube
@@ -134,16 +133,4 @@ MonoBehaviour:
   houseType: 
   m2Price: 0
   soonForSale: 0
---- !u!114 &114977640850963764
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1441325612729452}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08afe995f1862524ab6b7e04db2363c7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  active: {fileID: 2100000, guid: 4b86ec087dc93414e8b9cdf0b9ae0fa3, type: 2}
-  unactive: {fileID: 2100000, guid: c7d41be5647fbe845bfacc1c79081f09, type: 2}
+  currentActiveHouse: 

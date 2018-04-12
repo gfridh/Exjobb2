@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4845650119326398}
   - component: {fileID: 33384243499319274}
   - component: {fileID: 136096284804797688}
+  - component: {fileID: 114048439648303052}
   m_Layer: 0
   m_Name: houseMarker
   m_TagString: houseMarker
@@ -48,6 +49,20 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1676108829073298}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &114048439648303052
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1676108829073298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08afe995f1862524ab6b7e04db2363c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  active: {fileID: 2100000, guid: 4b86ec087dc93414e8b9cdf0b9ae0fa3, type: 2}
+  unactive: {fileID: 2100000, guid: c7d41be5647fbe845bfacc1c79081f09, type: 2}
+  houseActive: 0
 --- !u!136 &136096284804797688
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -57,7 +72,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.5
+  m_Radius: 0.25
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}

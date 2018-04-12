@@ -280,7 +280,7 @@ public class ControllerCollision : MonoBehaviour
                 if (other.tag != "yes" && other.tag != "no")
                 {
 
-                    other.GetComponent<TextMesh>().color = Color.blue;
+                    other.GetComponent<Renderer>().material.SetColor("_Color", Color.blue);
                     other.GetComponent<TextMesh>().fontSize = 100;
                     //Destroy(instantiatedInterval);
                     //intervalUp = false;
@@ -298,7 +298,7 @@ public class ControllerCollision : MonoBehaviour
             if (other.tag != "Villa" && other.tag != "Lägenhet" && other.tag != "Fritidshus" && other.tag != "Gård" && other.tag != "Radhus" && other.tag != "Tomt" &&  other.tag != "yes" && other.tag != "no")
             {
 
-                other.GetComponent<TextMesh>().color = Color.yellow;
+                other.GetComponent<Renderer>().material.SetColor("_Color", Color.yellow);
                 other.GetComponent<TextMesh>().fontSize = 150;
             }
 
@@ -346,7 +346,7 @@ public class ControllerCollision : MonoBehaviour
             filteringValues.PriceDecrease = 1;
             overViewScript.priceDecrease.GetComponent<TextMesh>().text = "Only price reduced: No";
             other.tag = "no";
-            other.GetComponent<TextMesh>().color = Color.blue;
+            other.GetComponent<Renderer>().material.SetColor("_Color", Color.blue);
 
         }
         else if (other.tag == "no")
@@ -354,7 +354,7 @@ public class ControllerCollision : MonoBehaviour
             filteringValues.PriceDecrease = 0;
             overViewScript.priceDecrease.GetComponent<TextMesh>().text = "Only price reduced: Yes";
             other.tag = "yes";
-            other.GetComponent<TextMesh>().color = Color.yellow;
+            other.GetComponent<Renderer>().material.SetColor("_Color", Color.yellow);
         }
 
         if (other.tag == "Villa" || other.tag == "Lägenhet" || other.tag == "Fritidshus" || other.tag == "Gård" || other.tag == "Radhus" || other.tag == "Tomt")
@@ -367,7 +367,7 @@ public class ControllerCollision : MonoBehaviour
 
             if (filteringValues.houseTypes.Contains(other.tag))
             {
-                other.GetComponent<TextMesh>().color = Color.blue;
+                other.GetComponent<Renderer>().material.SetColor("_Color", Color.blue);
                 filteringValues.houseTypes = filteringValues.houseTypes.Replace(other.tag, "");
                 houseTypeTemp = overViewScript.houseType.GetComponent<TextMesh>().text;
                 string temp = other.tag + ", ";
@@ -381,7 +381,7 @@ public class ControllerCollision : MonoBehaviour
                 houseTypeTemp = overViewScript.houseType.GetComponent<TextMesh>().text;
                 houseTypeTemp += other.tag + ", ";
                 overViewScript.houseType.GetComponent<TextMesh>().text = houseTypeTemp;
-                other.GetComponent<TextMesh>().color = Color.yellow;
+                other.GetComponent<Renderer>().material.SetColor("_Color", Color.yellow);
                 filteringValues.houseTypes += other.tag;
 
             }

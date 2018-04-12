@@ -2770,7 +2770,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!23 &469906557
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3166,6 +3166,9 @@ MonoBehaviour:
   dataLoggerHolder: {fileID: 1740497470}
   dataloggerScript: {fileID: 0}
   loadingBar: {fileID: 550692995}
+  loadingbarOnTop: 0
+  red: {fileID: 2100000, guid: c7d41be5647fbe845bfacc1c79081f09, type: 2}
+  blue: {fileID: 2100000, guid: 76db38be11b70a9428ddaed3e95df651, type: 2}
 --- !u!1 &550692995
 GameObject:
   m_ObjectHideFlags: 0
@@ -3910,6 +3913,9 @@ MonoBehaviour:
   dataLoggerHolder: {fileID: 0}
   dataloggerScript: {fileID: 0}
   loadingBar: {fileID: 0}
+  loadingbarOnTop: 0
+  red: {fileID: 0}
+  blue: {fileID: 0}
 --- !u!1 &645988296
 GameObject:
   m_ObjectHideFlags: 0

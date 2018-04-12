@@ -55,7 +55,6 @@ public class GoogleApi : MonoBehaviour
     {
         if (zoom != prevZoom)
         {
-            print("zoomar");
             StartCoroutine(Map());
             prevZoom = zoom;
         }

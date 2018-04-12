@@ -5,7 +5,7 @@ using UnityEngine;
 public class HouseCollider : MonoBehaviour {
     public Material active;
     public Material unactive;
-
+    public bool houseActive = false;
     // Use this for initialization
     void Start () {
 		
@@ -19,19 +19,33 @@ public class HouseCollider : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
-        print("other.tag");
-        if (other.tag == "houseMarker")
+        if (other.tag == "house" && houseActive == false)
         {
-            GetComponent<MeshRenderer>().material = active;
+            HouseCoordinates houseScript = other.GetComponent<HouseCoordinates>();
+            if (houseScript.currentActiveHouse != "yes")
+            {
+                print("rent: " + houseScript.rent);
+                other.GetComponent<MeshRenderer>().material = active;
+
+                houseScript.currentActiveHouse = "yes";
+                houseActive = true;
+            }
 
         }
     }
     void OnTriggerExit(Collider other)
     {
 
-        if (other.tag == "houseMarker")
+        if (other.tag == "house" && houseActive == true)
         {
-            GetComponent<MeshRenderer>().material = unactive;
+            HouseCoordinates houseScript = other.GetComponent<HouseCoordinates>();
+            if (houseScript.currentActiveHouse == "yes")
+            {
+                houseScript.currentActiveHouse = "no";
+                other.GetComponent<MeshRenderer>().material = unactive;
+                houseActive = false;
+
+            }
 
         }
     }

@@ -18,15 +18,26 @@ public class ControllerRaycast : MonoBehaviour {
 	void Update () {
         RaycastHit hit;
         if (Physics.Raycast(transform.position, transform.forward, out hit))
+        {
             if (hit.transform.tag == "Map" || hit.transform.tag == "houseMarker" || hit.transform.tag == "house")
             {
                 {
                     houseMarker.transform.position = new Vector3(hit.point.x, hit.point.y, 150);
-                    print("hit");
                     raycastLine.SetPosition(0, this.transform.position);
                     raycastLine.SetPosition(1, hit.point);
                 }
             }
+            else
+            {
+                raycastLine.SetPosition(0, this.transform.position);
+                raycastLine.SetPosition(1, this.transform.position);
+            }
+        }
+        else
+        {
+
+        }
+
 
 
 
