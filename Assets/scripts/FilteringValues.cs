@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FilteringValues : MonoBehaviour {
+public class FilteringValues : MonoBehaviour
+{
     public float listpriceMin = 0;
     public float listPriceMax = 100000000;
     public float rentMax = 1000000;
@@ -22,32 +23,35 @@ public class FilteringValues : MonoBehaviour {
 
 
     // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    void Start()
+    {
 
-    public void Restart(){
-    listpriceMin = 0;
-    listPriceMax = 100000000;
-    rentMax = 1000000;
-    plotAreaMin = 0;
-    plotAreaMax = 100000000;
-    PriceDecrease = 1;
-    houseTypes = "LägenhetTomtVillaRadhusGårdFritidshus";
-    m2PriceMin = 0;
-    m2PriceMax = 100000000;
-    constructionYearMin = 1500;
-    constructionYearMax = 2018;
-    numberOfRoomsMin = 0;
-    numberOfRoomsMax = 10000;
-    livingAreaMin = 0;
-    livingAreaMax = 1000000000;
-    soonForSale = 0;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
+
+    public void Restart()
+    {
+        listpriceMin = 0;
+        listPriceMax = 100000000;
+        rentMax = 1000000;
+        plotAreaMin = 0;
+        plotAreaMax = 100000000;
+        PriceDecrease = 1;
+        houseTypes = "LägenhetTomtVillaRadhusGårdFritidshus";
+        m2PriceMin = 0;
+        m2PriceMax = 100000000;
+        constructionYearMin = 1500;
+        constructionYearMax = 2018;
+        numberOfRoomsMin = 0;
+        numberOfRoomsMax = 10000;
+        livingAreaMin = 0;
+        livingAreaMax = 1000000000;
+        soonForSale = 0;
 
 
 

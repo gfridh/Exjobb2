@@ -8,8 +8,8 @@ public class rayCast : MonoBehaviour
     public GameObject map;
     public GameObject Cube;
     private Vector3 internalCoordinates;
-    public float currentMiddlelongitude ;
-    public float currentMiddlelatitude ;
+    public float currentMiddlelongitude;
+    public float currentMiddlelatitude;
     private int zoomLevel;
     private int prevZoom = 0;
     public GameObject googleHolder;
@@ -41,11 +41,11 @@ public class rayCast : MonoBehaviour
     void Update()
     {
         Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
-/*         print(ray); */
+        /*         print(ray); */
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit))
         {
-            if (hit.transform.tag == "Map" || hit.transform.tag == "house")
+            if (hit.transform.tag == "Map" || hit.transform.tag == "house" || hit.transform.tag == "houseMarker")
             {
                 internalCoordinates = map.transform.InverseTransformPoint(hit.point);
                 if (internalCoordinates.y < -32 && loadingbarOnTop == false)
@@ -67,8 +67,8 @@ public class rayCast : MonoBehaviour
                 Color tmp = Cube.GetComponent<SpriteRenderer>().color;
                 //tmp.a = (Mathf.Abs(movementDifference)/0.15f);
 
-                loadingBar.transform.localScale = new Vector3((movementDifference + 0.15f)/0.3f * 6, loadingBar.transform.localScale.y, loadingBar.transform.localScale.z);
-                loadingBar.transform.localPosition = new Vector3((movementDifference*10)-1.5f,loadingBar.transform.localPosition.y,loadingBar.transform.localPosition.z);
+                loadingBar.transform.localScale = new Vector3((movementDifference + 0.15f) / 0.3f * 6, loadingBar.transform.localScale.y, loadingBar.transform.localScale.z);
+                loadingBar.transform.localPosition = new Vector3((movementDifference * 10) - 1.5f, loadingBar.transform.localPosition.y, loadingBar.transform.localPosition.z);
                 if ((movementDifference + 0.15f) / 0.3f * 6 < 5 && (movementDifference + 0.15f) / 0.3f * 6 > 1)
                 {
                     loadingBar.GetComponent<MeshRenderer>().material = blue;
@@ -163,11 +163,12 @@ public class rayCast : MonoBehaviour
                 {
                     movementDifference = (transform.position - googleHolder.transform.position).z - prevDistance;
                 }
-                Cube.transform.position = hit.point;
+                Cube.transform.position = new Vector3(hit.point.x,hit.point.y, googleHolder.transform.position.z);
             }
-            
+
         }
-        else{
+        else
+        {
         }
 
     }

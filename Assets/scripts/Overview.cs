@@ -4,7 +4,8 @@ using UnityEngine;
 using VRTK;
 
 
-public class Overview: MonoBehaviour {
+public class Overview : MonoBehaviour
+{
     public GameObject text;
     public GameObject numberOfrooms;
     public GameObject livingArea;
@@ -26,16 +27,18 @@ public class Overview: MonoBehaviour {
     public GameObject head;
     private int distanceFromHead = 1;
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         //leftControllerObject.GetComponent<VRTK_ControllerEvents>().TriggerClicked += new ControllerInteractionEventHandler(LeftTriggerClicked);
         leftControllerObject.GetComponent<VRTK_ControllerEvents>().GripPressed += new ControllerInteractionEventHandler(GripClicked);
         DeleteAll();
     }
-	
-	// Update is called once per frame
-	void Update () {
 
-        this.gameObject.transform.position = new Vector3(head.transform.position.x - 0.5f,0, distanceFromHead+ head.transform.position.z);
+    // Update is called once per frame
+    void Update()
+    {
+
+        this.gameObject.transform.position = new Vector3(head.transform.position.x - 0.5f, 0, distanceFromHead + head.transform.position.z);
 
 
     }
@@ -52,7 +55,7 @@ public class Overview: MonoBehaviour {
     //    }
     //}
 
-        private void GripClicked(object sender, ControllerInteractionEventArgs e)
+    private void GripClicked(object sender, ControllerInteractionEventArgs e)
     {
         print("gripClicked");
         DeleteAll();
@@ -60,16 +63,18 @@ public class Overview: MonoBehaviour {
         reset = true;
         foreach (Transform child in houseTypeParent.transform)
         {
-            child.GetComponent<TextMesh>().color = Color.blue;
+            child.GetComponent<Renderer>().material.SetColor("_Color", Color.blue);
+
             // do what you want with the transform
         }
         i = 0;
-        
+
     }
 
 
 
-    private void DeleteAll(){
+    private void DeleteAll()
+    {
         i = 0;
         Destroy(listPrice);
         Destroy(numberOfrooms);
@@ -82,7 +87,7 @@ public class Overview: MonoBehaviour {
         Destroy(soonForSale);
         Destroy(rent);
 
-        listPrice = Instantiate(text , transform);
+        listPrice = Instantiate(text, transform);
         numberOfrooms = Instantiate(text, transform);
         livingArea = Instantiate(text, transform);
         constructionYear = Instantiate(text, transform);
@@ -93,7 +98,7 @@ public class Overview: MonoBehaviour {
         rent = Instantiate(text, transform);
         filteringValues = GameObject.FindWithTag("FilteringValues").GetComponent<FilteringValues>();
 
-                foreach (Transform child in transform)
+        foreach (Transform child in transform)
         {
             if (i >= 10)
             {
@@ -104,11 +109,11 @@ public class Overview: MonoBehaviour {
                 child.transform.localPosition = new Vector3(child.transform.localPosition.x, child.transform.localPosition.y + i * 2, child.transform.localPosition.z);
 
             }
-         i++;
+            i++;
         }
 
         reset = true;
     }
 
 
-    }
+}

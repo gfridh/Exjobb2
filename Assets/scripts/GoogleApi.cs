@@ -53,7 +53,7 @@ public class GoogleApi : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (zoom != prevZoom)
+        if (zoom != prevZoom )
         {
             StartCoroutine(Map());
             prevZoom = zoom;

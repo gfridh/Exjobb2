@@ -177,7 +177,7 @@ public class Menu : MonoBehaviour
             bigButtons.Add("area");
             placeButton(1.5f, 4, 360, 0, true, bigButtons);
             rightmenuActive = true;
-             if (rightControllerCollision.houseTypeFilterActive == true && filterStuck == true)
+            if (rightControllerCollision.houseTypeFilterActive == true && filterStuck == true)
             {
                 rightControllerCollision.houseTypeParent.transform.parent = rightControllerCollision.transform;
                 rightControllerCollision.houseTypeParent.SetActive(false);
@@ -206,7 +206,7 @@ public class Menu : MonoBehaviour
         }
 
 
-        if(rightmenuActive)
+        if (rightmenuActive)
         {
             if (!rightMenuStuck)
             {

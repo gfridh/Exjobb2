@@ -2,26 +2,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 using VRTK;
-public class Line : MonoBehaviour {
+public class Line : MonoBehaviour
+{
     private BooliApi booliScript;
     private Overview overViewScript;
     public GameObject ballRight;
-	public GameObject ballLeft;
+    public GameObject ballLeft;
     public GameObject rightText;
     public GameObject leftText;
 
     public LineRenderer lineRendererInterval;
-	public LineRenderer lineRendererRight;
-	public LineRenderer lineRendererLeft;
+    public LineRenderer lineRendererRight;
+    public LineRenderer lineRendererLeft;
 
-	public GameObject controllerLeft;
-	public GameObject controllerRight;
-	public GameObject head;
+    public GameObject controllerLeft;
+    public GameObject controllerRight;
+    public GameObject head;
 
-	public GameObject sphere3;
+    public GameObject sphere3;
 
-	public GameObject smallInterval;
-	public GameObject bigInterval;
+    public GameObject smallInterval;
+    public GameObject bigInterval;
     private float handPositionModulation = 0.08f;
     private float distanceBetweenBalls;
 
@@ -38,7 +39,7 @@ public class Line : MonoBehaviour {
 
     private float distanceBetweenControllers;
 
-	public float bigIntervalWidth = 0.5f;
+    public float bigIntervalWidth = 0.5f;
     public bool oneWayInterval = false;
 
     public GameObject overviewHolder;
@@ -50,8 +51,9 @@ public class Line : MonoBehaviour {
     private bool lockLeftBall = false;
 
     // Use this for initialization
-    void Start () {
-        
+    void Start()
+    {
+
         rightText = GameObject.Find("highValue");
         leftText = GameObject.Find("lowValue");
         booliScript = GameObject.FindWithTag("fullMap").GetComponent<BooliApi>();
@@ -59,18 +61,18 @@ public class Line : MonoBehaviour {
         lineRendererInterval.material = new Material(Shader.Find("Particles/Multiply"));
         lineRendererInterval.SetColors(Color.blue, Color.blue);
         lineRendererRight.positionCount = 2;
-		lineRendererLeft.positionCount = 2;
-		lineRendererRight.useWorldSpace = false;
-		lineRendererLeft.useWorldSpace = false;
+        lineRendererLeft.positionCount = 2;
+        lineRendererRight.useWorldSpace = false;
+        lineRendererLeft.useWorldSpace = false;
         filteringValues = GameObject.FindWithTag("FilteringValues").GetComponent<FilteringValues>();
         rightText.GetComponent<TextMesh>().fontSize = 60;
-        rightText.transform.localPosition = new Vector3 (rightText.transform.localPosition.x, rightText.transform.localPosition.y-1, rightText.transform.localPosition.z);
+        rightText.transform.localPosition = new Vector3(rightText.transform.localPosition.x, rightText.transform.localPosition.y - 1, rightText.transform.localPosition.z);
         leftText.GetComponent<TextMesh>().fontSize = 60;
         controllerLeft = GameObject.FindWithTag("controllerLeft");
         controllerRight = GameObject.FindWithTag("controllerRight");
         head = GameObject.FindWithTag("MainCamera");
         currentFilterText.transform.parent = transform.parent;
-        currentFilterText.transform.localPosition = new Vector3(0,-0.05f,0);
+        currentFilterText.transform.localPosition = new Vector3(0, -0.05f, 0);
         controllerLeft.GetComponent<VRTK_ControllerEvents>().TriggerPressed += new ControllerInteractionEventHandler(LeftTriggerDown);
         controllerLeft.GetComponent<VRTK_ControllerEvents>().TriggerReleased += new ControllerInteractionEventHandler(LeftTriggerUp);
         controllerRight.GetComponent<VRTK_ControllerEvents>().TriggerReleased += new ControllerInteractionEventHandler(RightTriggerUp);
@@ -79,26 +81,27 @@ public class Line : MonoBehaviour {
 
 
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update()
+    {
 
         overViewScript = GameObject.Find("OverView").GetComponent<Overview>();
         Vector3 normalizedIntervalVector = (controllerLeft.transform.position - controllerRight.transform.position).normalized;
-		Vector3 middleOfControllers =controllerRight.transform.position + (controllerLeft.transform.position - controllerRight.transform.position)/2;
-		lineRendererInterval.SetPosition(0,ballRight.transform.localPosition);
-        lineRendererInterval.SetPosition(1,ballLeft.transform.localPosition);
-		lineRendererRight.SetPosition(0,ballRight.transform.localPosition+smallInterval.transform.localPosition);
-		lineRendererRight.SetPosition(1,new Vector3((bigIntervalWidth),ballRight.transform.localPosition.y,ballRight.transform.localPosition.z));
-		lineRendererLeft.SetPosition(0,ballLeft.transform.localPosition+smallInterval.transform.localPosition);
-		lineRendererLeft.SetPosition(1,new Vector3(-(bigIntervalWidth),ballLeft.transform.localPosition.y,ballLeft.transform.localPosition.z));
-		bigInterval.transform.position = new Vector3(head.transform.position.x,middleOfControllers.y,middleOfControllers.z) + new Vector3(0,0,0.5f);
-        
+        Vector3 middleOfControllers = controllerRight.transform.position + (controllerLeft.transform.position - controllerRight.transform.position) / 2;
+        lineRendererInterval.SetPosition(0, ballRight.transform.localPosition);
+        lineRendererInterval.SetPosition(1, ballLeft.transform.localPosition);
+        lineRendererRight.SetPosition(0, ballRight.transform.localPosition + smallInterval.transform.localPosition);
+        lineRendererRight.SetPosition(1, new Vector3((bigIntervalWidth), ballRight.transform.localPosition.y, ballRight.transform.localPosition.z));
+        lineRendererLeft.SetPosition(0, ballLeft.transform.localPosition + smallInterval.transform.localPosition);
+        lineRendererLeft.SetPosition(1, new Vector3(-(bigIntervalWidth), ballLeft.transform.localPosition.y, ballLeft.transform.localPosition.z));
+        bigInterval.transform.position = new Vector3(head.transform.position.x, middleOfControllers.y, middleOfControllers.z) + new Vector3(0, 0, 0.5f);
 
-		distanceBetweenControllers =  (controllerRight.transform.position.x - handPositionModulation) - (controllerLeft.transform.position.x + handPositionModulation);
+
+        distanceBetweenControllers = (controllerRight.transform.position.x - handPositionModulation) - (controllerLeft.transform.position.x + handPositionModulation);
         /* 		distanceBetweenControllers = ((controllerRight.transform.position.x - handPositionModulation) - (controllerLeft.transform.position.x + handPositionModulation)); */
 
-        intervalPosition =  middleOfControllers.x - head.transform.position.x;
+        intervalPosition = middleOfControllers.x - head.transform.position.x;
         smallInterval.transform.localPosition = new Vector3(0, 0, 0);
 
         if (oneWayInterval == false)
@@ -151,7 +154,7 @@ public class Line : MonoBehaviour {
                     ballLeft.transform.localPosition = new Vector3(-0.50f, 0, 0);
                 }
 
-                
+
                 if (distanceBetweenControllers <= 0)
                 {
                     if (!lockRightBall)
@@ -163,9 +166,9 @@ public class Line : MonoBehaviour {
                     {
                         ballLeft.transform.position = ballRight.transform.position;
                     }
-                    
 
-                    
+
+
 
                 }
                 smallValue = 0;
@@ -184,8 +187,8 @@ public class Line : MonoBehaviour {
                     ballLeft.transform.localPosition = new Vector3((controllerLeft.transform.position.x + handPositionModulation) - head.transform.position.x, 0, 0);
                 }
 
-                
-                
+
+
                 if (distanceBetweenControllers <= 0)
                 {
                     if (!lockRightBall)
@@ -197,9 +200,9 @@ public class Line : MonoBehaviour {
                     {
                         ballLeft.transform.position = ballRight.transform.position;
                     }
-                    
 
-                    
+
+
 
                 }
                 smallValue = (bigInterval.transform.InverseTransformPoint(ballLeft.transform.position).x + (bigIntervalWidth)) * maxValue;
@@ -216,8 +219,8 @@ public class Line : MonoBehaviour {
                 {
                     ballLeft.transform.localPosition = new Vector3(-0.50f, 0, 0);
                 }
-                
-                
+
+
                 if (distanceBetweenControllers <= 0)
                 {
                     if (!lockRightBall)
@@ -229,9 +232,9 @@ public class Line : MonoBehaviour {
                     {
                         ballLeft.transform.position = ballRight.transform.position;
                     }
-                    
 
-                    
+
+
 
                 }
                 smallValue = minValue;
@@ -245,14 +248,14 @@ public class Line : MonoBehaviour {
             {
                 ballLeft.transform.localPosition = new Vector3(-0.50f, 0, 0);
             }
-            
+
             if ((controllerRight.transform.position.x - handPositionModulation) - head.transform.position.x <= 0.5f)
             {
                 if (!lockRightBall)
                 {
                     ballRight.transform.localPosition = new Vector3((controllerRight.transform.position.x - handPositionModulation) - head.transform.position.x, 0, 0);
                 }
-                
+
                 bigValue = (bigInterval.transform.InverseTransformPoint(ballRight.transform.position).x + (bigIntervalWidth)) * maxValue;
 
             }
@@ -267,40 +270,40 @@ public class Line : MonoBehaviour {
 
 
         }
-       
-		//else{
-		//	if(ballRight.transform.localPosition.x + intervalPosition > (bigIntervalWidth)){
-		//		ballRight.transform.localPosition = new Vector3((distanceBetweenControllers),0,0);
-		//		ballLeft.transform.localPosition = new Vector3(-(distanceBetweenControllers)+intervalPosition-smallInterval.transform.localPosition.x,0,0);
-		//		print("bollen är för långt till höger");
-		//		smallInterval.transform.localPosition = new Vector3((bigIntervalWidth)-(distanceBetweenControllers),0,0);
-		//	}
 
-		//	else if(ballLeft.transform.localPosition.x-intervalPosition < -(bigIntervalWidth)){
-		//		print("bollen är för långt till vänster");
-		//		ballRight.transform.localPosition = new Vector3((distanceBetweenControllers)+intervalPosition-smallInterval.transform.localPosition.x,0,0);
-		//		ballLeft.transform.localPosition = new Vector3(-(distanceBetweenControllers),0,0);
+        //else{
+        //	if(ballRight.transform.localPosition.x + intervalPosition > (bigIntervalWidth)){
+        //		ballRight.transform.localPosition = new Vector3((distanceBetweenControllers),0,0);
+        //		ballLeft.transform.localPosition = new Vector3(-(distanceBetweenControllers)+intervalPosition-smallInterval.transform.localPosition.x,0,0);
+        //		print("bollen är för långt till höger");
+        //		smallInterval.transform.localPosition = new Vector3((bigIntervalWidth)-(distanceBetweenControllers),0,0);
+        //	}
+
+        //	else if(ballLeft.transform.localPosition.x-intervalPosition < -(bigIntervalWidth)){
+        //		print("bollen är för långt till vänster");
+        //		ballRight.transform.localPosition = new Vector3((distanceBetweenControllers)+intervalPosition-smallInterval.transform.localPosition.x,0,0);
+        //		ballLeft.transform.localPosition = new Vector3(-(distanceBetweenControllers),0,0);
 
 
-		//	}
-				
-		//	else{
-		//		ballRight.transform.localPosition = new Vector3((distanceBetweenControllers),0,0);
-		//		ballLeft.transform.localPosition = new Vector3(-(distanceBetweenControllers),0,0);
-		//	}
-		//}
+        //	}
+
+        //	else{
+        //		ballRight.transform.localPosition = new Vector3((distanceBetweenControllers),0,0);
+        //		ballLeft.transform.localPosition = new Vector3(-(distanceBetweenControllers),0,0);
+        //	}
+        //}
 
         if (currentFilter == "rent")
         {
             filteringValues.rentMax = bigValue;
             leftText.GetComponent<TextMesh>().text = " ";
-            if (bigValue>maxValue)
+            if (bigValue > maxValue)
             {
-                rightText.GetComponent<TextMesh>().text = (Mathf.Round((maxValue / 1000) * 10f) / 10f).ToString()+"t"+"+";
+                rightText.GetComponent<TextMesh>().text = (Mathf.Round((maxValue / 1000) * 10f) / 10f).ToString() + "t" + "+";
             }
             else
             {
-                rightText.GetComponent<TextMesh>().text = (Mathf.Round((bigValue / 1000) * 10f) / 10f).ToString()+"t";
+                rightText.GetComponent<TextMesh>().text = (Mathf.Round((bigValue / 1000) * 10f) / 10f).ToString() + "t";
             }
             print(overViewScript.rent.GetComponent<TextMesh>().text);
             overViewScript.rent.GetComponent<TextMesh>().text = "Max rent: " + rightText.GetComponent<TextMesh>().text;
@@ -313,13 +316,13 @@ public class Line : MonoBehaviour {
             leftText.GetComponent<TextMesh>().text = (Mathf.Round((smallValue / 1000000) * 10f) / 10f).ToString() + "M";
             if (bigValue > maxValue)
             {
-                rightText.GetComponent<TextMesh>().text = (Mathf.Round((maxValue / 1000000) * 10f) / 10f).ToString()+"M" + "+";
+                rightText.GetComponent<TextMesh>().text = (Mathf.Round((maxValue / 1000000) * 10f) / 10f).ToString() + "M" + "+";
             }
             else
             {
-                rightText.GetComponent<TextMesh>().text = (Mathf.Round((bigValue / 1000000) * 10f) / 10f).ToString()+ "M";
+                rightText.GetComponent<TextMesh>().text = (Mathf.Round((bigValue / 1000000) * 10f) / 10f).ToString() + "M";
             }
-            overViewScript.listPrice.GetComponent<TextMesh>().text = "Property price: " + leftText.GetComponent<TextMesh>().text+" - " + rightText.GetComponent<TextMesh>().text;
+            overViewScript.listPrice.GetComponent<TextMesh>().text = "Property price: " + leftText.GetComponent<TextMesh>().text + " - " + rightText.GetComponent<TextMesh>().text;
 
         }
 
@@ -332,7 +335,7 @@ public class Line : MonoBehaviour {
             leftText.GetComponent<TextMesh>().text = Mathf.Round(smallValue).ToString();
             if (bigValue > maxValue)
             {
-                rightText.GetComponent<TextMesh>().text = Mathf.Round(maxValue).ToString() + "m2"+ "+";
+                rightText.GetComponent<TextMesh>().text = Mathf.Round(maxValue).ToString() + "m2" + "+";
             }
             else
             {
@@ -367,10 +370,10 @@ public class Line : MonoBehaviour {
         {
             filteringValues.livingAreaMin = Mathf.RoundToInt(smallValue);
             filteringValues.livingAreaMax = Mathf.RoundToInt(bigValue);
-            leftText.GetComponent<TextMesh>().text = filteringValues.livingAreaMin.ToString()+"m2";
+            leftText.GetComponent<TextMesh>().text = filteringValues.livingAreaMin.ToString() + "m2";
             if (bigValue > maxValue)
             {
-                rightText.GetComponent<TextMesh>().text =maxValue.ToString() +"m2"+  "+";
+                rightText.GetComponent<TextMesh>().text = maxValue.ToString() + "m2" + "+";
             }
             else
             {
@@ -390,7 +393,7 @@ public class Line : MonoBehaviour {
             filteringValues.constructionYearMin = Mathf.RoundToInt(smallValue);
             filteringValues.constructionYearMax = Mathf.RoundToInt(bigValue);
             leftText.GetComponent<TextMesh>().text = smallValue.ToString();
-            if (bigValue > maxValue+1500)
+            if (bigValue > maxValue + 1500)
             {
                 rightText.GetComponent<TextMesh>().text = 2018.ToString();
             }
@@ -456,7 +459,7 @@ public class Line : MonoBehaviour {
     private void RightTriggerUp(object sender, ControllerInteractionEventArgs e)
     {
         lockRightBall = false;
-    }   
+    }
 
     private void RightTriggerDown(object sender, ControllerInteractionEventArgs e)
     {

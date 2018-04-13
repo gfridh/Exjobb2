@@ -258,7 +258,8 @@ public class ControllerCollision : MonoBehaviour
                 HouseTypeFilter(collisionName);
             }
 
-            if (intervalUp){
+            if (intervalUp)
+            {
                 foreach (Transform child in menuScript.parent.transform)
                 {
                     GameObject.Destroy(child.gameObject);
@@ -295,7 +296,7 @@ public class ControllerCollision : MonoBehaviour
     {
         if (other.GetComponent<TextMesh>())
         {
-            if (other.tag != "Villa" && other.tag != "Lägenhet" && other.tag != "Fritidshus" && other.tag != "Gård" && other.tag != "Radhus" && other.tag != "Tomt" &&  other.tag != "yes" && other.tag != "no")
+            if (other.tag != "Villa" && other.tag != "Lägenhet" && other.tag != "Fritidshus" && other.tag != "Gård" && other.tag != "Radhus" && other.tag != "Tomt" && other.tag != "yes" && other.tag != "no")
             {
 
                 other.GetComponent<Renderer>().material.SetColor("_Color", Color.yellow);
@@ -358,6 +359,8 @@ public class ControllerCollision : MonoBehaviour
         }
 
         if (other.tag == "Villa" || other.tag == "Lägenhet" || other.tag == "Fritidshus" || other.tag == "Gård" || other.tag == "Radhus" || other.tag == "Tomt")
+
+
         {
             if (filteringValues.houseTypes == "LägenhetTomtVillaRadhusGårdFritidshus")
             {
@@ -371,7 +374,7 @@ public class ControllerCollision : MonoBehaviour
                 filteringValues.houseTypes = filteringValues.houseTypes.Replace(other.tag, "");
                 houseTypeTemp = overViewScript.houseType.GetComponent<TextMesh>().text;
                 string temp = other.tag + ", ";
-                houseTypeTemp = houseTypeTemp.Replace(temp , "");
+                houseTypeTemp = houseTypeTemp.Replace(temp, "");
                 overViewScript.houseType.GetComponent<TextMesh>().text = houseTypeTemp;
 
             }
@@ -384,6 +387,11 @@ public class ControllerCollision : MonoBehaviour
                 other.GetComponent<Renderer>().material.SetColor("_Color", Color.yellow);
                 filteringValues.houseTypes += other.tag;
 
+            }
+
+            if (filteringValues.houseTypes == "")
+            {
+                filteringValues.houseTypes = "LägenhetTomtVillaRadhusGårdFritidshus";
             }
         }
 
