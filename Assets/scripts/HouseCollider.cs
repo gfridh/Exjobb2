@@ -31,7 +31,11 @@ public class HouseCollider : MonoBehaviour
         {
             foreach (GameObject house in houseHits)
             {
-                house.GetComponent<MeshRenderer>().material = unactive;
+                if (house != printedHouse)
+                {
+                    house.GetComponent<MeshRenderer>().material = unactive;
+                }
+
                 if (Vector3.Distance(transform.position, house.transform.position) < maxDistance)
                 {
                     maxDistance = Vector3.Distance(transform.position, house.transform.position);
@@ -62,7 +66,7 @@ public class HouseCollider : MonoBehaviour
     void OnTriggerExit(Collider other)
     {
 
-        if (other.tag == "house")
+        if (other.tag == "house" && other.gameObject != printedHouse)
         {
             other.gameObject.GetComponent<MeshRenderer>().material = unactive;
 
@@ -79,13 +83,20 @@ public class HouseCollider : MonoBehaviour
         {
             if (printedHouse && closestHouse != printedHouse)
             {
+                printedHouse.GetComponent<MeshRenderer>().material = unactive;
+                printedHouse.transform.localScale = new Vector3(printedHouse.transform.localScale.x / 3, printedHouse.transform.localScale.y/0.8f, printedHouse.transform.localScale.z / 3);
                 printedHouse = closestHouse;
+                printedHouse.GetComponent<MeshRenderer>().material = active;
+                printedHouse.transform.localScale = new Vector3(printedHouse.transform.localScale.x*3, printedHouse.transform.localScale.y*0.8f , printedHouse.transform.localScale.z*3);
+
                 HouseCoordinates houseScript = closestHouse.GetComponent<HouseCoordinates>();
-                print(houseScript.rent);
+                //print(houseScript.rent);
             }
-            else
+            else if(!printedHouse)
             {
                 printedHouse = closestHouse;
+                printedHouse.GetComponent<MeshRenderer>().material = active;
+                printedHouse.transform.localScale = new Vector3(printedHouse.transform.localScale.x * 3, printedHouse.transform.localScale.y*0.8f , printedHouse.transform.localScale.z * 3);
             }
         }
 

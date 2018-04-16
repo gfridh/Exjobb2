@@ -68,7 +68,11 @@ public class Menu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        parent.transform.LookAt(head.transform.position);
+        if (!rightMenuStuck)
+        {
+            parent.transform.LookAt(head.transform.position);
+        }
+
     }
     public void placeButton(float radius, float numberOfObjects, float arc, float startOfArc, bool inner, List<string> list)
     {

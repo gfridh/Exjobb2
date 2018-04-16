@@ -24,7 +24,7 @@ public class ControllerRaycast : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (googleScript.zoom > 13)
+        if (googleScript.zoom > 11)
         {
             RaycastHit hit;
             if (Physics.Raycast(transform.position, transform.forward, out hit))

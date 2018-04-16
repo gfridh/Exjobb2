@@ -18,6 +18,7 @@ public class HouseCoordinates : MonoBehaviour
     public float m2Price;
     public int soonForSale;
     public string currentActiveHouse;
+    public string adress;
 
 
     // Use this for initialization

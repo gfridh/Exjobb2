@@ -33,6 +33,8 @@ public class BooliApi : MonoBehaviour
     public string houseType;
     public float m2Price;
     public int soonForSale;
+    List<float> allLats;
+    public string adress;
 
     public bool filterActive = false;
     public float currentPriceFilteringBig;
@@ -152,10 +154,28 @@ public class BooliApi : MonoBehaviour
                     houseType = "";
                 }
 
+                if (o["listings"][i]["location"]["address"]["streetAddress"] != null)
+                {
+                    adress = (string)o["listings"][i]["location"]["address"]["streetAddress"];
+
+                }
+                else
+                {
+                    adress = "";
+                }
+
                 m2Price = listPrice / livingArea;
 
                 soonForSale = 0;
-
+                foreach(float lat in allLats)
+                {
+                    if(latitude == lat)
+                    {
+                        latitude += 0.00002f;
+                        longitude += 0.00002f;
+                    }
+                }
+                allLats.Add(latitude);
                 GameObject house = Instantiate(housePrefab, new Vector3(0, 0, 0), Quaternion.Euler(new Vector3(90, 0, 0))) as GameObject;
                 house.GetComponent<HouseCoordinates>().longitude = longitude;
                 house.GetComponent<HouseCoordinates>().latitude = latitude;
@@ -169,6 +189,7 @@ public class BooliApi : MonoBehaviour
                 house.GetComponent<HouseCoordinates>().houseType = houseType;
                 house.GetComponent<HouseCoordinates>().m2Price = m2Price;
                 house.GetComponent<HouseCoordinates>().soonForSale = soonForSale;
+                house.GetComponent<HouseCoordinates>().adress = adress;
                 placeHouseOnMap(longitude, latitude, house);
 
 
@@ -180,6 +201,7 @@ public class BooliApi : MonoBehaviour
     }
     void Start()
     {
+        allLats = new List<float>();
         overview = overviewHolder.GetComponent<Overview>();
         /* booliObject = JsonConvert.DeserializeObject<bigBooliObject>(File.ReadAllText(@"c:\Users/Bamse/0.json")) */
         ;
@@ -189,6 +211,7 @@ public class BooliApi : MonoBehaviour
         oldZoom = googleScript.zoom;
         List<object> allListings = new List<object>();
         StartCoroutine(go(allListings));
+       
     }
 
 
