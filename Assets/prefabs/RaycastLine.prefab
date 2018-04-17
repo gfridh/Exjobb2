@@ -77,7 +77,7 @@ LineRenderer:
   - {x: 38.992077, y: 62.43639, z: -251.08446}
   m_Parameters:
     serializedVersion: 2
-    widthMultiplier: 0.03
+    widthMultiplier: 0.01
     widthCurve:
       serializedVersion: 2
       m_Curve:

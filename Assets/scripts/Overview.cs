@@ -38,7 +38,7 @@ public class Overview : MonoBehaviour
     void Update()
     {
 
-        this.gameObject.transform.position = new Vector3(head.transform.position.x - 0.5f, 0, distanceFromHead + head.transform.position.z);
+        //this.gameObject.transform.position = new Vector3(head.transform.position.x - 0.5f, 0, distanceFromHead + head.transform.position.z);
 
 
     }

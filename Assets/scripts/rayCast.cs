@@ -46,17 +46,6 @@ public class rayCast : MonoBehaviour
     void Update()
     {
         touchAxis = leftController.GetComponent<VRTK_ControllerEvents>().GetTouchpadAxis();
-        if (touchpadPressed)
-        {
-            if (touchAxis.y < 0)
-            {
-                print("down");
-            }
-            else if (touchAxis.y>0)
-            {
-                print("up");
-            }
-        }
         Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
         /*         print(ray); */
         RaycastHit hit;
@@ -65,43 +54,43 @@ public class rayCast : MonoBehaviour
             if (hit.transform.tag == "Map" || hit.transform.tag == "house" || hit.transform.tag == "houseMarker")
             {
                 internalCoordinates = map.transform.InverseTransformPoint(hit.point);
-                //if (internalCoordinates.y < -32 && loadingbarOnTop == false)
-                //{
+                if (internalCoordinates.y < -32 && loadingbarOnTop == false)
+                {
 
-                //    loadingBar.transform.localPosition = new Vector3(loadingBar.transform.localPosition.x, 3.2f, loadingBar.transform.localPosition.z);
-                //    loadingbarOnTop = true;
-                //}
+                    loadingBar.transform.localPosition = new Vector3(loadingBar.transform.localPosition.x, 3.2f, loadingBar.transform.localPosition.z);
+                    loadingbarOnTop = true;
+                }
 
-                //else if (internalCoordinates.y > -32 && loadingbarOnTop == true)
-                //{
-                //    loadingBar.transform.localPosition = new Vector3(loadingBar.transform.localPosition.x, -3.2f, loadingBar.transform.localPosition.z);
-                //    loadingbarOnTop = false;
-                //}
-
-
-                ///*             print(((internalCoordinates.y/256)*(170/Mathf.Pow(2, zoomLevel)/2)*2 + currentMiddlelatitude));
-                //            print((internalCoordinates.x/256)*(360/Mathf.Pow(2, zoomLevel)/2)*2 + currentMiddlelongitude); */
-                //Color tmp = Cube.GetComponent<SpriteRenderer>().color;
-                ////tmp.a = (Mathf.Abs(movementDifference)/0.15f);
-
-                //loadingBar.transform.localScale = new Vector3((movementDifference + 0.15f) / 0.3f * 6, loadingBar.transform.localScale.y, loadingBar.transform.localScale.z);
-                //loadingBar.transform.localPosition = new Vector3((movementDifference * 10) - 1.5f, loadingBar.transform.localPosition.y, loadingBar.transform.localPosition.z);
-                //if ((movementDifference + 0.15f) / 0.3f * 6 < 5 && (movementDifference + 0.15f) / 0.3f * 6 > 1)
-                //{
-                //    loadingBar.GetComponent<MeshRenderer>().material = blue;
-                //}
-
-                //if ((movementDifference + 0.15f) / 0.3f * 6 > 5 || (movementDifference + 0.15f) / 0.3f * 6 < 1)
-                //{
-                //    loadingBar.GetComponent<MeshRenderer>().material = red;
-                //}
+                else if (internalCoordinates.y > -32 && loadingbarOnTop == true)
+                {
+                    loadingBar.transform.localPosition = new Vector3(loadingBar.transform.localPosition.x, -3.2f, loadingBar.transform.localPosition.z);
+                    loadingbarOnTop = false;
+                }
 
 
-                //Cube.GetComponent<SpriteRenderer>().color = tmp;
-                if (touchpadPressed)
+                /*             print(((internalCoordinates.y/256)*(170/Mathf.Pow(2, zoomLevel)/2)*2 + currentMiddlelatitude));
+                            print((internalCoordinates.x/256)*(360/Mathf.Pow(2, zoomLevel)/2)*2 + currentMiddlelongitude); */
+                Color tmp = Cube.GetComponent<SpriteRenderer>().color;
+                //tmp.a = (Mathf.Abs(movementDifference)/0.15f);
+
+                loadingBar.transform.localScale = new Vector3((movementDifference + 0.15f) / 0.3f * 6, loadingBar.transform.localScale.y, loadingBar.transform.localScale.z);
+                loadingBar.transform.localPosition = new Vector3((movementDifference * 10) - 1.5f, loadingBar.transform.localPosition.y, loadingBar.transform.localPosition.z);
+                if ((movementDifference + 0.15f) / 0.3f * 6 < 5 && (movementDifference + 0.15f) / 0.3f * 6 > 1)
+                {
+                    loadingBar.GetComponent<MeshRenderer>().material = blue;
+                }
+
+                if ((movementDifference + 0.15f) / 0.3f * 6 > 5 || (movementDifference + 0.15f) / 0.3f * 6 < 1)
+                {
+                    loadingBar.GetComponent<MeshRenderer>().material = red;
+                }
+
+
+                Cube.GetComponent<SpriteRenderer>().color = tmp;
+                if (touchpadPressed || movementDifference > 0.15f || movementDifference < -0.15f)
                 {
                     prevZoom = googleScript.zoom;
-                    if (touchAxis.y > 0)
+                    if (touchAxis.y > 0 || movementDifference > 0.15f)
                     {
                         touchpadPressed = false;
                         float lon_rad = googleScript.lon * Mathf.Deg2Rad;
@@ -132,7 +121,7 @@ public class rayCast : MonoBehaviour
 
                         prevDistance = (transform.position - googleHolder.transform.position).z;
                     }
-                    else if (touchAxis.y < 0 && prevZoom != 8)
+                    else if (touchAxis.y < 0 && prevZoom != 8 || movementDifference < -0.15f && prevZoom != 8)
                     {
                         touchpadPressed = false;
 

@@ -350,6 +350,7 @@ public class ControllerCollision : MonoBehaviour
             other.GetComponent<Renderer>().material.SetColor("_Color", Color.blue);
 
         }
+
         else if (other.tag == "no")
         {
             filteringValues.PriceDecrease = 0;

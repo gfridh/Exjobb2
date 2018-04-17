@@ -32,7 +32,7 @@ public class ControllerRaycast : MonoBehaviour
                 if (hit.transform.tag == "Map" || hit.transform.tag == "houseMarker" || hit.transform.tag == "house")
                 {
                     {
-                        houseMarker.transform.position = new Vector3(hit.point.x, hit.point.y, 150);
+                        houseMarker.transform.position = new Vector3(hit.point.x, hit.point.y, googleHolder.transform.position.z);
                         raycastLine.SetPosition(0, this.transform.position);
                         raycastLine.SetPosition(1, hit.point);
                     }
