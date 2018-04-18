@@ -26,6 +26,7 @@ public class GoogleApi : MonoBehaviour
     public mapType mapSelected;
     public int scale;
     private Material material;
+    public Material mapMaterial;
 
 
 
@@ -39,6 +40,7 @@ public class GoogleApi : MonoBehaviour
         yield return www;
         img.texture = www.texture;
         plane.GetComponent<Renderer>().material = material;
+        mapMaterial.mainTexture = www.texture;
         /*         img.SetNativeSize(); */
 
     }
