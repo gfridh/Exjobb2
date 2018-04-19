@@ -62,6 +62,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   active: {fileID: 2100000, guid: 4b86ec087dc93414e8b9cdf0b9ae0fa3, type: 2}
   unactive: {fileID: 2100000, guid: c7d41be5647fbe845bfacc1c79081f09, type: 2}
+  hovered: {fileID: 2100000, guid: 5e790447c89bdda46b3e74f4e7c14a65, type: 2}
   houseActive: 0
   houseHits: []
   closestHouse: {fileID: 0}

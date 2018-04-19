@@ -7,6 +7,7 @@ public class HouseCollider : MonoBehaviour
 {
     public Material active;
     public Material unactive;
+    public Material hovered;
     public bool houseActive = false;
     public List<GameObject> houseHits;
     public GameObject closestHouse;

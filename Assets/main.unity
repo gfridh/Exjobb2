@@ -1262,9 +1262,9 @@ MonoBehaviour:
   headObject: {fileID: 517548233}
   booliHolder: {fileID: 1214165399}
   booliScript: {fileID: 0}
-  BinaryParent: {fileID: 1858307896728432, guid: b2fb9cd366df03047a87b8e91f60e0c5,
+  BinaryParent: {fileID: 1699809272423650, guid: 2b22c0e5e214b8345866e154980ae73c,
     type: 2}
-  binaryParent: {fileID: 1858307896728432, guid: b2fb9cd366df03047a87b8e91f60e0c5,
+  binaryParent: {fileID: 1699809272423650, guid: 2b22c0e5e214b8345866e154980ae73c,
     type: 2}
   overViewHolder: {fileID: 1262434563}
   houseTypeParent: {fileID: 497084521}

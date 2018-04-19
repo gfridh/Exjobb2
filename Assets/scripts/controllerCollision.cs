@@ -44,6 +44,32 @@ public class ControllerCollision : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        if (GameObject.Find("binarySlider(Clone)") != null)
+        {
+            print("binarySlider");
+            GameObject ballRight = GameObject.Find("ballRight");
+            LineRenderer line = GameObject.Find("intervalLine").GetComponent<LineRenderer>();
+            line.material = new Material(Shader.Find("Particles/Multiply"));
+            line.SetColors(Color.white, Color.white);
+            if (transform.position.x > 0.2f)
+            {
+                print("moveRight");
+                ballRight.transform.localPosition = new Vector3(0,0, 0.1f);
+                filteringValues.PriceDecrease = 0;
+                overViewScript.priceDecrease.GetComponent<TextMesh>().text = "Price reduced: Yes";
+
+                line.SetColors(Color.blue, Color.blue);
+            }
+
+            else
+            {
+                line.SetColors(Color.grey, Color.grey);
+                ballRight.transform.localPosition = new Vector3(0, 0, 0);
+                filteringValues.PriceDecrease = 1;
+                overViewScript.priceDecrease.GetComponent<TextMesh>().text = "";
+            }
+        }
         //overViewScript = GameObject.Find("OverView").GetComponent<Overview>();
         houseTypeParent.transform.LookAt(headObject.transform.position);
         if (collisionName != "" && menuScript.triggerClicked == true)
@@ -416,7 +442,7 @@ public class ControllerCollision : MonoBehaviour
         if (!intervalUp)
         {
             instantiatedInterval = Instantiate(BinaryParent);
-            instantiatedInterval.transform.position = rightController.transform.position;
+            instantiatedInterval.transform.position = new Vector3(headObject.transform.position.x, headObject.transform.position.y - 0.4f, headObject.transform.position.z + 1);
             intervalUp = true;
             booliScript.filterActive = true;
         }
