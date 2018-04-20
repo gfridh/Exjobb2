@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
+using System.Text;
 
 public class DataLogger : MonoBehaviour
 {
@@ -9,10 +11,17 @@ public class DataLogger : MonoBehaviour
     public int zoomIn = 0;
     public int zoomOut = 0;
     public float actions = 0;
-    public List<float> times;
-    public List<float> actionsList;
-    public List<int> zoomInList;
-    public List<int> zoomOutList;
+    public List<string> times;
+    public List<string> actionsList;
+    public List<string> zoomInList;
+    public List<string> zoomOutList;
+
+    string[] output;
+    int length;
+    string delimiter = ",", filePath;
+    StringBuilder sb;
+    StreamWriter outStream;
+
 
 
     // Use this for initialization
@@ -24,6 +33,25 @@ public class DataLogger : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown("s"))
+        {
+            print("createFile");
+            sb = new StringBuilder();
+            for (int i = 0; i < actionsList.Count; i++)
+            {
+
+            }
+            sb.AppendLine(string.Join(delimiter, times.ToArray()));
+            sb.AppendLine(string.Join(delimiter, actionsList.ToArray()));
+            sb.AppendLine(string.Join(delimiter, zoomInList.ToArray()));
+            sb.AppendLine(string.Join(delimiter, zoomOutList.ToArray()));
+
+            filePath = "Assets/UserData/" + 1.ToString() + ".csv";
+            outStream = File.CreateText(filePath);
+            outStream.WriteLine(sb);
+            outStream.Close();
+        }
+
         if (Input.GetKeyDown("space"))
         {
             if (timerStarted == false)
@@ -37,12 +65,10 @@ public class DataLogger : MonoBehaviour
             else
             {
                 timerStarted = false;
-                times.Add(time);
-                actionsList.Add(actions);
-                zoomInList.Add(zoomIn);
-                zoomOutList.Add(zoomOut);
-
-                foreach (float item in times) { print(item); }
+                times.Add(time.ToString());
+                actionsList.Add(actions.ToString());
+                zoomInList.Add(zoomIn.ToString());
+                zoomOutList.Add(zoomOut.ToString());
               }
 
         }
