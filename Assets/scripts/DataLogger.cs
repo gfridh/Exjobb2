@@ -37,27 +37,6 @@ public class DataLogger : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown("s"))
-        {
-            print("createFile");
-            sb = new StringBuilder();
-            for (int i = 0; i < actionsList.Count; i++)
-            {
-
-            }
-            sb.AppendLine(string.Join(delimiter, times.ToArray()));
-            sb.AppendLine(string.Join(delimiter, actionsList.ToArray()));
-            sb.AppendLine(string.Join(delimiter, zoomInList.ToArray()));
-            sb.AppendLine(string.Join(delimiter, zoomOutList.ToArray()));
-            sb.AppendLine(string.Join(delimiter, leftGripList.ToArray()));
-            sb.AppendLine(string.Join(delimiter, rightGripList.ToArray()));
-
-            filePath = "Assets/UserData/" + 1.ToString() + ".csv";
-            outStream = File.CreateText(filePath);
-            outStream.WriteLine(sb);
-            outStream.Close();
-        }
-
         if (Input.GetKeyDown("space"))
         {
             if (timerStarted == false)
@@ -82,6 +61,27 @@ public class DataLogger : MonoBehaviour
             }
 
         }
+        if (Input.GetKeyDown("space"))
+        {
+            print("createFile");
+            sb = new StringBuilder();
+            for (int i = 0; i < actionsList.Count; i++)
+            {
+
+            }
+            sb.AppendLine(string.Join(delimiter, times.ToArray()));
+            sb.AppendLine(string.Join(delimiter, actionsList.ToArray()));
+            sb.AppendLine(string.Join(delimiter, zoomInList.ToArray()));
+            sb.AppendLine(string.Join(delimiter, zoomOutList.ToArray()));
+            sb.AppendLine(string.Join(delimiter, leftGripList.ToArray()));
+            sb.AppendLine(string.Join(delimiter, rightGripList.ToArray()));
+
+            filePath = "Assets/UserData/" + 1.ToString() + ".csv";
+            outStream = File.CreateText(filePath);
+            outStream.WriteLine(sb);
+            outStream.Close();
+        }
+
 
         if (timerStarted)
         {
