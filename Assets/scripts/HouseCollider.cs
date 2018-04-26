@@ -14,12 +14,15 @@ public class HouseCollider : MonoBehaviour
     public float maxDistance;
     public GameObject printedHouse;
     public GameObject leftController;
+    public GameObject dataloggerHolder;
+    private DataLogger dataloggerScript;
     // Use this for initialization
     void Start()
     {
         houseHits = new List<GameObject>();
         leftController = GameObject.FindGameObjectWithTag("controllerLeft");
         leftController.GetComponent<VRTK_ControllerEvents>().TriggerTouchStart += new ControllerInteractionEventHandler(TriggerTouched);
+        dataloggerScript = GameObject.Find("DataLogger").GetComponent<DataLogger>();
     }
 
     // Update is called once per frame
@@ -80,8 +83,10 @@ public class HouseCollider : MonoBehaviour
 
     private void TriggerTouched(object sender, ControllerInteractionEventArgs e)
     {
+
         if (closestHouse)
         {
+            dataloggerScript.leftTrigger++;
             if (printedHouse && closestHouse != printedHouse)
             {
                 printedHouse.GetComponent<MeshRenderer>().material = unactive;

@@ -13,12 +13,15 @@ public class DataLogger : MonoBehaviour
     public float actions = 0;
     public int leftGrip = 0;
     public int rightGrip = 0;
+    public int leftTrigger = 0;
     public List<string> times;
     public List<string> actionsList;
     public List<string> zoomInList;
     public List<string> zoomOutList;
     public List<string> leftGripList;
     public List<string> rightGripList;
+    public List<string> leftTriggerList;
+
 
     string[] output;
     int length;
@@ -41,6 +44,7 @@ public class DataLogger : MonoBehaviour
         {
             if (timerStarted == false)
             {
+                leftTrigger = 0;
                 time = 0;
                 actions = 0;
                 zoomIn = 0;
@@ -75,6 +79,7 @@ public class DataLogger : MonoBehaviour
             sb.AppendLine(string.Join(delimiter, zoomOutList.ToArray()));
             sb.AppendLine(string.Join(delimiter, leftGripList.ToArray()));
             sb.AppendLine(string.Join(delimiter, rightGripList.ToArray()));
+            sb.AppendLine(string.Join(delimiter, leftTriggerList.ToArray()));
 
             filePath = "Assets/UserData/" + 1.ToString() + ".csv";
             outStream = File.CreateText(filePath);
