@@ -6,6 +6,8 @@ using VRTK;
 
 public class Overview : MonoBehaviour
 {
+    public GameObject dataLoggerHolder;
+    public DataLogger dataloggerScript;
     public GameObject text;
     public GameObject numberOfrooms;
     public GameObject livingArea;
@@ -29,6 +31,7 @@ public class Overview : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        dataloggerScript = dataLoggerHolder.GetComponent<DataLogger>();
         //leftControllerObject.GetComponent<VRTK_ControllerEvents>().TriggerClicked += new ControllerInteractionEventHandler(LeftTriggerClicked);
         leftControllerObject.GetComponent<VRTK_ControllerEvents>().GripPressed += new ControllerInteractionEventHandler(GripClicked);
         DeleteAll();
@@ -57,7 +60,7 @@ public class Overview : MonoBehaviour
 
     private void GripClicked(object sender, ControllerInteractionEventArgs e)
     {
-        print("gripClicked");
+        dataloggerScript.leftGrip += 1;
         DeleteAll();
         filteringValues.Restart();
         reset = true;

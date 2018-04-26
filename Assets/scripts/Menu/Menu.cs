@@ -168,6 +168,7 @@ public class Menu : MonoBehaviour
     {
         if (!rightmenuActive)
         {
+            dataloggerScript.rightGrip++;
             Destroy(rightControllerCollision.instantiatedInterval);
             rightControllerCollision.intervalUp = false;
             rightControllerCollision.booliScript.filterActive = false;

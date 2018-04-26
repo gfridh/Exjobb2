@@ -7886,6 +7886,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f7587da7b1d0af409f48c011fe897d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dataLoggerHolder: {fileID: 1740497470}
+  dataloggerScript: {fileID: 0}
   text: {fileID: 1919452764497274, guid: 2236ea0e0a4434a4aaa9b60fac33cfda, type: 2}
   numberOfrooms: {fileID: 0}
   livingArea: {fileID: 0}
@@ -11294,10 +11296,14 @@ MonoBehaviour:
   zoomIn: 0
   zoomOut: 0
   actions: 0
+  leftGrip: 0
+  rightGrip: 0
   times: []
   actionsList: []
-  zoomInList: 
-  zoomOutList: 
+  zoomInList: []
+  zoomOutList: []
+  leftGripList: []
+  rightGripList: []
 --- !u!114 &1740497473
 MonoBehaviour:
   m_ObjectHideFlags: 0
