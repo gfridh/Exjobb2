@@ -11298,19 +11298,21 @@ MonoBehaviour:
   actions: 0
   leftGrip: 0
   rightGrip: 0
+  leftTrigger: 0
   times: []
   actionsList: []
   zoomInList: []
   zoomOutList: []
   leftGripList: []
   rightGripList: []
+  leftTriggerList: []
 --- !u!114 &1740497473
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1740497470}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 43b1cd19b5564a3449d43c92286245e9, type: 3}
   m_Name: 
