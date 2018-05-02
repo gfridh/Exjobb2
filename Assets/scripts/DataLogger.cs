@@ -81,7 +81,7 @@ public class DataLogger : MonoBehaviour
             sb.AppendLine(string.Join(delimiter, rightGripList.ToArray()));
             sb.AppendLine(string.Join(delimiter, leftTriggerList.ToArray()));
 
-            filePath = "Assets/UserData/" + 1.ToString() + ".csv";
+            filePath = "Assets/UserData/" + "test".ToString() + ".csv";
             outStream = File.CreateText(filePath);
             outStream.WriteLine(sb);
             outStream.Close();

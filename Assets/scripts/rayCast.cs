@@ -16,7 +16,6 @@ public class rayCast : MonoBehaviour
     public GameObject googleHolder;
     private GoogleApi googleScript;
 
-    private float movementDifference;
     private float prevDistance;
     private float prevLat;
     private float prevLon;
@@ -73,24 +72,13 @@ public class rayCast : MonoBehaviour
                 Color tmp = Cube.GetComponent<SpriteRenderer>().color;
                 //tmp.a = (Mathf.Abs(movementDifference)/0.15f);
 
-                loadingBar.transform.localScale = new Vector3((movementDifference + 0.15f) / 0.3f * 6, loadingBar.transform.localScale.y, loadingBar.transform.localScale.z);
-                loadingBar.transform.localPosition = new Vector3((movementDifference * 10) - 1.5f, loadingBar.transform.localPosition.y, loadingBar.transform.localPosition.z);
-                if ((movementDifference + 0.15f) / 0.3f * 6 < 5 && (movementDifference + 0.15f) / 0.3f * 6 > 1)
-                {
-                    loadingBar.GetComponent<MeshRenderer>().material = blue;
-                }
-
-                if ((movementDifference + 0.15f) / 0.3f * 6 > 5 || (movementDifference + 0.15f) / 0.3f * 6 < 1)
-                {
-                    loadingBar.GetComponent<MeshRenderer>().material = red;
-                }
 
 
                 Cube.GetComponent<SpriteRenderer>().color = tmp;
-                if (touchpadPressed || movementDifference > 0.15f || movementDifference < -0.15f)
+                if (touchpadPressed)
                 {
                     prevZoom = googleScript.zoom;
-                    if (touchAxis.y > 0 || movementDifference > 0.15f)
+                    if (touchAxis.y > 0)
                     {
                         touchpadPressed = false;
                         float lon_rad = googleScript.lon * Mathf.Deg2Rad;
@@ -121,7 +109,7 @@ public class rayCast : MonoBehaviour
 
                         prevDistance = (transform.position - googleHolder.transform.position).z;
                     }
-                    else if (touchAxis.y < 0 && prevZoom != 8 || movementDifference < -0.15f && prevZoom != 8)
+                    else if (touchAxis.y < 0 && prevZoom != 8 && prevZoom != 8)
                     {
                         touchpadPressed = false;
 
@@ -166,15 +154,11 @@ public class rayCast : MonoBehaviour
                 }
                 if (start)
                 {
-                    movementDifference = 0;
                     start = false;
                     touchpadPressed = false;
                     prevDistance = (transform.position - googleHolder.transform.position).z;
                 }
-                else
-                {
-                    movementDifference = (transform.position - googleHolder.transform.position).z - prevDistance;
-                }
+
                 Cube.transform.position = new Vector3(hit.point.x,hit.point.y, googleHolder.transform.position.z);
             }
 

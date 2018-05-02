@@ -65,7 +65,7 @@ public class HouseInfo : MonoBehaviour {
             print(houseColliderScript.printedHouse.GetComponent<HouseCoordinates>().listPrice);
 
 
-            listPrice.GetComponent<TextMesh>().text = "List price: " + (Mathf.Round((houseColliderScript.printedHouse.GetComponent<HouseCoordinates>().listPrice / 1000000) * 10f) / 10f).ToString() + "M";
+            listPrice.GetComponent<TextMesh>().text = "Property price: " + (Mathf.Round((houseColliderScript.printedHouse.GetComponent<HouseCoordinates>().listPrice / 1000000) * 10f) / 10f).ToString() + "M";
             numberOfrooms.GetComponent<TextMesh>().text ="Number of rooms: " + houseColliderScript.printedHouse.GetComponent<HouseCoordinates>().numberOfrooms.ToString();
             livingArea.GetComponent<TextMesh>().text ="Living area: " + houseColliderScript.printedHouse.GetComponent<HouseCoordinates>().livingArea.ToString() + " m2";
             constructionYear.GetComponent<TextMesh>().text ="Construction year: " +  houseColliderScript.printedHouse.GetComponent<HouseCoordinates>().constructionYear.ToString();

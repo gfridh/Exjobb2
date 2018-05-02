@@ -307,7 +307,7 @@ public class ControllerCollision : MonoBehaviour
                 if (other.tag != "yes" && other.tag != "no")
                 {
 
-                    other.GetComponent<Renderer>().material.SetColor("_Color", Color.white);
+                    other.GetComponent<Renderer>().material.SetColor("_Color", Color.blue);
                     other.GetComponent<TextMesh>().fontSize = 100;
                     //Destroy(instantiatedInterval);
                     //intervalUp = false;
@@ -397,7 +397,7 @@ public class ControllerCollision : MonoBehaviour
 
             if (filteringValues.houseTypes.Contains(other.tag))
             {
-                other.GetComponent<Renderer>().material.SetColor("_Color", Color.white);
+                other.GetComponent<Renderer>().material.SetColor("_Color", Color.blue);
                 filteringValues.houseTypes = filteringValues.houseTypes.Replace(other.tag, "");
                 houseTypeTemp = overViewScript.houseType.GetComponent<TextMesh>().text;
                 string temp = other.tag + ", ";
