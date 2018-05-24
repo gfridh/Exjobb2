@@ -55,7 +55,7 @@ private string GenerateId()
         yield return null;
 
         string unique = GenerateId();
-        string hashedText = hash("fridhg"+"1516652346"+"04q8PzkbcduSoqWDeg7sCH4xe61XuN4F0eO3E1Ax"+unique);
+        //string hashedText = hash();
         hashedText = String.Join("", hashedText.Split('-'));
         url = "https://api.booli.se/listings?isNewConstruction=0&offset="+offset+"&limit=499&bbox="+minLat +","+minLong + "," + maxLat + "," + maxLong+"&callerId=fridhg&time=1516652346&unique="+unique+"&hash=" + hashedText;
         using (WWW www = new WWW(url))
